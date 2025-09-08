@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('title');
+            $table->string('slug');
+            $table->longText('content');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
