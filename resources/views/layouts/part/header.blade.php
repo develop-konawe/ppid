@@ -4,7 +4,7 @@ $currentRoute = request()->route()->getName();
 
 ?>
 <section id="header">
-    <nav class="navbar navbar-expand-lg navbar-light w-100">
+    <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
         <div class="container-xl mx-3">
             <a class="d-flex text-white" href="{{ route('home') }}">
                 <b class="fs-4  d-block text-uppercase logo bg_black p-2 px-3"> <span>

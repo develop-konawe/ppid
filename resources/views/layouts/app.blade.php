@@ -18,7 +18,7 @@
 </head>
 <body>
 {{--    @include('layouts.part.top')--}}
-    @include('layouts.part.header-top')
+    {{--@include('layouts.part.header-top')--}}
     @include('layouts.part.header')
 
     @yield('content')
