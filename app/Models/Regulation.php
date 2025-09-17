@@ -16,4 +16,8 @@ class Regulation extends Model
         'doc_url',
         'issue_date',
     ];
+
+    protected $casts = [
+        'issue_date' => 'date',
+    ];
 }
