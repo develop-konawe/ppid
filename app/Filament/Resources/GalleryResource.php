@@ -27,11 +27,6 @@ class GalleryResource extends Resource
     {
         return $form
             ->schema([
-//                'type',
-//                'caption',
-//                'media_url', untuk type video
-//                'media_path', untuk type foto
-//                'gallery_group',
 //            Buatkan jika foto maka upload gambar jika type video maka upload link video
                 Forms\Components\Select::make('type')
                     ->label('Tipe Media')
@@ -61,10 +56,7 @@ class GalleryResource extends Resource
                     ->image()
                     ->required(fn (callable $get) => $get('type') === 'photo')
                     ->visible(fn (callable $get) => $get('type') === 'photo'),
-                Forms\Components\TextInput::make('gallery_group')
-                    ->label('Grup Galeri')
-                    ->maxLength(100)
-                    ->nullable(),
+
             ])->columns([
                 'sm' => 1,
                 'md' => 1,
@@ -79,7 +71,7 @@ class GalleryResource extends Resource
                 Tables\Columns\TextColumn::make('caption')->label('Keterangan')->limit(50)->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('media_url')->label('URL Media')->limit(50)->sortable()->searchable(),
                 Tables\Columns\ImageColumn::make('media_path')->label('Foto')->disk('public')->rounded(),
-                Tables\Columns\TextColumn::make('gallery_group')->label('Grup Galeri')->sortable()->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime('d M Y H:i')
