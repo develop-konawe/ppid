@@ -9,26 +9,16 @@
     </div>
 </div>
 <div class="news_1_left3 mt-3">
-    <div class="row mb-4">
-        <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=251" class="img-fluid">
-        </a>
-        <a href="https://unsplash.it/1200/768.jpg?image=252" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=252" class="img-fluid">
-        </a>
-        <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=253" class="img-fluid">
-        </a>
-    </div>
     <div class="row">
-        <a href="https://unsplash.it/1200/768.jpg?image=254" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=254" class="img-fluid">
-        </a>
-        <a href="https://unsplash.it/1200/768.jpg?image=255" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=255" class="img-fluid">
-        </a>
-        <a href="https://unsplash.it/1200/768.jpg?image=256" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4">
-            <img src="https://unsplash.it/600.jpg?image=256" class="img-fluid">
-        </a>
+        @foreach($gallery as $galeri)
+                <a href="{{ asset('storage/' . $galeri->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-4">
+                    <img src="{{ asset('storage/' . $galeri->media_path) }}" class="img-fluid">
+                </a>
+        @endforeach
     </div>
 </div>
+
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
+@endpush

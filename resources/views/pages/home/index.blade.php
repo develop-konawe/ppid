@@ -39,7 +39,18 @@
                 </div>
 
                 {{--  right side  --}}
-                @include('pages.home.partials.home_sidebar')
+                <div class="col-md-4">
+                    <div class="news_1_right">
+                        {{-- social media --}}
+                        @include('pages.home.partials.home_sidebar_social_media')
+
+                        {{-- popular news --}}
+                        @include('pages.home.partials.home_sidebar_popular_news')
+
+                        {{-- news per category --}}
+                        @include('pages.home.partials.home_sidebar_news_per_category')
+                    </div>
+                </div>
 
             </div>
         </div>

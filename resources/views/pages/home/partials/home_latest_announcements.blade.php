@@ -23,11 +23,11 @@
                                         {{-- Jika tidak ada, tampilkan gambar default --}}
                                         {{-- Begin Gambar  --}}
                                         @if(file_exists(public_path('storage/'.$pengumuman->image)))
-                                            <a href="{{ route('news.detail', $pengumuman->slug) }}"><img src="{{ asset('storage/' . $pengumuman->image) }}" class="img-fluid" alt="abc"></a>
+                                            <a href="{{ route('announcement.detail', $pengumuman->slug) }}"><img src="{{ asset('storage/' . $pengumuman->image) }}" class="img-fluid" alt="abc"></a>
                                         @elseif(file_exists(public_path($pengumuman->image)))
-                                            <a href="{{ route('news.detail', $pengumuman->slug) }}"><img src="{{  asset($pengumuman->image)  }}" class="img-fluid" alt="..."></a>
+                                            <a href="{{ route('announcement.detail', $pengumuman->slug) }}"><img src="{{  asset($pengumuman->image)  }}" class="img-fluid" alt="..."></a>
                                         @else
-                                            <a href="{{ route('news.detail', $pengumuman->slug) }}"><img src="{{ asset('style/image/28.jpg') }}" class="img-fluid" alt="..."></a>
+                                            <a href="{{ route('announcement.detail', $pengumuman->slug) }}"><img src="{{ asset('style/image/28.jpg') }}" class="img-fluid" alt="..."></a>
                                         @endif
                                         {{-- End Gambar  --}}
                                     </div>
@@ -52,7 +52,7 @@
                                                         class="fa-brands fa-instagram"></i></a></li>
                                             <li class="d-block fs-6 mt-2"><a
                                                     class="d-block bg_violet text-white  rounded-circle text-center icon_1"
-                                                    href="{{ route('news.detail', $pengumuman->slug) }}"><i class="fa fa-plus"></i></a>
+                                                    href="{{ route('announcement.detail', $pengumuman->slug) }}"><i class="fa fa-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -68,16 +68,16 @@
                                     </div>
                                     <span class="light_gray font_12 fw-bold px-3 text-uppercase">{{ $pengumuman->published_at->format('M d, Y') }}</span>
                                     <b class="d-block fs-6 text-uppercase mt-2 px-3"><a
-                                            href="{{ route('news.detail', $pengumuman->slug) }}">{{ $pengumuman->title }}</a></b>
+                                            href="{{ route('announcement.detail', $pengumuman->slug) }}">{{ $pengumuman->title }}</a></b>
 
                                     <hr>
                                     <ul class="mb-0 px-3 font_11 fw-bold text-uppercase justify-content-between d-flex">
                                         <li>
-                                            <a href="news_detail.html"><i class="fa fa-user"></i></a>
+                                            <a href="#"><i class="fa fa-user"></i></a>
                                             <span class="light_gray ms-2">Porta Quis</span>
                                         </li>
                                         <li class="my-auto">
-                                            <a class="light_gray" href="news_detail.html"><i
+                                            <a class="light_gray" href="#"><i
                                                     class="fa fa-eye me-1"></i> {{ $pengumuman->views }}</a>
                                         </li>
                                     </ul>
