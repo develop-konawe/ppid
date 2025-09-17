@@ -21,7 +21,9 @@ class AnnouncementController extends Controller
 
     public function show($slug)
     {
-        $announcement = Announcement::where('slug', $slug)->firstOrFail();
+        $announcement = Announcement::where('slug', $slug)
+            ->where('is_active', true)
+            ->whereDate('published_at', '<=', now())->firstOrFail();
 
         $announcement->increment('views');
 
