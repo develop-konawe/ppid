@@ -9,7 +9,10 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $beritas = News::paginate(9);
+        // $beritas = News::paginate(9);
+        // tambahkan kondisi diurutkan berdasarkan kapan dibuat
+        $beritas = News::orderBy('created_at', 'desc')
+            ->paginate(9);
 
         return view("pages.news.index", ["beritas" => $beritas]);
     }

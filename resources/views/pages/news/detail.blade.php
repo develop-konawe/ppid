@@ -31,7 +31,7 @@
     <section id="news" class="pt-5 pb-5 bg-light">
         <div class="container-xl">
             <div class="row news_1">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="news_dt">
                         <div class="news_dt1">
                             <a href="#">
@@ -51,8 +51,10 @@
                             <b class="d-block fs-2 text-uppercase mt-2 mb-1"><a href="#">{{ $berita->title }}</a></b>
                             <ul class="mb-0 font_11 fw-bold text-uppercase justify-content-between d-flex">
                                 <li>
-                                    <a href="#"><img class="rounded-circle" alt="abc" src="image/9.jpg"></a>
-                                    <span class="light_gray ms-2">Eget Nulla</span>
+                                    <a href="#"><i class="fa fa-user"></i></a>
+                                    <span class="light_gray ms-1">Admin</span>
+                                    <i class="fa fa-clock me-1 text-warning align-middle ms-3"></i>
+                                    <span class="light_gray">{{ $berita->created_at->format('M d, Y') }}</span>
                                 </li>
                                 <li class="my-auto">
                                     <a class="light_gray" href="#"><i class="fa fa-eye me-1"></i> {{ $berita->views }}</a>
@@ -61,16 +63,16 @@
                                 </li>
                             </ul>
                             <p class="mt-4">{!! $berita->content !!} </p>
-                            <ul class="mb-0 d-flex flex-wrap text-uppercase font_11 tags  mt-4">
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">lorem</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">porta</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">ipsum</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">nulla</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">semper</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">quis</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">popular</a></li>
-                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">trending</a></li>
-                            </ul>
+{{--                            <ul class="mb-0 d-flex flex-wrap text-uppercase font_11 tags  mt-4">--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">lorem</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">porta</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">ipsum</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">nulla</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">semper</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">quis</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">popular</a></li>--}}
+{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">trending</a></li>--}}
+{{--                            </ul>--}}
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">
@@ -124,7 +126,6 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
