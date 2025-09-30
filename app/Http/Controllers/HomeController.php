@@ -31,11 +31,18 @@ class HomeController extends Controller
             ->take(2)
             ->get();
 
+        // ambilkan data gallery terbaru sebanyak 9
+        $gallery = Gallery::latest()->take(9)->get();
+
         // ambilkan data 4 berita populer
         $popularBeritas = News::orderBy('views', 'desc')->take(4)->get();
 
-        // ambilkan data gallery terbaru sebanyak 9
-         $gallery = Gallery::latest()->take(9)->get();
+        // ambilkan data 4 pengumuman populer
+        $popularPengumumans = Announcement::where('is_active', true)
+            ->whereDate('published_at', '<=', now())
+            ->orderBy('views', 'desc')
+            ->take(4)
+            ->get();
 
         return view('pages.home.index', [
             "banners" => $banners,
@@ -43,8 +50,9 @@ class HomeController extends Controller
             "pengumumans" => $pengumumans,
             "latestBeritas" => $latestBeritas,
             "latestPengumuman" => $latestPengumuman,
-            "popularBeritas" => $popularBeritas,
             "gallery" => $gallery,
+            "popularBeritas" => $popularBeritas,
+            "popularPengumumans" => $popularPengumumans,
         ]);
     }
 }

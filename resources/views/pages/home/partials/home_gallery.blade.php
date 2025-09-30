@@ -9,13 +9,28 @@
     </div>
 </div>
 <div class="news_1_left3 mt-3">
-    <div class="row">
-        @foreach($gallery as $galeri)
-                <a href="{{ asset('storage/' . $galeri->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-4">
-                    <img src="{{ asset('storage/' . $galeri->media_path) }}" class="img-fluid">
-                </a>
-        @endforeach
-    </div>
+
+    @if($gallery && $gallery->isNotEmpty())
+        <div class="row">
+            @foreach($gallery as $galeri)
+                    <a href="{{ asset('storage/' . $galeri->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-4">
+                        <img src="{{ asset('storage/' . $galeri->media_path) }}" class="img-fluid">
+                    </a>
+            @endforeach
+        </div>
+    @else
+        <div class="row row-cols-1 row-cols-lg-1 row-cols-md-1">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="blog_2">
+                            <p class="fs-4 mt-3 px-3 mb-0 pb-4">Belum ada gallery terbaru</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 
 

@@ -1,5 +1,5 @@
 <div class="news_1_right1 bg-white mt-3 border_light">
-            <b class="d-block text-uppercase p-3 border_thick">Trending News</b>
+            <b class="d-block text-uppercase p-3 border_thick">News</b>
             <div class="news_1_left1_inner_right">
                 <ul class="nav nav-tabs mb-0 fw-bold font_11 border-top border-bottom pt-1 pb-1 justify-content-around">
                     <li class="nav-item d-inline-block">

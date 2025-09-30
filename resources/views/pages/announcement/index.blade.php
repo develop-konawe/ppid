@@ -121,7 +121,7 @@
                                     <div class="card-body p-0">
                                             <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 mx-0">
                                                 <div class="col p-0">
-                                                    <p class="mt-3 px-3 fs-3 mb-0 mb-3">Data pengumuman belum ada</p>
+                                                    <p class="mt-3 px-3 fs-3 mb-0 mb-3">Belum ada data pengumuman.</p>
                                                 </div>
                                             </div>
                                     </div>

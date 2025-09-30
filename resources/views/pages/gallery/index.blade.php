@@ -27,9 +27,11 @@
     <section id="vidoes" class="bg-light pt-5 pb-5">
         <div class="container-xl">
             <div class="row video_1">
-                <div class="col-md-12">
+                @if($gallery && $gallery->isNotEmpty())]
 
-                            <div class="content_main">
+                    <div class="col-md-12">
+
+                    <div class="content_main">
                                 <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 mt-3">
                                     @foreach($gallery as $item)
                                         <div class="col">
@@ -49,6 +51,18 @@
                             </div>
 
                 </div>
+
+                @else
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 mx-0">
+                                <div class="col p-0">
+                                    <p class="mt-3 px-3 fs-3 mb-0 mb-3">Belum ada data gallery.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div class="row">

@@ -36,7 +36,9 @@
 </div>
 
 <div class="news_1_left2 mt-3">
-    <div class="tab-content">
+    @if($beritas->isNotEmpty() || $pengumumans->isNotEmpty())
+
+        <div class="tab-content">
         {{-- All News Tab --}}
         <div class="tab-pane active" id="home">
             <div id="carouselHomeCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -192,4 +194,17 @@
 
     </div>
 
+    @else
+        <div class="row row-cols-1 row-cols-lg-1 row-cols-md-1">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="blog_2">
+                            <p class="fs-4 mt-3 px-3 mb-0 pb-4">Belum ada data kabar unggulan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

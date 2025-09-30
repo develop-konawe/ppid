@@ -18,14 +18,10 @@
                 <div class="col-md-8">
                     <div class="news_1_left">
 
-                        @if($beritas->isNotEmpty() || $pengumumans->isNotEmpty())
-                            {{-- featured news --}}
-                            @include('pages.home.partials.home_featured_news')
+                        {{-- featured news --}}
+                        @include('pages.home.partials.home_featured_news')
 
-                        @endif
                         {{--                        @include('pages.home_partials.home_left_image_news')--}}
-
-
 
                         {{-- latest news --}}
                         @include('pages.home.partials.home_latest_news')
@@ -47,8 +43,11 @@
                         {{-- popular news --}}
                         @include('pages.home.partials.home_sidebar_popular_news')
 
+                        {{-- popular announcements --}}
+                        @include('pages.home.partials.home_sidebar_popular_announcements')
+
                         {{-- news per category --}}
-                        @include('pages.home.partials.home_sidebar_news_per_category')
+                        {{--@include('pages.home.partials.home_sidebar_news_per_category')--}}
                     </div>
                 </div>
 

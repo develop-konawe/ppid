@@ -32,7 +32,8 @@
                     <div class="news_1_left">
 
                         <div class="news_1_left3">
-                            <div class="row row-cols-1 row-cols-lg-3 row-cols-md-1">
+                            @if($beritas && $beritas->isNotEmpty())
+                                <div class="row row-cols-1 row-cols-lg-3 row-cols-md-1">
                                 @foreach($beritas as $berita)
                                     <div class="col">
                                         <div class="card mb-3">
@@ -84,6 +85,17 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @else
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 mx-0">
+                                            <div class="col p-0">
+                                                <p class="mt-3 px-3 fs-3 mb-0 mb-3">Belum ada data berita.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="mt-4 text-center">
