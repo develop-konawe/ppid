@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('social_media', function (Blueprint $table) {
             $table->id();
-            $table->string('platform', 50); // Facebook, Twitter, Instagram, dll
+            $table->enum('platform', ['facebook', 'twitter', 'instagram', 'tiktok', 'youtube'])->nullable(false);  // Facebook, Twitter, Instagram, dll
             $table->string('url', 255);     // Link ke profil/page
             $table->string('icon')->nullable(); // Icon fontawesome / path gambar
             $table->boolean('is_active')->default(true);
