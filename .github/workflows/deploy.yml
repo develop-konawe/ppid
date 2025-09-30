@@ -24,12 +24,17 @@ jobs:
             if [ ! -d "project/ppid-konawe/.git" ]; then
               echo "📦 Project belum ada, clone dari GitHub..."
               cd project
-              git clone git@github.com:are-one/laravel-absensi-backend.git ppid-konawe
+              git clone git@github.com:are-one/ppid-konawe.git ppid-konawe
               cd ppid-konawe
             else
               echo "🔄 Project sudah ada, update dengan git pull..."
               cd project/ppid-konawe
               git pull origin main
+            fi
+
+            if [ ! -f ".env" ]; then
+              echo "📝 Membuat file .env..."
+              cp .env.example .env
             fi
 
             composer install --optimize-autoloader
