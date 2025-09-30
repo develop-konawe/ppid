@@ -35,8 +35,8 @@ $currentRoute = request()->route()->getName();
                                 Profil<img src="{{ asset('style/image/icons-svg/chevron-down.svg')}}" width="15" height="15" alt="Submenu open/close icon">
                             </a>
                             <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="news.html"> News</a></li>
-                                <li><a class="dropdown-item border-0" href="news_detail.html"> News Detail</a></li>
+                                <li><a class="dropdown-item" href="news.html"> Sub Menu 1</a></li>
+                                <li><a class="dropdown-item border-0" href="news_detail.html"> Sub Menu 2</a></li>
                             </ul>
                         </li>
 
@@ -45,8 +45,8 @@ $currentRoute = request()->route()->getName();
                                 Informasi Publik<img src="{{ asset('style/image/icons-svg/chevron-down.svg') }}" width="15" height="15" alt="Submenu open/close icon">
                             </a>
                             <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" > Videos</a></li>
-                                <li><a class="dropdown-item border-0" href="team.html"> Team</a></li>
+                                <li><a class="dropdown-item" > Sub Menu 1</a></li>
+                                <li><a class="dropdown-item border-0" href="team.html"> Sub Menu 2</a></li>
                             </ul>
                         </li>
 
