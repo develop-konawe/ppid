@@ -37,7 +37,18 @@ jobs:
               cp .env.example .env
             fi
 
-            composer install --optimize-autoloader
+            echo "📦 Menjalankan composer..."
+            composer install --optimize-autoloader --no-dev
+
+            # 👇 Tambahan bagian Vite build
+            if [ ! -d "node_modules" ]; then
+              echo "📦 Menginstall dependensi npm..."
+              npm ci --legacy-peer-deps
+            fi
+
+            echo "🏗️ Membangun asset dengan Vite..."
+            npm run build
+
             php artisan key:generate
             php artisan config:cache
             php artisan route:cache
