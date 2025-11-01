@@ -6,7 +6,7 @@ $currentRoute = request()->route()->getName();
         <div class="container-xl mx-3">
             <a class="d-flex text-white" href="{{ route('home') }}">
                 <b class="fs-4  d-block text-uppercase logo bg_black p-2 px-3"> <span>
-                <img class="img-fluid m-2" style="width: 8%" src="{{ Vite::asset('public/image/logo_konawe.png')}}" alt="logo"/>
+                <img class="img-fluid m-2" style="width: 8%" src="{{ asset('public/image/logo_konawe.png')}}" alt="logo"/>
             </span>  PPID Kabupaten Konawe</b>
             </a>
             <button class="navbar-toggler offcanvas-nav-btn  ms-auto me-3" type="button">
