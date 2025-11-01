@@ -56,4 +56,4 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 64000
           source: "public/build"
-          target: "project/ppid-konawe/public"
+          target: "project/ppid-konawe"
