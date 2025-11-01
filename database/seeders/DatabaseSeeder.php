@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             MenuSeeder::class,
-            SocialMedia::class
+            SocialMediaSeeder::class
         ]);
     }
 
