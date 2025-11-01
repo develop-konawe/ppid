@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
@@ -17,3 +18,4 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.detail')
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement');
 Route::get('/announcement/{slug}', [AnnouncementController::class, 'show'])->name('announcement.detail');
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');

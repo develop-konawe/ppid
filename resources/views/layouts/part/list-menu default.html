@@ -1,0 +1,55 @@
+<ul class="navbar-nav align-items-lg-center ms-auto">
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'home' ? 'active' : '' }}" href="{{ route('home') }}" title="Visit home page">
+            Home
+        </a>
+    </li>
+    <li class="nav-item dropdown drop_border">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'profile' ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profil<img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg')}}" width="15" height="15" alt="Submenu open/close icon">
+        </a>
+        <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="news.html"> Sub Menu 1</a></li>
+            <li><a class="dropdown-item border-0" href="news_detail.html"> Sub Menu 2</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown drop_border">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'info' ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Informasi Publik <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15" height="15" alt="Submenu open/close icon">
+        </a>
+        <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" > Sub Menu 1</a></li>
+            <li><a class="dropdown-item border-0" href="team.html"> Sub Menu 2</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'news' ? 'active' : '' }}" href="{{ route('news') }}" title="Visit home page">
+            Berita
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'announcement' ? 'active' : '' }}" href="{{ route('announcement') }}" title="Visit home page">
+            Pengumuman
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'regulation' ? 'active' : '' }}" href="{{ route('regulation') }}" title="Visit home page">
+            Regulasi
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'gallery' ? 'active' : '' }}" href="{{ route('gallery') }}" title="Visit home page">
+            Galeri
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link dropdown-toggle {{ $currentRoute == 'contact' ? 'active' : '' }}" href="{{ route('contact') }}" title="Visit home page">
+            Kontak
+        </a>
+    </li>
+</ul>

@@ -17,4 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class
         ]);
     }
+
+    // untuk memanggil 1 seeder saja, gunakan command berikut di terminal:
+    // php artisan db:seed --class=MenuSeeder
 }

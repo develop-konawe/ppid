@@ -11,7 +11,7 @@
                 <li class="pt-3 pe-3"><a class="rounded-circle plus_icon rounded-circle text-white d-inline-block font_14 text-center" href="news_detail.html"><i class="fa-brands fa-plus"></i></a></li>
             </ul>
             <ul class="mb-0 bg-primary d-flex justify-content-between mt-3">
-                <li><a class="bg_primary_dark social_icon d-inline-block text-center text-white" href="news_detail.html"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a class="bg_black social_icon d-inline-block text-center text-white" href="news_detail.html"><i class="fa-brands fa-tiktok"></i></a></li>
                 <li class="lh-1 pt-3 text-uppercase">
                     <a class="text-white" href="news_detail.html">
 			  <span class="font_13">
@@ -22,7 +22,12 @@
                 <li class="pt-3 pe-3"><a class="rounded-circle plus_icon rounded-circle text-white d-inline-block font_14 text-center" href="news_detail.html"><i class="fa-brands fa-plus"></i></a></li>
             </ul>
             <ul class="mb-0 bg_yellow d-flex justify-content-between mt-3">
-                <li><a class="bg_warning_dark social_icon d-inline-block text-center text-white" href="news_detail.html"><i class="fa fa-rss"></i></a></li>
+                <li><a
+                        style="
+                            background: #d6249f;
+                            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+                        "
+                        class="social_icon d-inline-block text-center text-white" href="news_detail.html"><i class="fa-brands fa-instagram"></i></a></li>
                 <li class="lh-1 pt-3 text-uppercase">
                     <a class="text-white" href="news_detail.html">
 			  <span class="font_13">

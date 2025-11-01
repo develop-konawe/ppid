@@ -1,6 +1,12 @@
-<?php
-$currentRoute = request()->route()->getName();
-?>
+@php
+    $currentRoute = request()->route()->getName();
+
+    $menus = \App\Models\Menu::with('children')
+        ->whereNull('parent_id')
+//        ->where('is_active', true)
+        ->orderBy('order')
+        ->get();
+@endphp
 <section id="header">
     <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
         <div class="container-xl mx-3">
@@ -26,56 +32,28 @@ $currentRoute = request()->route()->getName();
                                 Home
                             </a>
                         </li>
+                        @foreach ($menus as $menu)
+                            <li class="nav-item {{ $menu->children->count() ? 'dropdown' : '' }} drop_border">
+                                <a class="nav-link {{ $menu->children->count() ? 'dropdown-toggle' : '' }} {{ $currentRoute == $menu->type ? 'active' : '' }}"
+                                   href="{{ $menu->link }}"
+                                   id="navbarDropdown{{ $menu->id }}"
+                                      role="button"
+                                   aria-expanded="false"
+                                   @if($menu->children->count()) data-bs-toggle="dropdown" @endif>
+                                    {{ strtoupper($menu->name) }} @if($menu->children->count()) <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15" height="15" alt="Submenu open/close icon"> @endif
+                                </a>
 
-                        <li class="nav-item dropdown drop_border">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'profile' ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Profil<img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg')}}" width="15" height="15" alt="Submenu open/close icon">
-                            </a>
-                            <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="news.html"> Sub Menu 1</a></li>
-                                <li><a class="dropdown-item border-0" href="news_detail.html"> Sub Menu 2</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item dropdown drop_border">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'info' ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Informasi Publik <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15" height="15" alt="Submenu open/close icon">
-                            </a>
-                            <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" > Sub Menu 1</a></li>
-                                <li><a class="dropdown-item border-0" href="team.html"> Sub Menu 2</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'news' ? 'active' : '' }}" href="{{ route('news') }}" title="Visit home page">
-                                Berita
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'announcement' ? 'active' : '' }}" href="{{ route('announcement') }}" title="Visit home page">
-                                Pengumuman
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'regulation' ? 'active' : '' }}" href="{{ route('regulation') }}" title="Visit home page">
-                                Regulasi
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'gallery' ? 'active' : '' }}" href="{{ route('gallery') }}" title="Visit home page">
-                                Galeri
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'contact' ? 'active' : '' }}" href="{{ route('contact') }}" title="Visit home page">
-                                Kontak
-                            </a>
-                        </li>
+                                @if($menu->children->count())
+                                    <ul class="dropdown-menu drop_1 shadow" aria-labelledby="navbarDropdown{{ $menu->id }}">
+                                        @foreach ($menu->children as $child)
+                                            <li><a class="dropdown-item" href="{{ $child->link }}">{{ $child->name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
                     </ul>
+
                     <ul class="navbar-nav align-items-lg-center ms-auto social_nav">
 
                         <li class="nav-item">

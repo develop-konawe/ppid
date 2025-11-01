@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class PageResource extends Resource
 {
@@ -27,8 +28,29 @@ class PageResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Judul')
+                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state))),
+
+                Forms\Components\Hidden::make('slug')->required(),
+
+                Forms\Components\RichEditor::make('content')
+                    ->required()
+                    ->label('Deskripsi')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'underline',
+                        'link',
+                        'bulletList',
+                        'numberedList',
+                        'blockquote',
+                        'codeBlock',
+                    ]),
+
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
