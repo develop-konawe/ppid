@@ -6,7 +6,6 @@ use App\Models\Announcement;
 use App\Models\Carousel;
 use App\Models\Gallery;
 use App\Models\News;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -44,6 +43,9 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        // ambil data akun sosial media
+        $socialMedias = \App\Models\SocialMedia::where('is_active', true)->get();
+
         return view('pages.home.index', [
             "banners" => $banners,
             "beritas" => $beritas,
@@ -53,6 +55,7 @@ class HomeController extends Controller
             "gallery" => $gallery,
             "popularBeritas" => $popularBeritas,
             "popularPengumumans" => $popularPengumumans,
+            "socialMedias" => $socialMedias,
         ]);
     }
 }

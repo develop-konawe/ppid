@@ -57,7 +57,9 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')->label('Judul')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Dibuat Pada')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Diperbarui Pada')->dateTime()->sortable(),
             ])
             ->filters([
                 //

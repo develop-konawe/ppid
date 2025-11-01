@@ -13,7 +13,6 @@
             <div class="col">
                 <div class="footer_left">
                     <b class="text-uppercase text-white font_13 d-block mb-4 mt-2 center_sm">Contact Info</b>
-                    <p class="gray_dark">quasi, eum. class corporis nostra rem voluptatibus habitant? Fames, vivamus minim nemo enim, gravida lobortis quasi, eum.</p>
                     <ul class="mb-0 font_10 mt-4">
                         <li class="d-flex text-uppercase">
 				 <span class="col_yellow fs-4 d-inline-block me-3 lh-1 mt-1">
@@ -35,11 +34,15 @@
                         </li>
                     </ul>
                     <ul class="mb-0 d-flex social mt-3">
-                        <li><a class="d-block rounded-circle text-center text-white  link" href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                        <li class="ms-2"><a class="d-block rounded-circle text-center text-white link" href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                        <li class="ms-2"><a class="d-block rounded-circle text-center text-white link" href="#"><i class="fa-brands fa-x"></i></a></li>
-                        <li class="ms-2"><a class="d-block rounded-circle text-center text-white link" href="#"><i class="fa-brands fa-pinterest"></i></a></li>
-                        <li class="ms-2"><a class="d-block rounded-circle text-center text-white link" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        @if($socialMediaFooter)
+                            @foreach($socialMediaFooter as $social)
+                                <li class="ms-2">
+                                    <a class="d-block rounded-circle text-center text-white link" href="{{ $social->url }}" title="{{ $textStatement[$social->platform] }}" target="_blank">
+                                        <i class="fa-brands {{ $social->icon }}"></i>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

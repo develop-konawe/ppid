@@ -6,6 +6,8 @@
 //        ->where('is_active', true)
         ->orderBy('order')
         ->get();
+
+    // ambil 3 data pertama
 @endphp
 <section id="header">
     <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
@@ -55,22 +57,16 @@
                     </ul>
 
                     <ul class="navbar-nav align-items-lg-center ms-auto social_nav">
+                        @if($socialMediaHeadMenu)
+                            @foreach($socialMediaHeadMenu as $social)
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-toggle px-3" href="{{ $social->url }}" title="{{ $textStatement[$social->platform] ?? 'Visit our social media page' }}" target="_blank">
+                                        <i class="fa-brands {{ $social->icon }}"></i>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endif
 
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle px-3" href="#" title="Visit our facebook page">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle px-3" href="#" title="Visit our tiktok page">
-                                <i class="fa-brands fa-tiktok"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle col_yellow px-3" href="#" title="Visit our instagram page">
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>

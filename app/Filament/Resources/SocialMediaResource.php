@@ -17,6 +17,8 @@ class SocialMediaResource extends Resource
 {
     protected static ?string $model = SocialMedia::class;
 
+    protected static ?string $pluralLabel = "Akun Media Sosial";
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -26,10 +28,11 @@ class SocialMediaResource extends Resource
                 Forms\Components\Select::make('platform')
                     ->options([
                         'facebook' => 'Facebook',
-                        'twitter' => 'Twitter',
+                        'x' => 'x (Twitter)',
                         'instagram' => 'Instagram',
                         'tiktok' => 'TikTok',
                         'youtube' => 'YouTube',
+                        'threads' => 'Threads',
                     ])
                     ->required()
                     ->searchable()
@@ -52,6 +55,7 @@ class SocialMediaResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('platform')->label('Platform')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('url')->label('URL')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('icon')->label('Icon')->sortable()->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean()

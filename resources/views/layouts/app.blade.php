@@ -15,7 +15,20 @@
     @stack('style')
 </head>
 <body>
-{{--    @include('layouts.part.top')--}}
+    @php
+        $socialMediaHeadMenu = \App\Models\SocialMedia::take(3)->get();
+        $socialMediaFooter = \App\Models\SocialMedia::all();
+        $textStatement = [
+            'facebook' => 'Like Our Facebook Page',
+            'x' => 'Follow Us On X',
+            'instagram' => 'Follow Us On Instagram',
+            'tiktok' => 'Follow Us On TikTok',
+            'youtube' => 'Subscribe To Our YouTube Channel',
+            'threads' => 'Follow Us On Threads',
+        ];
+    @endphp
+
+    {{--@include('layouts.part.top')--}}
     {{--@include('layouts.part.header-top')--}}
     @include('layouts.part.header')
 
