@@ -49,6 +49,7 @@ jobs:
             echo "🏗️ Membangun asset dengan Vite..."
             npm run build
 
+            echo "🚀 Menjalankan migrasi database..."
             php artisan key:generate
             php artisan config:cache
             php artisan route:cache
