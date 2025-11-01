@@ -3,7 +3,7 @@ name: Deploy ke Server
 on:
   push:
     branches:
-      - main  # hanya jalan kalau ada push ke branch main
+      - main
 
 jobs:
   deploy:
@@ -12,6 +12,16 @@ jobs:
     steps:
       - name: Checkout kode
         uses: actions/checkout@v3
+
+      # 🔧 Jalankan build di GitHub, bukan di server
+      - name: Install dependencies & build Vite
+        run: |
+          npm ci --legacy-peer-deps
+          npm run build
+
+      - name: Install composer dependencies
+        run: |
+          composer install --optimize-autoloader --no-dev
 
       - name: Deploy ke server via SSH
         uses: appleboy/ssh-action@v0.1.7
@@ -22,35 +32,28 @@ jobs:
           port: 64000
           script: |
             if [ ! -d "project/ppid-konawe/.git" ]; then
-              echo "📦 Project belum ada, clone dari GitHub..."
               cd project
               git clone git@github.com:are-one/ppid-konawe.git ppid-konawe
-              cd ppid-konawe
-            else
-              echo "🔄 Project sudah ada, update dengan git pull..."
-              cd project/ppid-konawe
-              git pull origin main
             fi
+            cd project/ppid-konawe
+            git pull origin main
 
             if [ ! -f ".env" ]; then
-              echo "📝 Membuat file .env..."
               cp .env.example .env
             fi
 
-            echo "📦 Menjalankan composer..."
-            composer install --optimize-autoloader --no-dev
-
-            # 👇 Tambahan bagian Vite build
-            if [ ! -d "node_modules" ]; then
-              echo "📦 Menginstall dependensi npm..."
-              npm ci --legacy-peer-deps
-            fi
-
-            echo "🏗️ Membangun asset dengan Vite..."
-            npm run build
-
-            echo "🚀 Menjalankan migrasi database..."
             php artisan key:generate
             php artisan config:cache
             php artisan route:cache
-            php artisan migrate
+            php artisan migrate --force
+
+      # ⬆️ Setelah build, kirim hasil public/build ke server
+      - name: Upload build assets
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 64000
+          source: "public/build"
+          target: "project/ppid-konawe/public"
