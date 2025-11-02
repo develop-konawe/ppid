@@ -45,6 +45,8 @@ jobs:
             php artisan key:generate
             php artisan config:cache
             php artisan route:cache
+            php artisan view:cache
+            php artisan migrate:rollback --force
             php artisan migrate:fresh --seed --force
 
       # ⬆️ Setelah build, kirim hasil public/build ke server
