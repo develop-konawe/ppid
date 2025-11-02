@@ -4,21 +4,9 @@
 
 @push('style')
     <style>
-        .lightbox .lightbox-caption {
-            background: rgba(0, 0, 0, 0.6); /* semi-transparan hitam di belakang teks */
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-align: left;
-        }
-
-        .lightbox .lightbox-caption h5 {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
         .lightbox .lightbox-caption p {
             margin: 0;
+            text-align: center;
             font-size: 14px;
             line-height: 1.4;
         }
@@ -53,10 +41,10 @@
                     <div class="content_main">
                                 <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 mt-3">
                                     @foreach($gallery as $item)
-                                        <div class="col">
+                                        <div class="col mb-4">
                                             <div class="video_2 position-relative">
                                                 <div class="video_2_inner">
-                                                    <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{{ $item->description ?? '-' }}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
