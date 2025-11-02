@@ -56,7 +56,3 @@
     </section>
     <!-- news end -->
 @endsection
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
-@endpush

@@ -11,7 +11,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-
     @stack('style')
 </head>
 <body>
@@ -38,6 +37,8 @@
     @include('layouts.part.footer-bottom')
 
     @vite('resources/js/app.js')
+    <script src="{{ asset('style/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('style/js/theme.min.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

@@ -13,6 +13,7 @@ class Gallery extends Model
     protected $fillable = [
         'type',
         'caption',
+        'description',
         'media_url',
         'media_path',
     ];

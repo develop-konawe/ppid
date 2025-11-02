@@ -2,6 +2,29 @@
 
 @section('title', 'Galeri')
 
+@push('style')
+    <style>
+        .lightbox .lightbox-caption {
+            background: rgba(0, 0, 0, 0.6); /* semi-transparan hitam di belakang teks */
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .lightbox .lightbox-caption h5 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .lightbox .lightbox-caption p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
+@endpush
+
 @section('content')
     <section id="contact" class="bg-light">
         <div class="container-fluid p-0">
@@ -33,7 +56,7 @@
                                         <div class="col">
                                             <div class="video_2 position-relative">
                                                 <div class="video_2_inner">
-                                                    <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" ><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{{ $item->description ?? '-' }}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
@@ -74,4 +97,6 @@
 
 @endsection
 
-
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js" data-keyword="gallery"></script>
+@endpush

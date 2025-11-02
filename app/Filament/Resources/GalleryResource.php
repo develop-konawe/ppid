@@ -41,6 +41,21 @@ class GalleryResource extends Resource
                     ->label('Keterangan')
                     ->maxLength(255)
                     ->nullable(),
+
+                Forms\Components\RichEditor::make('description')
+                    ->required()
+                    ->label('Deskripsi')
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'underline',
+                        'link',
+                        'bulletList',
+                        'numberedList',
+                        'blockquote',
+                        'codeBlock',
+                    ]),
+
                 Forms\Components\TextInput::make('media_url')
                     ->label('URL Media')
                     ->maxLength(255)
