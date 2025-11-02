@@ -30,8 +30,8 @@
         </div>
         <div class="row row-cols-1 row-cols-md-2 mx-0 w-75 mx-auto contact_2">
             <div class="col p-0">
-                <div class="contact_left">
-                    <a href="#"><img src="image/30.jpg" alt="abc" class="img-fluid"></a>
+                <div class="">
+                    <a href="#"><img src="{{ asset('image/30.jpg') }}" alt="abc" class="img-fluid"></a>
                 </div>
             </div>
             <div class="col p-0">

@@ -13,26 +13,6 @@
             <div class="col">
                 <div class="footer_left">
                     <b class="text-uppercase text-white font_13 d-block mb-4 mt-2 center_sm">Contact Info</b>
-                    <ul class="mb-0 font_10 mt-4">
-                        <li class="d-flex text-uppercase">
-				 <span class="col_yellow fs-4 d-inline-block me-3 lh-1 mt-1">
-				   <i class="fa fa-user"></i>
-				 </span>
-                            <span class="flex-column">
-				   <b class="text-white">Join our Team</b>
-				   <span class="text-white-50 d-block">info@gmail.com</span>
-				 </span>
-                        </li>
-                        <li class="d-flex text-uppercase mt-4">
-				 <span class="col_yellow fs-4 d-inline-block me-3 lh-1 mt-1">
-				   <i class="fa fa-map-location"></i>
-				 </span>
-                            <span class="flex-column">
-				   <b class="text-white">Contact Us</b>
-				   <span class="text-white-50 d-block">info@gmail.com</span>
-				 </span>
-                        </li>
-                    </ul>
                     <ul class="mb-0 d-flex social mt-3">
                         @if($socialMediaFooter)
                             @foreach($socialMediaFooter as $social)

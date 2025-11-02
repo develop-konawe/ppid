@@ -2,10 +2,6 @@
 
 @section('title', 'Galeri')
 
-@push('style')
-    <link href="{{ asset('style') }}/css/news.css" rel="stylesheet">
-@endpush
-
 @section('content')
     <section id="contact" class="bg-light">
         <div class="container-fluid p-0">
@@ -27,7 +23,7 @@
     <section id="vidoes" class="bg-light pt-5 pb-5">
         <div class="container-xl">
             <div class="row video_1">
-                @if($gallery && $gallery->isNotEmpty())]
+                @if($gallery && $gallery->isNotEmpty())
 
                     <div class="col-md-12">
 
@@ -78,6 +74,4 @@
 
 @endsection
 
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
-@endpush
+
