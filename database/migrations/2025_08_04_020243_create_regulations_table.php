@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('regulations', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->after('id');
+            $table->text('summary')->nullable()->after('title');
+            $table->string('doc_url')->nullable()->after('summary');
+            $table->date('issue_date')->nullable()->after('doc_url');
             $table->timestamps();
         });
     }
