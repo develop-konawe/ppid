@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Storage; @endphp
 <section id="center" class="center_home">
     @if($banners && $banners->isNotEmpty())
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -7,7 +8,11 @@
                 @foreach ($banners as $key => $banner)
                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" data-bs-interval="3000">
                         <div class="row justify-content-center">
-                        <img src="{{ asset('storage/' . $banner->image) }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
+                            @if(Storage::exists('storage/' . $galeri->image)))
+                                <img src="{{ asset('storage/' . $banner->image) }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
+                            @else
+                                <img src="{{ asset('image/1.jpg') }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
+                            @endif
                         </div>
                     </div>
                 @endforeach
