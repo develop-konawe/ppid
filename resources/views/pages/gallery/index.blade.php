@@ -43,19 +43,25 @@
                                     @foreach($gallery as $item)
                                         <div class="col mb-4">
                                             <div class="video_2 position-relative">
-                                                <div class="video_2_inner">
-                                                    @if (Storage::exists('storage/' . $item->media_path))
-                                                        <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
-                                                    @else
+                                                @if (Storage::exists('storage/' . $item->media_path))
+                                                    <div class="video_2_inner">
+                                                            <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    </div>
+                                                    <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
+                                                        <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
+                                                        <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >Incididunt ut labore et dolore <br> magna aliqua Ut enim</a></b>
+                                                        <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
+                                                    </div>
+                                                @else
+                                                    <div class="video_2_inner">
                                                         <a href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{ asset('image/36.jpg') }}" alt="abc" class="w-100 rounded_10"></a>
-                                                    @endif
-
-                                                </div>
-                                                <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
-                                                    <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
-                                                    <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >Incididunt ut labore et dolore <br> magna aliqua Ut enim</a></b>
-                                                    <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
-                                                </div>
+                                                    </div>
+                                                    <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
+                                                        <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
+                                                        <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" >Incididunt ut labore et dolore <br> magna aliqua Ut enim</a></b>
+                                                        <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
