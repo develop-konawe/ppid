@@ -13,9 +13,15 @@
     @if($gallery && $gallery->isNotEmpty())
         <div class="row">
             @foreach($gallery as $galeri)
+                @if(Storage::exists('storage/' . $item->media_path))
                     <a href="{{ asset('storage/' . $galeri->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-4">
                         <img src="{{ asset('storage/' . $galeri->media_path) }}" class="img-fluid">
                     </a>
+                @else
+                    <a href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4 mb-4">
+                        <img src="{{ asset('image/36.jpg') }}" class="img-fluid">
+                    </a>
+                @endif
             @endforeach
         </div>
     @else
