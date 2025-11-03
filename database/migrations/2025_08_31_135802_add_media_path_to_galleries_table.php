@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('galleries', function (Blueprint $table) {
             // tambah kolom media_path dan ubah kolom media_url menjadi nullable
             $table->string('media_path')->nullable()->after('caption');
-            $table->string('media_url')->nullable()->change();
         });
     }
 
@@ -25,7 +24,6 @@ return new class extends Migration
     {
         Schema::table('galleries', function (Blueprint $table) {
             $table->dropColumn('media_path');
-            $table->string('media_url')->nullable(false)->change();
         });
     }
 };
