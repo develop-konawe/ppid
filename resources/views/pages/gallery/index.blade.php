@@ -44,7 +44,12 @@
                                         <div class="col mb-4">
                                             <div class="video_2 position-relative">
                                                 <div class="video_2_inner">
-                                                    <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    @if (Storage::exists('public/images/' . $item->media_path))
+                                                        <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    @else
+                                                        <a href="{{ asset('style/image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{ asset('style/image/36.jpg') }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    @endif
+
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
