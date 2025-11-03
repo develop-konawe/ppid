@@ -44,7 +44,7 @@
                                         <div class="col mb-4">
                                             <div class="video_2 position-relative">
                                                 <div class="video_2_inner">
-                                                    @if (Storage::exists('public/images/' . $item->media_path))
+                                                    @if (Storage::exists('storage/' . $item->media_path))
                                                         <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
                                                     @else
                                                         <a href="{{ asset('style/image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{ asset('style/image/36.jpg') }}" alt="abc" class="w-100 rounded_10"></a>
