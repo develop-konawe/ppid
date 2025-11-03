@@ -40,5 +40,7 @@
     <script src="{{ asset('style/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('style/js/theme.min.js') }}"></script>
     @stack('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer></script>
 </body>
 </html>
