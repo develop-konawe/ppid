@@ -14,7 +14,11 @@ class EditMenu extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->visible(fn ($record) => ! $record->children()->exists()),
+                ->visible(fn ($record) =>
+                    ! $record->children()->exists()
+                    &&
+                    ! in_array($record->id, [1,2,3,4,5,6,7])
+                ),
         ];
     }
 }

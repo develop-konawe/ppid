@@ -104,7 +104,11 @@ class MenuResource extends Resource
                     ->label('Delete')
                     ->icon('heroicon-o-trash')
                     ->color('danger')
-                    ->visible(fn ($record) => $record->children()->exists())
+                    ->visible(fn ($record) =>
+                        $record->children()->exists()
+                        &&
+                        !in_array($record->id, [1,2,3,4,5,6,7])
+                        )
                     ->requiresConfirmation() // wajib agar modal muncul
                     ->modalHeading('Menu Tidak Dapat Dihapus')
                     ->modalDescription('Menu ini memiliki sub-menu, sehingga tidak dapat dihapus. Silakan hapus sub-menu terlebih dahulu.')
@@ -115,7 +119,11 @@ class MenuResource extends Resource
                     ->modalIconColor('warning'),
                 // Tombol hapus normal hanya muncul jika tidak ada anak
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record) => ! $record->children()->exists())
+                    ->visible(fn ($record) =>
+                    ! $record->children()->exists()
+                    &&
+                    !in_array($record->id, [1,2,3,4,5,6,7])
+                    )
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
