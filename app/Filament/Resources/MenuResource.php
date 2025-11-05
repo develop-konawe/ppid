@@ -10,6 +10,7 @@ use App\Models\News;
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -98,6 +99,25 @@ class MenuResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                // Tombol hapus yang hanya menampilkan modal
+                Tables\Actions\Action::make('cannot_delete')
+                    ->label('Hapus')
+                    ->icon('heroicon-o-trash')
+                    ->color('danger')
+                    ->visible(fn ($record) => $record->children()->exists())
+                    ->requiresConfirmation() // wajib agar modal muncul
+                    ->modalHeading('Menu Tidak Dapat Dihapus')
+                    ->modalDescription('Menu ini memiliki sub-menu, sehingga tidak dapat dihapus. Silakan hapus sub-menu terlebih dahulu.')
+                    ->modalSubmitActionLabel('Tutup')
+                    ->modalCancelAction(false)
+                    ->modalIcon('heroicon-o-exclamation-triangle')
+                    ->modalSubmitAction(function ($record, $livewire) {
+                        // tidak melakukan apa-apa, hanya menutup modal
+                    }),
+
+                // Tombol hapus normal hanya muncul jika tidak ada anak
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => ! $record->children()->exists())
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
