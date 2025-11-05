@@ -40,20 +40,8 @@
 
                                             <li class="d-block fs-6 mt-2"><a
                                                     class="d-block bg-info text-white  rounded-circle text-center icon_1 icon_2"
-                                                    href="news_detail.html"><i
+                                                    href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('news.detail', $berita->slug)) }}"><i
                                                         class="fa-brands fa-facebook-f"></i></a></li>
-                                            <li class="d-block fs-6 mt-2"><a
-                                                    class="d-block bg-danger text-white  rounded-circle text-center icon_1 icon_2"
-                                                    href="news_detail.html"><i
-                                                        class="fa-brands fa-twitter"></i></a></li>
-                                            <li class="d-block fs-6 mt-2"><a
-                                                    class="d-block bg-success text-white  rounded-circle text-center icon_1 icon_2"
-                                                    href="news_detail.html"><i
-                                                        class="fa-brands fa-pinterest-p"></i></a></li>
-                                            <li class="d-block fs-6 mt-2"><a
-                                                    class="d-block bg_orange text-white  rounded-circle text-center icon_1 icon_2"
-                                                    href="news_detail.html"><i
-                                                        class="fa-brands fa-instagram"></i></a></li>
                                             <li class="d-block fs-6 mt-2"><a
                                                     class="d-block bg_violet text-white  rounded-circle text-center icon_1"
                                                     href="{{ route('news.detail', $berita->slug) }}"><i class="fa fa-plus"></i></a>
@@ -69,8 +57,8 @@
                                     <hr>
                                     <ul class="mb-0 px-3 font_11 fw-bold text-uppercase justify-content-between d-flex">
                                         <li>
-                                            <a href="news_detail.html"><i class="fa fa-user"></i></a>
-                                            <span class="light_gray ms-2">Porta Quis</span>
+                                            <a href="{{ route('news.detail', $berita->slug) }}"><i class="fa fa-user"></i></a>
+                                            <span class="light_gray ms-2">Admin</span>
                                         </li>
                                         <li class="my-auto">
                                             <a class="light_gray" href="{{ route('news.detail', $berita->slug) }}"><i
