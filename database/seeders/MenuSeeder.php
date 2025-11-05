@@ -12,6 +12,8 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
+        // PROFIL PPID - Menu Utama
+
         Menu::create([
             'id' => 1,
             'name' => 'Profil',
@@ -20,6 +22,7 @@ class MenuSeeder extends Seeder
             'order' => 1,
         ]);
 
+        // Sub Menu Profil
         Menu::create([
             'id' => 8,
             'name' => 'Profil Singkat PPID',
@@ -62,6 +65,7 @@ class MenuSeeder extends Seeder
             'type' => 'custom',
             'url' => '#',
             'order' => 5,
+            'parent_id' => 1,
         ]);
 
         Menu::create([
@@ -90,6 +94,7 @@ class MenuSeeder extends Seeder
             'type' => 'custom',
             'url' => '#',
             'order' => 8,
+            'parent_id' => 1,
         ]);
 
         Menu::create([
@@ -102,7 +107,7 @@ class MenuSeeder extends Seeder
         ]);
 
 
-        // INFORMASI PPID
+        // INFORMASI PPID - Menu Utama
         Menu::create([
             'id' => 2,
             'name' => 'Informasi Publik',
@@ -111,6 +116,7 @@ class MenuSeeder extends Seeder
             'order' => 2,
         ]);
 
+        // Sub Menu Informasi Publik
         Menu::create([
             'id' => 17,
             'name' => 'Informasi Berkala',
@@ -156,6 +162,7 @@ class MenuSeeder extends Seeder
             'parent_id' => 2,
         ]);
 
+        // Menu Utama Lainnya
         Menu::create([
             'id' => 3,
             'name' => 'Berita',
