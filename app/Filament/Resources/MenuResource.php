@@ -108,13 +108,11 @@ class MenuResource extends Resource
                     ->requiresConfirmation() // wajib agar modal muncul
                     ->modalHeading('Menu Tidak Dapat Dihapus')
                     ->modalDescription('Menu ini memiliki sub-menu, sehingga tidak dapat dihapus. Silakan hapus sub-menu terlebih dahulu.')
-                    ->modalSubmitActionLabel('Tutup')
-                    ->modalCancelAction(false)
+                    ->modalSubmitActionLabel(false)
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
                     ->modalIcon('heroicon-o-exclamation-triangle')
-                    ->modalSubmitAction(function ($record, $livewire) {
-                        // tidak melakukan apa-apa, hanya menutup modal
-                    }),
-
+                    ->modalIconColor('warning'),
                 // Tombol hapus normal hanya muncul jika tidak ada anak
                 Tables\Actions\DeleteAction::make()
                     ->visible(fn ($record) => ! $record->children()->exists())
