@@ -70,8 +70,8 @@
                                                     <hr>
                                                     <ul class="mb-0 px-3 font_11 fw-bold text-uppercase justify-content-between d-flex">
                                                         <li>
-                                                            <a href="news_detail.html"><i class="fa fa-user"></i></a>
-                                                            <span class="light_gray ms-2">Porta Quis</span>
+                                                            <a href="{{ route('news.detail', $berita->slug) }}"><i class="fa fa-user"></i></a>
+                                                            <span class="light_gray ms-2">Admin</span>
                                                         </li>
                                                         <li class="my-auto">
                                                             <a class="light_gray" href="{{ route('news.detail', $berita->slug) }}"><i

@@ -14,37 +14,11 @@
             transition: all 0.3s ease;
             object-position: center;
             background-color: #000;
-            max-width: none;
+            height: 100vh;
+            width: auto;
+            object-fit: contain;
         }
     </style>
-@endpush
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const heroImages = document.querySelectorAll('.ppid-hero-banner img');
-
-            heroImages.forEach(img => {
-                // Jalankan ulang ketika gambar sudah dimuat
-                img.addEventListener('load', () => {
-                    const { naturalWidth, naturalHeight } = img;
-                    const isPortrait = naturalHeight > naturalWidth;
-
-                    if (isPortrait) {
-                        // ✅ Portrait → tinggi penuh, lebar otomatis
-                        img.style.height = '100vh';
-                        img.style.width = 'auto';
-                        img.style.objectFit = 'contain';
-                    } else {
-                        // ✅ Landscape → lebar penuh, tinggi otomatis
-                        img.style.width = '100%';
-                        img.style.height = 'auto';
-                        img.style.objectFit = 'contain'; // agar tidak terpotong
-                    }
-                });
-            });
-        });
-    </script>
 @endpush
 
 

@@ -94,7 +94,7 @@
 
                                                             <ul class="mb-0 px-3 py-3 font_11 fw-bold text-uppercase justify-content-between d-flex border-top" >
                                                                 <li>
-                                                                    <a href="news_detail.html"><i class="fa fa-user-alt"></i></a>
+                                                                    <a href="{{ route('announcement.detail', $pengumuman->slug) }}"><i class="fa fa-user-alt"></i></a>
                                                                     <span class="light_gray ms-2">Admin</span>
                                                                 </li>
                                                                 <li class="my-auto">
