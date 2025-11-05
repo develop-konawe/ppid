@@ -9,7 +9,7 @@
 </div>
 <div class="news_1_left3 mt-3">
     @if($latestPengumuman && $latestPengumuman->isNotEmpty())
-        <div class="row row-cols-2 row-cols-lg-2 row-cols-md-2">
+        <div class="row row-cols-2 row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
             @foreach($latestPengumuman as $pengumuman)
                     <div class="col mb-4">
                         <div class="card">
