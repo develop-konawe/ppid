@@ -43,7 +43,7 @@
                                 @foreach($gallery as $item)
                                     <div class="col mb-4">
                                         <div class="video_2 position-relative">
-                                            @if(Storage::exists('storage/' . $item->media_path))
+                                            @if(Storage::disk('public')->exists($item->media_path))
                                                 <div class="video_2_inner">
                                                     <a href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{asset('storage')}}/{{ $item->media_path }}" alt="abc" class="w-100 rounded_10"></a>
                                                 </div>

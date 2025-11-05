@@ -8,7 +8,7 @@
                 @foreach ($banners as $key => $banner)
                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" data-bs-interval="3000">
                         <div class="row justify-content-center">
-                            @if(Storage::exists('storage/' . $banner->image)))
+                            @if(Storage::disk('public')->exists($banner->image)))
                                 <img src="{{ asset('storage/' . $banner->image) }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
                             @else
                                 <img src="{{ asset('image/1.jpg') }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
