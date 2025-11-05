@@ -9,7 +9,7 @@
                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" data-bs-interval="3000">
                         <div class="row justify-content-center">
                             @if(Storage::disk('public')->exists($banner->image))
-                                <img src="{{ asset('storage/' . $banner->image) }}" loading="lazy" class="d-block " alt="{{ $banner->title }}" style="max-height: 875px;object-fit: contain; background-color: black">
+                                <img src="{{ asset('storage/' . $banner->image) }}" loading="lazy" class="d-block " alt="{{ $banner->title }}" style="max-height: 100%;object-fit: contain; background-color: black">
                             @else
                                 <img src="{{ asset('image/1.jpg') }}" loading="lazy" class="d-block img-fluid" alt="{{ $banner->title }}">
                             @endif
