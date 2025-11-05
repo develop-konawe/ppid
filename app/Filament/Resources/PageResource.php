@@ -20,7 +20,7 @@ class PageResource extends Resource
 
     protected static ?string $pluralLabel = "Halaman";
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 7;
 
     protected static ?string $navigationIcon = 'heroicon-m-square-2-stack';
 

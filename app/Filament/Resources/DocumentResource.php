@@ -19,7 +19,7 @@ class DocumentResource extends Resource
 
     protected static ?string $pluralLabel = "Kontak";
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 90;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 

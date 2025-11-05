@@ -22,7 +22,7 @@ class AnnouncementResource extends Resource
 
     protected static ?string $pluralLabel = "Pengumuman";
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
 

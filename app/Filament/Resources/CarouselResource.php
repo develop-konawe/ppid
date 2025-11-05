@@ -22,10 +22,10 @@ class CarouselResource extends Resource
 {
     protected static ?string $model = Carousel::class;
 
-    protected static ?string $pluralLabel = "Banner";
+    protected static ?string $pluralLabel = "Hero Banner";
 
     // Atur urutan ke-8 di sidebar
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-view-columns';
 

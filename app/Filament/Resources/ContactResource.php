@@ -18,8 +18,8 @@ class ContactResource extends Resource
     protected static ?string $model = Contact::class;
 
     protected static ?string $pluralLabel = "Kontak";
-    // Set the navigation sort order 9
-    protected static ?int $navigationSort = 8;
+    // Set the navigation sort order 7
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationIcon = 'heroicon-o-phone';
 

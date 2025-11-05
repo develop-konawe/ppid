@@ -20,7 +20,7 @@ class RegulationResource extends Resource
     protected static ?string $pluralLabel = "Regulasi";
 
     // atur urutan ke-4 di sidebar
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationIcon = 'heroicon-o-scale';
 

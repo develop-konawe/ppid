@@ -18,6 +18,7 @@ class SocialMediaResource extends Resource
     protected static ?string $model = SocialMedia::class;
 
     protected static ?string $pluralLabel = "Akun Media Sosial";
+    protected static ?int $navigationSort = 8;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

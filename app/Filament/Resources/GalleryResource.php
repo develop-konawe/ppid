@@ -19,7 +19,7 @@ class GalleryResource extends Resource
 
     protected static ?string $pluralLabel = "Galeri";
     // Atur urutan ke-6 di sidebar
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
