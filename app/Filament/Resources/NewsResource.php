@@ -42,7 +42,11 @@ class NewsResource extends Resource
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
-                TextInput::make('slug')->hidden(),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->disabled()
+                    ->dehydrated()
+                    ->maxLength(255),
 
                 Select::make('category_id')
                     ->label('Kategori')

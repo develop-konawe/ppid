@@ -41,12 +41,12 @@ class CarouselResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('banners')
-                    ->maxWidth("500px")
+//                    ->maxWidth("500px")
                     ->visibility('public')
                     ->required()
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1910:875')
-                    ->imagePreviewHeight('300')
+//                    ->imageResizeMode('cover')
+//                    ->imageCropAspectRatio('1910:875')
+//                    ->imagePreviewHeight('300')
                     ->helperText('Dimensi gambar ideal: 1910x875 px.'),
 
                 // TextInput::make('sort_order')->label('Urutan Tampil')->default(0)->numeric()->required(),

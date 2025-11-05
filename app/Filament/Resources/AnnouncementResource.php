@@ -36,7 +36,11 @@ class AnnouncementResource extends Resource
                     ->label('Judul')
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
-                Forms\Components\Hidden::make('slug')->required(),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->disabled()
+                    ->dehydrated()
+                    ->maxLength(255),
 
                 Select::make('category_id')
                     ->label('Kategori')
