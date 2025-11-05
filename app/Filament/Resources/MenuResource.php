@@ -101,7 +101,7 @@ class MenuResource extends Resource
                 Tables\Actions\EditAction::make(),
                 // Tombol hapus yang hanya menampilkan modal
                 Tables\Actions\Action::make('cannot_delete')
-                    ->label('Hapus')
+                    ->label('Delete')
                     ->icon('heroicon-o-trash')
                     ->color('danger')
                     ->visible(fn ($record) => $record->children()->exists())
