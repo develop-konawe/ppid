@@ -3,10 +3,7 @@
 @push('style')
     <style>
         .ppid-hero-banner {
-            /*position: relative;*/
-            /*width: 100%;*/
-            /*height: 100vh;*/
-            /*overflow: hidden;*/
+            height: 100vh;
             background-color: #000;
             display: flex;
             justify-content: center;
