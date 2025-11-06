@@ -47,17 +47,7 @@
                                     {{--                                    <a class="light_gray" href="#"><i class="fa fa-comment me-1"></i> 16</a>--}}
                                 </li>
                             </ul>
-                            <p class="mt-4">{!! $page->content !!} </p>
-                            {{--                            <ul class="mb-0 d-flex flex-wrap text-uppercase font_11 tags  mt-4">--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">lorem</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">porta</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">ipsum</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">nulla</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">semper</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">quis</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">popular</a></li>--}}
-                            {{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">trending</a></li>--}}
-                            {{--                            </ul>--}}
+                            <p class="mt-4">{!! html_entity_decode($page->content) !!} </p>
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">
