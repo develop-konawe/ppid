@@ -98,6 +98,7 @@ class NewsResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('toggleFeatured')
                     ->label(fn (News $record) => $record->is_featured ? 'Batalkan Unggulan' : 'Jadikan Unggulan')
                     ->icon('heroicon-o-star')
