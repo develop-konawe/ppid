@@ -27,7 +27,7 @@
     <section id="news" class="pt-5 pb-5 bg-light">
         <div class="container-xl">
             <div class="row">
-            <div class="col">
+            <div class="col table-responsive">
                 <table class="table table-bordered table-info border-primary">
                     <thead class="table-dark">
                         <tr>
