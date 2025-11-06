@@ -65,19 +65,9 @@ class NewsResource extends Resource
                 RichEditor::make('content')
                     ->label('Konten Berita')
                     ->required()
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'link',
-                        'bulletList',
-                        'numberedList',
-                        'blockquote',
-                        'codeBlock',
-                        'insertTable',
-                        'undo',
-                        'redo',
-                    ]),
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('news/content')
+                    ->fileAttachmentsVisibility('private'),
             ])->columns(1);
     }
 

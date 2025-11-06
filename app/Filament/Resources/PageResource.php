@@ -38,17 +38,10 @@ class PageResource extends Resource
 
                 Forms\Components\RichEditor::make('content')
                     ->required()
-                    ->label('Deskripsi')
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'link',
-                        'bulletList',
-                        'numberedList',
-                        'blockquote',
-                        'codeBlock',
-                    ]),
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('pages/content')
+                    ->fileAttachmentsVisibility('private')
+                    ->label('Deskripsi'),
 
             ])->columns(1);
     }
@@ -66,6 +59,7 @@ class PageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

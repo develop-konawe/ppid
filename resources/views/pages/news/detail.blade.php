@@ -8,6 +8,33 @@
     <meta property="og:image" content="{{ asset('storage/'.$berita->image) }}">
     <meta property="og:url" content="{{ route('news.detail', $berita->slug) }}">
     <meta property="og:type" content="article">
+
+    <style>
+        /* Batasi ukuran semua gambar di dalam konten editor */
+        .content-ppid img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* opsional: agar gambar terpusat */
+        }
+
+        /* Jika ada iframe (misal embed video Google Drive atau YouTube), buat responsive */
+        .content-ppid iframe {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            display: block;
+            margin: 1em auto;
+        }
+
+        /* Pastikan tabel, video, dll juga tidak melewati container */
+        .content-ppid * {
+            box-sizing: border-box;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -62,17 +89,7 @@
 {{--                                    <a class="light_gray" href="#"><i class="fa fa-comment me-1"></i> 16</a>--}}
                                 </li>
                             </ul>
-                            <p class="mt-4">{!! $berita->content !!} </p>
-{{--                            <ul class="mb-0 d-flex flex-wrap text-uppercase font_11 tags  mt-4">--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">lorem</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">porta</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">ipsum</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">nulla</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">semper</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">quis</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">popular</a></li>--}}
-{{--                                <li class="mx-1 mt-1 mb-1"><a class="d-block border p-1 px-2" href="#">trending</a></li>--}}
-{{--                            </ul>--}}
+                            <div class="mt-4 content-ppid">{!! str($berita->content)->sanitizeHtml() !!}</div>
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">

@@ -7,6 +7,33 @@
     <meta property="og:description" content="{{ Str::limit(strip_tags($page->content), 150) }}">
     <meta property="og:url" content="{{ route('page.show', $page->slug) }}">
     <meta property="og:type" content="article">
+
+    <style>
+        /* Batasi ukuran semua gambar di dalam konten editor */
+        .content-ppid img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* opsional: agar gambar terpusat */
+        }
+
+        /* Jika ada iframe (misal embed video Google Drive atau YouTube), buat responsive */
+        .content-ppid iframe {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            display: block;
+            margin: 1em auto;
+        }
+
+        /* Pastikan tabel, video, dll juga tidak melewati container */
+        .content-ppid * {
+            box-sizing: border-box;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -47,7 +74,7 @@
                                     {{--                                    <a class="light_gray" href="#"><i class="fa fa-comment me-1"></i> 16</a>--}}
                                 </li>
                             </ul>
-                            <p class="mt-4">{!! html_entity_decode($page->content) !!} </p>
+                            <div class="mt-4 content-ppid">{!! str($page->content)->sanitizeHtml() !!}</div>
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">

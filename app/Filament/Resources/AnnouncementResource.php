@@ -63,18 +63,10 @@ class AnnouncementResource extends Resource
                 Forms\Components\RichEditor::make('description')
                     ->required()
                     ->label('Deskripsi')
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'link',
-                        'bulletList',
-                        'numberedList',
-                        'blockquote',
-                        'codeBlock',
-                    ]),
-
-
+                    ->required()
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('announcements/content')
+                    ->fileAttachmentsVisibility('private'),
 
                 // File path is optional, can be used for attachments
                 // Bagikan menjadi dua bagian tampilan
