@@ -49,17 +49,17 @@
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
-                                                    <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >{!!  $item->description !!}</a></b>
-                                                    <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
+                                                    <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >{{ $item->description }}</a></b>
+                                                    <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> {{ $item->created_at->format('M d, Y') }}</span>
                                                 </div>
                                             @else
                                                 <div class="video_2_inner">
-                                                    <a href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{!!  $item->description !!}"><img src="{{ asset('image/36.jpg') }}" alt="abc" class="w-100 rounded_10"></a>
+                                                    <a href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" data-footer="{{  $item->description ?? "<i>Tidak ada deskripsi</i>" }}"><img src="{{ asset('image/36.jpg') }}" alt="abc" class="w-100 rounded_10"></a>
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
                                                     <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('image/36.jpg') }}" data-toggle="lightbox" data-gallery="example-gallery" >{!!  $item->description !!}</a></b>
-                                                    <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
+                                                    <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> {{ $item->created_at->format('M d, Y') }}</span>
                                                 </div>
                                             @endif
                                         </div>
