@@ -49,7 +49,7 @@
                                                 </div>
                                                 <div class="video_2_inner1 position-absolute bg_back top-0 w-100 h-100 text-center">
                                                     <span class="d-block"><a class="d-inline-block  text-white rounded-circle  video_icon text-center fs-5" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery"><i class="fa fa-eye"></i></a></span>
-                                                    <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >Incididunt ut labore et dolore <br> magna aliqua Ut enim</a></b>
+                                                    <b><a class="text-white link d-block font_14 text-uppercase mt-3" href="{{ asset('storage/' . $item->media_path) }}" data-toggle="lightbox" data-gallery="example-gallery" >{!!  $item->description !!}</a></b>
                                                     <span class="text-light font_11 fw-bold  text-uppercase d-block mt-2"> <i class="fa fa-clock me-1 text-warning align-middle"></i> Aug 15, 2016</span>
                                                 </div>
                                             @else
