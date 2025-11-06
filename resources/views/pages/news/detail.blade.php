@@ -89,7 +89,7 @@
 {{--                                    <a class="light_gray" href="#"><i class="fa fa-comment me-1"></i> 16</a>--}}
                                 </li>
                             </ul>
-                            <div class="mt-4 content-ppid">{!! str($berita->content)->sanitizeHtml() !!}</div>
+                            <div class="mt-4 content-ppid">{!! html_entity_decode($berita->content)->sanitizeHtml() !!}</div>
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">
