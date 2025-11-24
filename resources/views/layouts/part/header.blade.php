@@ -10,8 +10,8 @@
     // ambil 3 data pertama
 @endphp
 <section id="header">
-    <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
-        <div class="container-xl mx-3">
+    <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-start">
+        <div class="container-xxl mx-3" style="margin-left: 0">
             <a class="d-flex text-white" href="{{ route('home') }}">
                 <b class="fs-4  d-block text-uppercase logo bg_black p-2 px-3"> <span>
                 <img class="img-fluid m-2" style="width: 8%" src="{{ asset('image/logo_konawe.png')}}" alt="logo"/>
@@ -30,7 +30,7 @@
                 <div class="offcanvas-body pt-0 align-items-center">
                     <ul class="navbar-nav align-items-lg-center ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link dropdown-toggle {{ $currentRoute == 'home' ? 'active' : '' }}" href="{{ route('home') }}" title="Visit home page">
+                            <a style="font-size: 14px" class="nav-link dropdown-toggle {{ $currentRoute == 'home' ? 'active' : '' }}" href="{{ route('home') }}" title="Visit home page">
                                 Home
                             </a>
                         </li>
@@ -41,6 +41,7 @@
                                    id="navbarDropdown{{ $menu->id }}"
                                       role="button"
                                    aria-expanded="false"
+                                   style="font-size: 14px"
                                    @if($menu->children->count()) data-bs-toggle="dropdown" @endif>
                                     {{ strtoupper($menu->name) }} @if($menu->children->count()) <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15" height="15" alt="Submenu open/close icon"> @endif
                                 </a>
@@ -56,18 +57,6 @@
                         @endforeach
                     </ul>
 
-                    <ul class="navbar-nav align-items-lg-center ms-auto social_nav">
-                        @if($socialMediaHeadMenu)
-                            @foreach($socialMediaHeadMenu as $social)
-                                <li class="nav-item">
-                                    <a class="nav-link dropdown-toggle px-3" href="{{ $social->url }}" title="{{ $textStatement[$social->platform] ?? 'Visit our social media page' }}" target="_blank">
-                                        <i class="fa-brands {{ $social->icon }}"></i>
-                                    </a>
-                                </li>
-                            @endforeach
-                        @endif
-
-                    </ul>
                 </div>
             </div>
         </div>
