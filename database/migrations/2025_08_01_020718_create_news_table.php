@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->unsignedBigInteger('views')->default(0);
+            $table->foreignId('opd_id')->constrained('opds');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }

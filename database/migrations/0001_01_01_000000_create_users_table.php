@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('opd_id')->nullable()->constrained('opds');
+            $table->boolean('is_super_admin')
+                ->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

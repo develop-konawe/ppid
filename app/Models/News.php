@@ -23,4 +23,14 @@ class News extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

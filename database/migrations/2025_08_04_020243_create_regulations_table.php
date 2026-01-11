@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('summary')->nullable();
             $table->string('doc_url')->nullable();
             $table->date('issue_date')->nullable();
+            $table->foreignId('opd_id')->constrained('opds');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }
