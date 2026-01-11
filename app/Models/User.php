@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Opd::class);
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->is_super_admin;
+    }
 }

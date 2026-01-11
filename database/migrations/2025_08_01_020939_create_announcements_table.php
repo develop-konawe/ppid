@@ -23,7 +23,9 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false);
             $table->unsignedBigInteger('views')->default(0);
             $table->timestamp('published_at')->nullable();
-            $table->foreignId('opd_id')->constrained('opds');
+            $table->enum('source_type', ['ppid_utama', 'ppid_pelaksana'])
+                ->default('ppid_utama');
+            $table->foreignId('opd_id')->nullable()->constrained('opds');
             $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });

@@ -32,6 +32,13 @@ class RegulationResource extends Resource
 //                'summary',
 //                'doc_url',
 //                'issue_date',
+                Forms\Components\Select::make('opd_id')
+                    ->label('OPD')
+                    ->relationship('opd', 'nama_opd')
+                    ->searchable()
+                    ->preload()
+                    ->visible(fn () => auth()->user()->isSuperAdmin()),
+
                 Forms\Components\TextInput::make('title')
                     ->label('Judul Peraturan')
                     ->required()
@@ -54,13 +61,31 @@ class RegulationResource extends Resource
                     ->directory('peraturan')
                     ->visibility('public'),
 
-
             ])->columns([
                 'sm' => 1,
                 'md' => 1,
                 'lg' => 2,
                 'xl' => 2,
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+
+        // Admin PPID Utama → lihat semua
+        if ($user->hasRole('admin_utama')) {
+            return parent::getEloquentQuery();
+        }
+
+        // PPID Pelaksana → hanya berita OPD sendiri
+        if ($user->hasRole('ppid_pelaksana')) {
+            return parent::getEloquentQuery()
+                ->where('opd_id', $user->opd_id)
+                ->where('source_type', 'ppid_pelaksana');
+        }
+
+        return parent::getEloquentQuery();
     }
 
     public static function table(Table $table): Table

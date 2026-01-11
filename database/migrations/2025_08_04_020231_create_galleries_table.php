@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('media_url')->nullable();
             $table->string('media_path')->nullable();
+            $table->enum('source_type', ['ppid_utama', 'ppid_pelaksana'])
+                ->default('ppid_utama');
             $table->foreignId('opd_id')->nullable()->constrained('opds');
             $table->foreignId('created_by')->constrained('users');
             $table->timestamps();

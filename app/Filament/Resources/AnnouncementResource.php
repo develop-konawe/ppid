@@ -14,6 +14,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class AnnouncementResource extends Resource
@@ -30,6 +31,13 @@ class AnnouncementResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('opd_id')
+                    ->label('OPD')
+                    ->relationship('opd', 'nama_opd')
+                    ->searchable()
+                    ->preload()
+                    ->visible(fn () => auth()->user()->isSuperAdmin()),
+
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255)
@@ -93,13 +101,33 @@ class AnnouncementResource extends Resource
             ])->columns(1);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+
+        // Admin PPID Utama → lihat semua
+        if ($user->hasRole('admin_utama')) {
+            return parent::getEloquentQuery();
+        }
+
+        // PPID Pelaksana → hanya berita OPD sendiri
+        if ($user->hasRole('ppid_pelaksana')) {
+            return parent::getEloquentQuery()
+                ->where('opd_id', $user->opd_id)
+                ->where('source_type', 'ppid_pelaksana');
+        }
+
+        return parent::getEloquentQuery();
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('is_featured')
                     ->boolean()
-                    ->label('Unggulan'),
+                    ->label('Unggulan')
+                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
                 Tables\Columns\TextColumn::make('title')->label('Judul')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('category.name')->label('Kategori')->searchable()->sortable(),
                 Tables\Columns\BooleanColumn::make('is_active')->label('Active')->sortable(),
@@ -157,7 +185,8 @@ class AnnouncementResource extends Resource
                             ->send();
                     })
                     ->color(fn (Announcement $record) => $record->is_featured ? 'success' : 'gray')
-                    ->successNotification(null),
+                    ->successNotification(null)
+                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
             ], Tables\Enums\ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

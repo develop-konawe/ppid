@@ -15,6 +15,9 @@ class Regulation extends Model
         'summary',
         'doc_url',
         'issue_date',
+        'source_type',
+        'opd_id',
+        'created_by',
     ];
 
     protected $casts = [

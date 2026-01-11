@@ -21,6 +21,9 @@ class Announcement extends Model
         'is_active',
         'published_at',
         'is_featured',
+        'source_type',
+        'opd_id',
+        'created_by',
     ];
 
     protected $casts = [

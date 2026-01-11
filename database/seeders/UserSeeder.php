@@ -18,5 +18,12 @@ class UserSeeder extends Seeder
             'password' => '12345678',
             'is_super_admin' => true,
         ]);
+
+        User::create([
+            'name' => 'RSUD Konawe',
+            'email' => 'rsud_admin@gmail.com',
+            'password' => '12345678',
+            'is_super_admin' => false,
+        ]);
     }
 }

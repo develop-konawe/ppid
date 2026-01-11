@@ -105,7 +105,7 @@ class UserRoleSeeder extends Seeder
             $admin->syncRoles(['admin_utama']);
         }
 
-        $ppid = User::where('email', 'ppid@dinas.go.id')->first();
+        $ppid = User::where('email', 'rsud_admin@gmail.com')->first();
         if ($ppid) {
             $ppid->syncRoles(['ppid_pelaksana']);
         }

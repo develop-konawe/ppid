@@ -16,6 +16,9 @@ class Gallery extends Model
         'description',
         'media_url',
         'media_path',
+        'source_type',
+        'opd_id',
+        'created_by',
     ];
 
     public function opd()

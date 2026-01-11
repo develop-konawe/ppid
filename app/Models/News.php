@@ -17,6 +17,9 @@ class News extends Model
         'content',
         'image',
         'is_featured',
+        'source_type',
+        'opd_id',
+        'created_by',
     ];
 
     public function category()

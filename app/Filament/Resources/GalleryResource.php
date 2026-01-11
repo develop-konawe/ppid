@@ -28,6 +28,13 @@ class GalleryResource extends Resource
         return $form
             ->schema([
 //            Buatkan jika foto maka upload gambar jika type video maka upload link video
+                Forms\Components\Select::make('opd_id')
+                    ->label('OPD')
+                    ->relationship('opd', 'nama_opd')
+                    ->searchable()
+                    ->preload()
+                    ->visible(fn () => auth()->user()->isSuperAdmin()),
+
                 Forms\Components\Select::make('type')
                     ->label('Tipe Media')
                     ->options([
@@ -63,11 +70,29 @@ class GalleryResource extends Resource
                     ->image()
                     ->required(fn (callable $get) => $get('type') === 'photo')
                     ->visible(fn (callable $get) => $get('type') === 'photo'),
-
             ])->columns([
                 'sm' => 1,
                 'md' => 1,
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+
+        // Admin PPID Utama → lihat semua
+        if ($user->hasRole('admin_utama')) {
+            return parent::getEloquentQuery();
+        }
+
+        // PPID Pelaksana → hanya berita OPD sendiri
+        if ($user->hasRole('ppid_pelaksana')) {
+            return parent::getEloquentQuery()
+                ->where('opd_id', $user->opd_id)
+                ->where('source_type', 'ppid_pelaksana');
+        }
+
+        return parent::getEloquentQuery();
     }
 
     public static function table(Table $table): Table

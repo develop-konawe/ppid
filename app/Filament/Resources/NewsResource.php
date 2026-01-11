@@ -13,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Set;
 use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -37,6 +38,12 @@ class NewsResource extends Resource
 //                'slug',
 //                'content',
 //                'image',
+                Forms\Components\Select::make('opd_id')
+                    ->label('OPD')
+                    ->relationship('opd', 'nama_opd')
+                    ->searchable()
+                    ->visible(fn () => auth()->user()->isSuperAdmin()),
+
                 TextInput::make('title')
                     ->label('Judul Berita')
                     ->live(onBlur: true)
@@ -71,13 +78,33 @@ class NewsResource extends Resource
             ])->columns(1);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $user = auth()->user();
+
+        // Admin PPID Utama → lihat semua
+        if ($user->hasRole('admin_utama')) {
+            return parent::getEloquentQuery();
+        }
+
+        // PPID Pelaksana → hanya berita OPD sendiri
+        if ($user->hasRole('ppid_pelaksana')) {
+            return parent::getEloquentQuery()
+                ->where('opd_id', $user->opd_id)
+                ->where('source_type', 'ppid_pelaksana');
+        }
+
+        return parent::getEloquentQuery();
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('is_featured')
                     ->boolean()
-                    ->label('Unggulan'),
+                    ->label('Unggulan')
+                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
                 Tables\Columns\TextColumn::make('title')->label('Judul Berita')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('category.name')->label('Kategori')->searchable()->sortable(),
                 Tables\Columns\ImageColumn::make('image')->label('Foto Berita')->disk('public')->rounded(),
@@ -131,7 +158,8 @@ class NewsResource extends Resource
                             ->send();
                     })
                     ->color(fn (News $record) => $record->is_featured ? 'success' : 'gray')
-                    ->successNotification(null),
+                    ->successNotification(null)
+                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
             ], Tables\Enums\ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
