@@ -60,15 +60,15 @@
             <div class="row news_1">
                 <div class="col-md-12">
                     <div class="news_dt">
-                        <div class="news_dt1">
+                        <div class="news_dt1 text-center">
                             <a href="#">
                                 {{-- Begin Gambar  --}}
-                                @if(file_exists(public_path('storage/'.$berita->image)))
+                                @if(is_file(public_path('storage/'.$berita->image)))
                                     <img  class="img-fluid" alt="abc" src="{{ asset('storage/' . $berita->image) }}">
-                                @elseif(file_exists(public_path($berita->image)))
+                                @elseif(is_file(public_path($berita->image)))
                                     <img  class="img-fluid" alt="abc" src="{{ asset($berita->image) }}">
                                 @else
-                                    <img  class="img-fluid" alt="abc" src="{{ asset('style/image/28.jpg') }}">
+                                    <img  class="img-fluid" alt="abc" src="{{ asset('image/28.jpg') }}">
                                 @endif
                                 {{-- End Gambar  --}}
                             </a>

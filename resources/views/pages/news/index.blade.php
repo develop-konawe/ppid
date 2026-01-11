@@ -41,12 +41,12 @@
                                                 <div class="blog_1 position-relative">
                                                     <div class="blog_1_inner_top">
                                                         {{-- Begin Gambar  --}}
-                                                        @if(file_exists(public_path('storage/'.$berita->image)))
+                                                        @if(is_file(public_path('storage/'.$berita->image)))
                                                             <a href="{{ route('news.detail', $berita->slug) }}"><img src="{{  asset('storage/'.$berita->image) }}" class="img-fluid" alt="..."></a>
-                                                        @elseif(file_exists(public_path($berita->image)))
+                                                        @elseif(is_file(public_path($berita->image)))
                                                             <a href="{{ route('news.detail', $berita->slug) }}"><img src="{{  asset($berita->image)  }}" class="img-fluid" alt="..."></a>
                                                         @else
-                                                            <a href="{{ route('news.detail', $berita->slug) }}"><img src="{{ asset('style/image/28.jpg') }}" class="img-fluid" alt="..."></a>
+                                                            <a href="{{ route('news.detail', $berita->slug) }}"><img src="{{ asset('image/28.jpg') }}" class="img-fluid" alt="..."></a>
                                                         @endif
                                                         {{-- End Gambar  --}}
                                                     </div>

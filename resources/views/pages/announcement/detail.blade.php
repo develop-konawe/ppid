@@ -61,15 +61,15 @@
                 <div class="col-md-12">
                     <div class="news_dt">
                         @if($announcement->image)
-                            <div class="news_dt1">
+                            <div class="news_dt1 text-center">
                                 <a href="#">
                                     {{-- Begin Gambar  --}}
-                                    @if(file_exists(public_path('storage/'.$announcement->image)))
+                                    @if(is_file(public_path('storage/'.$announcement->image)))
                                         <img  class="img-fluid" alt="abc" src="{{ asset('storage/' . $announcement->image) }}">
-                                    @elseif(file_exists(public_path($announcement->image)))
+                                    @elseif(is_file(public_path($announcement->image)))
                                         <img  class="img-fluid" alt="abc" src="{{ asset($announcement->image) }}">
                                     @else
-                                        <img  class="img-fluid" alt="abc" src="{{ asset('style/image/28.jpg') }}">
+                                        <img  class="img-fluid" alt="abc" src="{{ asset('image/28.jpg') }}">
                                     @endif
                                     {{-- End Gambar  --}}
                                 </a>
