@@ -17,12 +17,16 @@ class DocumentResource extends Resource
 {
     protected static ?string $model = Document::class;
 
-    protected static ?string $pluralLabel = "Kontak";
+    protected static ?string $pluralLabel = "Dokumen";
 
     protected static ?int $navigationSort = 90;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
     public static function form(Form $form): Form
     {
         return $form

@@ -23,6 +23,12 @@ class CategoryResource extends Resource
     protected static ?int $navigationSort = 10;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Master Data';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->hasRole('admin_utama');
+    }
 
     public static function form(Form $form): Form
     {

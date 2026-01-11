@@ -23,6 +23,11 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-phone';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->hasRole('admin_utama');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
