@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             SocialMediaSeeder::class,
             PengaturanSeeder::class,
             GallerySeeder::class,
-            CarouselSeeder::class
+            CarouselSeeder::class,
+            UserRoleSeeder::class,
         ]);
     }
 
