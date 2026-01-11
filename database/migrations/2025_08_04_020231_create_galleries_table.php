@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['photo', 'video']);
             $table->string('caption')->nullable();
+            $table->text('description')->nullable();
             $table->string('media_url')->nullable();
+            $table->string('media_path')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('content')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }

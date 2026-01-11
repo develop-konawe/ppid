@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('file_path')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_featured')->default(false);
+            $table->unsignedBigInteger('views')->default(0);
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
