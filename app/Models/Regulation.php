@@ -20,4 +20,14 @@ class Regulation extends Model
     protected $casts = [
         'issue_date' => 'date',
     ];
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

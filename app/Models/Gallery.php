@@ -18,4 +18,13 @@ class Gallery extends Model
         'media_path',
     ];
 
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }
