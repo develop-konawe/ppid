@@ -9,6 +9,10 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class Dashboard extends \Filament\Pages\Dashboard
 {
+    protected static ?string $navigationLabel = 'Beranda';
+
+    protected static ?string $title = 'Dashboard PPID';
+
     public static function getNavigationIcon(): string | Htmlable | null
     {
         return static::$navigationIcon
