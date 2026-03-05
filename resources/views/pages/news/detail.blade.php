@@ -74,7 +74,9 @@
                             </a>
                         </div>
                         <div class="news_dt2 p-4 bg-white">
+                            @if($berita->category_id)
                             <b class="d-inline-block bg_yellow text-white p-1 px-3 font_10 text-uppercase rounded-1">{{ $berita->category->name }}</b>
+                            @endif
                             <b class="d-block fs-2 text-uppercase mt-2 mb-1"><a href="#">{{ $berita->title }}</a></b>
                             <ul class="mb-0 font_11 fw-bold text-uppercase justify-content-between d-flex">
                                 <li>

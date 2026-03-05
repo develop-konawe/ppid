@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InformasiPublicController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -19,3 +20,16 @@ Route::get('/announcement', [AnnouncementController::class, 'index'])->name('ann
 Route::get('/announcement/{slug}', [AnnouncementController::class, 'show'])->name('announcement.detail');
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');
+
+
+Route::get('/informasi-berkala', [InformasiPublicController::class, 'berkala'])
+    ->name('ppid.berkala');
+
+Route::get('/informasi-setiap-saat', [InformasiPublicController::class, 'setiapSaat'])
+    ->name('ppid.setiap-saat');
+
+Route::get('/informasi-serta-merta', [InformasiPublicController::class, 'sertaMerta'])
+    ->name('ppid.serta-merta');
+
+Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecualikan'])
+    ->name('ppid.dikecualikan');

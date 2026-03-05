@@ -7,6 +7,8 @@
         ->orderBy('order')
         ->get();
 
+    $profilMenu = $menus->firstWhere('id', 1); // ID Profil
+    $otherMenus = $menus->whereNotIn('id', [1, 2]); // skip Profil & Informasi Publik
     // ambil 3 data pertama
 @endphp
 <section id="header">
@@ -34,7 +36,48 @@
                                 Home
                             </a>
                         </li>
-                        @foreach ($menus as $menu)
+                        @if($profilMenu)
+                            <li class="nav-item {{ $profilMenu->children->count() ? 'dropdown' : '' }} drop_border">
+                                <a class="nav-link {{ $profilMenu->children->count() ? 'dropdown-toggle' : '' }}"
+                                   href="{{ $profilMenu->link }}"
+                                   style="font-size: 14px"
+                                   @if($profilMenu->children->count()) data-bs-toggle="dropdown" @endif>
+
+                                    {{ strtoupper($profilMenu->name) }}
+                                    @if($profilMenu->children->count())
+                                        <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15">
+                                    @endif
+                                </a>
+
+                                @if($profilMenu->children->count())
+                                    <ul class="dropdown-menu drop_1 shadow">
+                                        @foreach ($profilMenu->children as $child)
+                                            <li><a class="dropdown-item" href="{{ $child->link }}">{{ $child->name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+
+                        @endif
+                        {{-- ✅ GUARDED PPID MENU --}}
+                        <li class="nav-item dropdown drop_border">
+                            <a class="nav-link dropdown-toggle {{ request()->routeIs('ppid.*') ? 'active' : '' }}"
+                               href="#"
+                               data-bs-toggle="dropdown"
+                               style="font-size: 14px">
+
+                                INFORMASI PUBLIK
+                                <img src="{{ Vite::asset('resources/style/image/icons-svg/chevron-down.svg') }}" width="15">
+                            </a>
+
+                            <ul class="dropdown-menu drop_1 shadow">
+                                <li><a class="dropdown-item" href="{{ route('ppid.berkala') }}">Informasi Berkala</a></li>
+                                <li><a class="dropdown-item" href="{{ route('ppid.setiap-saat') }}">Informasi Setiap Saat</a></li>
+                                <li><a class="dropdown-item" href="{{ route('ppid.serta-merta') }}">Informasi Serta Merta</a></li>
+                                <li><a class="dropdown-item" href="{{ route('ppid.dikecualikan') }}">Informasi Dikecualikan</a></li>
+                            </ul>
+                        </li>
+                        @foreach ($otherMenus as $menu)
                             <li class="nav-item {{ $menu->children->count() ? 'dropdown' : '' }} drop_border">
                                 <a class="nav-link {{ $menu->children->count() ? 'dropdown-toggle' : '' }} {{ $currentRoute == $menu->type ? 'active' : '' }}"
                                    href="{{ $menu->link }}"
