@@ -1,40 +1,256 @@
-<section id="footer" class="pt-5 pb-5 bg_black">
-    <div class="container-xl">
-        <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4">
-            <div class="col">
-                <div class="footer_left">
-                    <b class="fs-4  d-block text-uppercase text-white center_sm"> <i class="fa-brands fa-nfc-directional col_yellow me-1"></i> PPID Kabupaten Konawe</b>
-                    <p class="gray_dark mt-3">Pusat layanan informasi publik Kabupaten Konawe. Kami berkomitmen memberikan akses informasi yang transparan, cepat, dan akurat sesuai dengan Undang-Undang Keterbukaan Informasi Publik.</p>
-                    <p class="gray_dark">PPID Konawe Konawe hadir untuk melayani hak Anda atas informasi.</p>
-
-
-                </div>
-            </div>
-            <div class="col">
-                <div class="footer_left">
-                    <b class="text-uppercase text-white font_13 d-block mb-4 mt-2 center_sm">Contact Info</b>
-                    <ul class="mb-0 d-flex social mt-3">
-                        @if($socialMediaFooter)
-                            @foreach($socialMediaFooter as $social)
-                                <li class="ms-2">
-                                    <a class="d-block rounded-circle text-center text-white link" href="{{ $social->url }}" title="{{ $textStatement[$social->platform] }}" target="_blank">
-                                        <i class="fa-brands {{ $social->icon }}"></i>
-                                    </a>
-                                </li>
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
-            </div>
-            <div class="col col-md-6 col-lg-6">
-                <div class="footer_left">
-                    <div class="ratio ratio-21x9">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8072.718309058102!2d122.03732516027955!3d-3.8551011638306454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d98488b9e8ad733%3A0x6587df9ffbfe4ffa!2sKantor%20Bupati%20Konawe!5e0!3m2!1sid!2sid!4v1756773986492!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+<footer id="contact" class="bg-dark text-white pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-slate-700"
+        >
+            <!-- Logo & Description -->
+            <div class="space-y-6 fade-scroll">
+                <div class="flex items-center gap-3 group">
+                    <div
+                        class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/20 group-hover:bg-primary/20 transition-soft"
+                    >
+                        <img
+                            src="https://ppid.konawekab.go.id/image/logo_konawe.png"
+                            alt="Logo Kabupaten Konawe"
+                            class="w-9 h-9 object-contain"
+                        />
                     </div>
-{{--                    <b class="text-uppercase text-white font_13 d-block mb-4 mt-2 center_sm">Lokasi</b>--}}
+                    <h4 class="text-xl font-bold italic">
+                        PPID <span class="text-primary">KONAWE</span>
+                    </h4>
                 </div>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Dinas Komunikasi dan Informatika Kabupaten Konawe, Sulawesi Tenggara. Mewujudkan
+                    masyarakat informasi yang cerdas dan berdaya saing melalui keterbukaan informasi
+                    publik.
+                </p>
+                <div class="flex gap-4">
+                    <a
+                        href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
+                    >
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a
+                        href="#"
+                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
+                    >
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="fade-scroll">
+                <h5 class="font-bold mb-6 text-lg text-white">TAUTAN CEPAT</h5>
+                <ul class="space-y-3">
+                    <li>
+                        <a
+                            href="#profil"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
+                            ></i>
+                            Profil PPID
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#standar-layanan"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
+                            ></i>
+                            Standar Layanan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#maklumat"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
+                            ></i>
+                            Maklumat Pelayanan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#sop"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
+                            ></i>
+                            SOP Layanan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#regulasi"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
+                            ></i>
+                            Regulasi
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Layanan Publik -->
+            <div class="fade-scroll">
+                <h5 class="font-bold mb-6 text-lg text-white">LAYANAN PUBLIK</h5>
+                <ul class="space-y-3">
+                    <li>
+                        <a
+                            href="#permohonan"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-file-import text-xs mr-3 group-hover:scale-110 transition-transform"
+                            ></i>
+                            Permohonan Informasi
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#keberatan"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-comment-exclamation text-xs mr-3 group-hover:scale-110 transition-transform"
+                            ></i>
+                            Pengajuan Keberatan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#status"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-file-circle-check text-xs mr-3 group-hover:scale-110 transition-transform"
+                            ></i>
+                            Cek Status Permohonan
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#faq"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-circle-question text-xs mr-3 group-hover:scale-110 transition-transform"
+                            ></i>
+                            FAQ
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#bantuan"
+                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
+                        >
+                            <i
+                                class="fa-solid fa-headset text-xs mr-3 group-hover:scale-110 transition-transform"
+                            ></i>
+                            Pusat Bantuan
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Kontak -->
+            <div class="fade-scroll">
+                <h5 class="font-bold mb-6 text-lg text-white">KONTAK KAMI</h5>
+                <ul class="space-y-4">
+                    <li class="flex gap-3 items-start group">
+                        <i
+                            class="fa-solid fa-location-dot text-primary mt-1 group-hover:scale-110 transition-transform"
+                        ></i>
+                        <div>
+                            <p class="font-medium">Alamat</p>
+                            <p class="text-slate-400 text-sm mt-1">
+                                Kompleks Perkantoran Pemerintah Kabupaten Konawe, Sulawesi Tenggara
+                            </p>
+                        </div>
+                    </li>
+                    <li class="flex gap-3 items-center group">
+                        <i
+                            class="fa-solid fa-envelope text-primary group-hover:scale-110 transition-transform"
+                        ></i>
+                        <div>
+                            <p class="font-medium">Email</p>
+                            <a
+                                href="mailto:ppid@konawelkab.go.id"
+                                class="text-slate-400 text-sm hover:text-primary transition-soft"
+                            >
+                                ppid@konawelkab.go.id
+                            </a>
+                        </div>
+                    </li>
+                    <li class="flex gap-3 items-center group">
+                        <i
+                            class="fa-solid fa-phone text-primary group-hover:scale-110 transition-transform"
+                        ></i>
+                        <div>
+                            <p class="font-medium">Telepon</p>
+                            <a
+                                href="tel:+62408123456"
+                                class="text-slate-400 text-sm hover:text-primary transition-soft"
+                            >
+                                (0408) 123456
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <!-- Copyright & Additional Links -->
+        <div class="flex flex-col md:flex-row justify-between items-center mt-10 gap-4">
+            <p class="text-slate-500 text-sm">
+                © 2026 <span class="font-semibold">Diskominfo Kabupaten Konawe</span>. Hak Cipta
+                Dilindungi.
+            </p>
+            <div class="flex gap-6 text-slate-500 text-sm">
+                <a href="#kebijakan-privasi" class="hover:text-primary transition-soft hover-border">
+                    Kebijakan Privasi
+                </a>
+                <a href="#syarat-ketentuan" class="hover:text-primary transition-soft hover-border">
+                    Syarat & Ketentuan
+                </a>
+                <a href="#peta-situs" class="hover:text-primary transition-soft hover-border">
+                    Peta Situs
+                </a>
+                <a href="#accessibility" class="hover:text-primary transition-soft hover-border">
+                    Aksesibilitas
+                </a>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button
+            id="back-to-top"
+            class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-primary-dark transition-soft z-40 hover-scale hidden"
+        >
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
     </div>
-</section>
+</footer>

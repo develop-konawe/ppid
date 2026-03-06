@@ -16,7 +16,7 @@ class InformasiPublicController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('ppid.berkala', compact('data'));
+        return view('pages.informasi-public.berkala', compact('data'));
     }
 
     /**
@@ -31,7 +31,7 @@ class InformasiPublicController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('ppid.setiap-saat', compact('data'));
+        return view('pages.informasi-public.setiap-saat', compact('data'));
     }
 
     /**
@@ -46,7 +46,7 @@ class InformasiPublicController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('ppid.serta-merta', compact('data'));
+        return view('pages.informasi-public.serta-merta', compact('data'));
     }
 
     /**
@@ -61,6 +61,6 @@ class InformasiPublicController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('ppid.dikecualikan', compact('data'));
+        return view('pages.informasi-public.dikecualikan', compact('data'));
     }
 }
