@@ -380,15 +380,27 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-2">
+
+                                        {{-- Logika Tombol Download / Eksternal Link --}}
                                         @if($info->file_path)
+                                            {{-- Tombol untuk File Lokal --}}
                                             <a href="{{ asset('storage/'.$info->file_path) }}"
                                                download
                                                class="w-8 h-8 bg-primary-subtle text-primary rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-soft"
-                                               title="Download">
+                                               title="Download Dokumen">
                                                 <i class="fa-solid fa-download"></i>
+                                            </a>
+                                        @elseif($info->file_url)
+                                            {{-- Tombol untuk Link Eksternal (G-Drive, dll) --}}
+                                            <a href="{{ $info->file_url }}"
+                                               target="_blank"
+                                               class="w-8 h-8 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center hover:bg-amber-500 hover:text-white transition-soft"
+                                               title="Buka Link Eksternal">
+                                                <i class="fa-solid fa-link"></i>
                                             </a>
                                         @endif
 
+                                        {{-- Tombol Detail --}}
                                         <a href="{{ route('berkala.detail', $info->id) }}"
                                            class="w-8 h-8 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-soft"
                                            title="Lihat Detail">
@@ -417,57 +429,8 @@
                 </div>
 
                 <!-- Table Footer with Pagination -->
-                @if($informations instanceof \Illuminate\Pagination\LengthAwarePaginator && $informations->hasPages())
-                    <div class="bg-slate-50 px-6 py-4 border-t border-slate-200">
-                        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                            <p class="text-sm text-slate-600">
-                                Menampilkan
-                                <span class="font-semibold">{{ $informations->firstItem() ?? 0 }}</span> -
-                                <span class="font-semibold">{{ $informations->lastItem() ?? 0 }}</span>
-                                dari <span class="font-semibold">{{ $informations->total() }}</span> dokumen
-                            </p>
-
-                            <div class="flex items-center gap-2">
-                                @if($informations->onFirstPage())
-                                    <button class="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-400 cursor-not-allowed" disabled>
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </button>
-                                @else
-                                    <a href="{{ $informations->previousPageUrl() }}" class="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-soft">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </a>
-                                @endif
-
-                                @foreach($informations->getUrlRange(1, $informations->lastPage()) as $page => $url)
-                                    @if($page == $informations->currentPage())
-                                        <span class="w-10 h-10 bg-primary text-white rounded-lg font-semibold flex items-center justify-center">
-                                        {{ $page }}
-                                    </span>
-                                    @elseif($page > $informations->currentPage() - 2 && $page < $informations->currentPage() + 2)
-                                        <a href="{{ $url }}" class="w-10 h-10 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-soft flex items-center justify-center">
-                                            {{ $page }}
-                                        </a>
-                                    @elseif($page == 1 || $page == $informations->lastPage())
-                                        <a href="{{ $url }}" class="w-10 h-10 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-soft flex items-center justify-center">
-                                            {{ $page }}
-                                        </a>
-                                    @elseif($page == $informations->currentPage() - 3 || $page == $informations->currentPage() + 3)
-                                        <span class="text-slate-400">...</span>
-                                    @endif
-                                @endforeach
-
-                                @if($informations->hasMorePages())
-                                    <a href="{{ $informations->nextPageUrl() }}" class="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white hover:border-primary transition-soft">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </a>
-                                @else
-                                    <button class="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-400 cursor-not-allowed" disabled>
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </button>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                @if($informations instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                    {{ $informations->appends(request()->query())->links('layouts.pagination.berkala') }}
                 @endif
             </div>
         </section>
