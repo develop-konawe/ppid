@@ -181,15 +181,10 @@
         }
 
 
-
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .mobile-menu.active {
-            max-height: 500px;
+            transition: max-height 0.4s ease-in-out;
         }
 
         *:focus {
@@ -588,5 +583,76 @@
 </script>
 
 @stack('scripts')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- 1. Logika Menu Utama (Buka/Tutup Keseluruhan) ---
+        const mobileBtn = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerLines = mobileBtn.querySelectorAll('span');
+
+        mobileBtn.addEventListener('click', function () {
+            const isMenuOpen = mobileMenu.classList.contains('opacity-100');
+
+            if (!isMenuOpen) {
+                // TAMPILKAN MENU: Hilangkan class yang menyembunyikan, tambahkan animasi
+                mobileMenu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+                mobileMenu.classList.add('opacity-100', 'visible', 'translate-y-0');
+
+                // Animasi icon jadi (X)
+                hamburgerLines[0].classList.add('rotate-45', 'translate-y-2');
+                hamburgerLines[1].classList.add('opacity-0');
+                hamburgerLines[2].classList.add('-rotate-45', '-translate-y-2');
+            } else {
+                // SEMBUNYIKAN MENU
+                mobileMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+
+                // Animasi icon kembali ke hamburger
+                hamburgerLines[0].classList.remove('rotate-45', 'translate-y-2');
+                hamburgerLines[1].classList.remove('opacity-0');
+                hamburgerLines[2].classList.remove('-rotate-45', '-translate-y-2');
+
+                // Tutup otomatis semua dropdown yang sedang terbuka (opsional tapi disarankan)
+                setTimeout(() => {
+                    document.querySelectorAll('.mobile-submenu').forEach(sub => {
+                        sub.style.maxHeight = null;
+                        sub.classList.remove('py-2'); // hilangkan padding
+                    });
+                    document.querySelectorAll('.mobile-dropdown-toggle i').forEach(icon => {
+                        icon.classList.remove('rotate-180');
+                    });
+                }, 300); // tunggu animasi slide up selesai
+            }
+        });
+
+
+        // --- 2. Logika Dropdown Submenu (Accordion) ---
+        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+
+        dropdownToggles.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const submenu = this.nextElementSibling;
+                const icon = this.querySelector('i');
+
+                // Putar Ikon Panah
+                icon.classList.toggle('rotate-180');
+
+                // Animasi Accordion (Buka/Tutup)
+                if (submenu.style.maxHeight) {
+                    // Jika sudah terbuka, maka tutup
+                    submenu.style.maxHeight = null;
+                    // Hapus padding agar tidak bersisa ruang kosong
+                    setTimeout(() => submenu.classList.remove('py-2'), 300);
+                } else {
+                    // Tambahkan padding, lalu hitung tinggi scroll agar muncul animasi slide-down
+                    submenu.classList.add('py-2');
+                    submenu.style.maxHeight = submenu.scrollHeight + 16 + "px"; // +16px untuk mengcover padding
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
