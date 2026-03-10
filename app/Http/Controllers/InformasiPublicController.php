@@ -2,21 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InformationCategory;
+use App\Models\Opd;
 use App\Models\PublicInformation;
 use Illuminate\Http\Request;
 
 class InformasiPublicController extends Controller
 {
+    /**
+     * Informasi Berkala dengan Filter
+     */
     public function berkala(Request $request)
     {
-        $data = PublicInformation::query()
+        // Query dasar dengan relasi
+        $query = PublicInformation::query()
             ->where('information_type', 'berkala')
             ->where('status', 'published')
-            ->with(['opd', 'category'])
-            ->latest()
-            ->paginate(10);
+            ->with(['opd', 'category']);
 
-        return view('pages.informasi-public.berkala', compact('data'));
+        // Filter pencarian (search)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filter tahun
+        if ($request->filled('year')) {
+            $query->where('year', $request->year);
+        }
+
+        // Filter kategori
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Filter OPD
+        if ($request->filled('opd')) {
+            $query->where('opd_id', $request->opd);
+        }
+
+        // Urutkan dan paginasi (dengan mempertahankan query string)
+        $informations = $query->latest('published_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        // Data untuk keperluan filter dropdown
+        $tahunList = PublicInformation::where('information_type', 'berkala')
+            ->where('status', 'published')
+            ->whereNotNull('year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+
+        $kategoriList = InformationCategory::whereHas('publicInformations', function($q) {
+            $q->where('information_type', 'berkala')
+                ->where('status', 'published');
+        })->get();
+
+        $opdList = Opd::orderBy('nama_opd')->get();
+
+        return view('pages.informasi-public.berkala', compact(
+            'informations',
+            'tahunList',
+            'kategoriList',
+            'opdList'
+        ));
+    }
+
+    public function berkalaDetail(Request $request, $id)
+    {
+        // 1. Ambil data utama beserta relasi Kategori dan OPD
+        $informasi = PublicInformation::with(['category', 'opd'])
+            ->where('status', 'published')
+            ->findOrFail($id);
+
+        // 2. Ambil 3 dokumen terkait (kategori yang sama, tapi bukan dokumen yang sedang dibuka)
+        $terkait = PublicInformation::with(['category', 'opd'])
+            ->where('category_id', $informasi->category_id)
+            ->where('id', '!=', $informasi->id)
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // Tampilkan ke view (misalnya nama filenya detail-berkala.blade.php di dalam folder resources/views/informasi/)
+        return view('pages.informasi-public.berkala-detail', compact('informasi', 'terkait'));
     }
 
     /**

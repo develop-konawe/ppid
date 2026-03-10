@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@push('meta-head')
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta
+        property="og:title"
+        content="PPID Kabupaten Konawe - Portal Informasi Publik Transparan"
+    />
+    <meta
+        property="og:description"
+        content="Akses informasi publik Kabupaten Konawe secara transparan dan mudah"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ppid.konawelkab.go.id" />
+@endpush
+
 @push('scripts-head')
     <script>
         tailwind.config = {

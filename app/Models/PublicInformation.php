@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PublicInformation extends Model
 {
+    protected $table = 'public_informations';
+
     protected $fillable = [
         'category_id',
         'title',

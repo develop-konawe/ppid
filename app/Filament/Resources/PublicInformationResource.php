@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PublicInformationResource\Pages;
-use App\Filament\Resources\PublicInformationResource\RelationManagers;
 use App\Models\PublicInformation;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -11,7 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PublicInformationResource extends Resource
 {
@@ -26,8 +24,10 @@ class PublicInformationResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Informasi Utama')->schema([
                     Forms\Components\TextInput::make('title')
+                        ->label('Judul Informasi')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->columnSpanFull(),
 
                     Forms\Components\Select::make('information_type')
                         ->label('Jenis Informasi')
@@ -37,11 +37,8 @@ class PublicInformationResource extends Resource
                             'serta_merta' => 'Informasi Serta Merta',
                             'dikecualikan' => 'Informasi Dikecualikan',
                         ])
-                        ->required(),
-
-                    Forms\Components\Select::make('category_id')
-                        ->relationship('category', 'name')
-                        ->required(),
+                        ->required()
+                        ->live(),
 
                     Forms\Components\Select::make('report_level')
                         ->label('Level Laporan')
@@ -49,26 +46,81 @@ class PublicInformationResource extends Resource
                             'opd' => 'OPD',
                             'konsolidasi' => 'Konsolidasi',
                         ])
-                        ->visible(fn ($get) => $get('information_type') === 'berkala'),
+                        ->visible(fn (Forms\Get $get) => $get('information_type') === 'berkala'),
+
+                    Forms\Components\Select::make('category_id')
+                        ->label('Kategori')
+                        ->relationship('category', 'name')
+                        ->required(),
 
                     Forms\Components\Select::make('opd_id')
+                        ->label('OPD Penanggung Jawab')
                         ->relationship('opd', 'nama_opd')
                         ->required()
+                        ->default(fn () => auth()->user()->opd_id)
                         ->disabled(fn () => auth()->user()->role === 'ppid_pelaksana')
-                        ->default(fn () => auth()->user()->opd_id),
-
-                    Forms\Components\Textarea::make('description')->columnSpanFull(),
+                        ->dehydrated(),
 
                     Forms\Components\TextInput::make('year')
-                        ->numeric()
-                        ->minValue(2000)
-                        ->maxValue(now()->year),
+                        ->label('Tahun / Periode')
+                        ->placeholder('Contoh: 2025 atau 2025-2030')
+                        ->maxLength(20),
 
-                    Forms\Components\FileUpload::make('file_path')
-                        ->directory('ppid')
-                        ->acceptedFileTypes(['application/pdf'])
-                        ->required(),
+                    Forms\Components\RichEditor::make('description')
+                        ->label('Ringkasan / Deskripsi')
+                        ->columnSpanFull(),
                 ])->columns(2),
+
+                // 🔄 BAGIAN LAMPIRAN YANG SUDAH DIPERBAIKI
+                Forms\Components\Section::make('Lampiran Dokumen')->schema([
+
+                    // Membuat pilihan (radio) yang tidak disimpan ke database (dehydrated: false)
+                    Forms\Components\Radio::make('attachment_type')
+                        ->label('Pilih Tipe Lampiran')
+                        ->options([
+                            'upload' => 'Upload File Lokal',
+                            'url'    => 'Link Tautan Eksternal (G-Drive, dll)',
+                        ])
+                        ->default('upload')
+                        ->inline()
+                        ->live() // Memicu perubahan form secara instan
+                        ->dehydrated(false) // Field ini tidak akan di-save ke kolom database
+                        ->afterStateHydrated(function (Forms\Components\Radio $component, $record) {
+                            // Saat mode Edit: otomatis pilih opsi 'url' jika record punya file_url
+                            if ($record && $record->file_url) {
+                                $component->state('url');
+                            } else {
+                                $component->state('upload');
+                            }
+                        })
+                        ->afterStateUpdated(function ($state, callable $set) {
+                            // Kosongkan field yang tidak dipilih agar data lamanya tidak nyangkut saat disimpan
+                            if ($state === 'upload') {
+                                $set('file_url', null);
+                            } else {
+                                $set('file_path', null);
+                            }
+                        }),
+
+                    // Field Upload (Hanya muncul jika Radio 'upload' dipilih)
+                    Forms\Components\FileUpload::make('file_path')
+                        ->label('Upload File Lokal')
+                        ->directory('informasi_publik')
+                        ->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/jpeg', 'image/png'])
+                        ->maxSize(20480)
+                        ->required()
+                        ->visible(fn (Forms\Get $get) => $get('attachment_type') === 'upload')
+                        ->helperText('Upload langsung ke server. Prioritaskan format PDF.'),
+
+                    // Field URL (Hanya muncul jika Radio 'url' dipilih)
+                    Forms\Components\TextInput::make('file_url')
+                        ->label('Link Eksternal (G-Drive / OneDrive)')
+                        ->url()
+                        ->required()
+                        ->visible(fn (Forms\Get $get) => $get('attachment_type') === 'url')
+                        ->helperText('Gunakan tautan ini jika ukuran file terlalu besar untuk diupload.'),
+
+                ])->columns(1), // Dibuat 1 kolom agar inputannya berada pas di bawah radio button
             ]);
     }
 
@@ -76,11 +128,36 @@ class PublicInformationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('information_type')->badge(),
-                Tables\Columns\TextColumn::make('category.name')->label('Kategori'),
-                Tables\Columns\TextColumn::make('opd.nama_opd')->label('OPD'),
-                Tables\Columns\TextColumn::make('year')->sortable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Judul')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap()
+                    ->limit(50),
+
+                Tables\Columns\TextColumn::make('information_type')
+                    ->label('Jenis')
+                    ->badge(),
+
+                Tables\Columns\TextColumn::make('category.name')
+                    ->label('Kategori')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('opd.singkatan')
+                    ->label('OPD')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('year')
+                    ->label('Tahun')
+                    ->sortable(),
+
+                // Mengubah icon agar dinamis menyesuaikan tipe lampiran
+                Tables\Columns\IconColumn::make('file_path')
+                    ->label('Tipe Lampiran')
+                    ->icon(fn ($record) => $record->file_path ? 'heroicon-o-document-arrow-up' : 'heroicon-o-link')
+                    ->color(fn ($record) => $record->file_path ? 'primary' : 'warning')
+                    ->tooltip(fn ($record) => $record->file_path ? 'File Lokal' : 'Link Eksternal'),
+
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->colors([
@@ -89,29 +166,32 @@ class PublicInformationResource extends Resource
                         'success' => 'published',
                         'danger' => 'rejected',
                     ]),
-                Tables\Columns\TextColumn::make('creator.name')->label('Dibuat Oleh'),
-                Tables\Columns\TextColumn::make('approver.name')->label('Disetujui Oleh'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('information_type')
+                    ->label('Filter Jenis')
                     ->options([
                         'berkala' => 'Berkala',
                         'setiap_saat' => 'Setiap Saat',
                         'serta_merta' => 'Serta Merta',
                         'dikecualikan' => 'Dikecualikan',
                     ]),
+                Tables\Filters\SelectFilter::make('category_id')
+                    ->label('Filter Kategori')
+                    ->relationship('category', 'name'),
                 Tables\Filters\SelectFilter::make('opd_id')
+                    ->label('Filter OPD')
                     ->relationship('opd', 'nama_opd'),
-                Tables\Filters\Filter::make('year'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
 
                 Tables\Actions\Action::make('approve')
-                    ->label('Approve')
-                    ->icon('heroicon-o-check')
+                    ->label('Setujui')
+                    ->icon('heroicon-o-check-badge')
                     ->color('success')
+                    ->requiresConfirmation()
                     ->visible(fn ($record) =>
                         auth()->user()->role === 'ppid_utama'
                         && $record->status === 'review'
@@ -136,14 +216,12 @@ class PublicInformationResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        // 🔒 PPID Pelaksana hanya lihat OPD-nya
         if (auth()->user()->role === 'ppid_pelaksana') {
             $query->where('opd_id', auth()->user()->opd_id);
         }
 
         return $query;
     }
-
 
     public static function getRelations(): array
     {

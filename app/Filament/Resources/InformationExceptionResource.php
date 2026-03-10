@@ -31,7 +31,10 @@ class InformationExceptionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('publicInformation.title')->label('Judul Informasi'),
+                Tables\Columns\TextColumn::make('exception_reason')->label('Alasan Pengecualian'),
+                Tables\Columns\TextColumn::make('legal_basis')->label('Dasar Hukum'),
+                Tables\Columns\TextColumn::make('valid_until')->date()->label('Berlaku Sampai'),
             ])
             ->filters([
                 //

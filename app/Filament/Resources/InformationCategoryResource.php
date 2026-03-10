@@ -31,7 +31,8 @@ class InformationCategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->label('Nama Kategori')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('slug')->label('Slug')->searchable()->sortable(),
             ])
             ->filters([
                 //

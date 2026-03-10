@@ -14,17 +14,7 @@
     />
     <meta name="author" content="Pemerintah Kabupaten Konawe" />
 
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta
-        property="og:title"
-        content="PPID Kabupaten Konawe - Portal Informasi Publik Transparan"
-    />
-    <meta
-        property="og:description"
-        content="Akses informasi publik Kabupaten Konawe secara transparan dan mudah"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ppid.konawelkab.go.id" />
+    @stack('meta-head')
 
     <!-- Fonts -->
     <link
@@ -358,6 +348,9 @@
     @stack('styles')
 </head>
 <body class="bg-light text-slate-800 antialiased">
+<!-- Reading Progress Bar -->
+<div class="progress-bar" id="progress-bar"></div>
+
 <!-- Top Bar -->
 @include('layouts.part.topbar')
 <!-- Header & Navigation -->

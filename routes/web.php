@@ -25,6 +25,9 @@ Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');
 Route::get('/informasi-berkala', [InformasiPublicController::class, 'berkala'])
     ->name('ppid.berkala');
 
+Route::get('/informasi-berkala/{id}', [InformasiPublicController::class, 'berkalaDetail'])
+    ->name('berkala.detail');
+
 Route::get('/informasi-setiap-saat', [InformasiPublicController::class, 'setiapSaat'])
     ->name('ppid.setiap-saat');
 

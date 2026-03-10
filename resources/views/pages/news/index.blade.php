@@ -744,7 +744,7 @@
             <div class="flex flex-wrap justify-center gap-3">
                 @foreach($categories as $category)
                     <a
-                        href="{{ route('news.category', $category->slug) }}"
+                        href="{{ "route('news.category', $category->slug)" }}"
                         class="px-4 py-2 bg-primary-subtle text-primary rounded-full text-sm font-medium hover:bg-primary hover:text-white transition-soft"
                     >{{ $category->name }}</a>
                 @endforeach
