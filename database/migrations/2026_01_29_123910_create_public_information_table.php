@@ -39,12 +39,14 @@ return new class extends Migration
             $table->foreignId('opd_id')
                 ->constrained('opds');
 
-            $table->year('year')->nullable();
+            // Diubah menjadi string agar mendukung input seperti "2025-2030"
+            $table->string('year', 20)->nullable();
 
-            // File
-            $table->string('file_path')->nullable();
+            // Manajemen File (Upload Lokal & Link Eksternal)
+            $table->string('file_path')->nullable()->comment('Menyimpan path file jika diupload ke server lokal');
+            $table->string('file_url')->nullable()->comment('Menyimpan link eksternal seperti Google Drive');
             $table->string('file_type')->nullable();
-            $table->integer('file_size')->nullable();
+            $table->integer('file_size')->nullable(); // dalam kilobyte (KB) atau byte
 
             // Status publikasi
             $table->enum('status', [
@@ -68,6 +70,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('public_information');
+        // Typo diperbaiki: ditambahkan 's' agar sesuai dengan create()
+        Schema::dropIfExists('public_informations');
     }
 };

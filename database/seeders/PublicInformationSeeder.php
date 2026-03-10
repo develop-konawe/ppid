@@ -41,6 +41,40 @@ class PublicInformationSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        DB::table('public_informations')->insert([
+            [
+                'title' => 'Laporan Keuangan Tahunan 2024',
+                'description' => 'Laporan realisasi anggaran tahunan OPD.',
+                'information_type' => 'berkala',
+                'report_level' => 'opd',
+                'category_id' => 2, // Laporan Keuangan
+                'opd_id' => $opdId,
+                'year' => 2024,
+                'file_path' => 'https://www.ppid.bombanakab.go.id/upload/regular_information/1756267324.pdf',
+                'file_type' => 'pdf',
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now(),
+                'created_at' => now(),
+            ],
+            // 2. Contoh Informasi Dikecualikan (Draft/Review biasanya)
+            [
+                'title' => 'Data Rahasia Identitas Saksi',
+                'description' => 'Data yang tidak dapat dibuka ke publik berdasarkan UU.',
+                'information_type' => 'dikecualikan',
+                'report_level' => 'opd',
+                'category_id' => $opdId,
+                'opd_id' => 1,
+                'year' => 2024,
+                'file_path' => null,
+                'file_type' => null,
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now(),
+                'created_at' => now(),
+            ]
+        ]);
+
         // =========================
         // LAPORAN KEUANGAN OPD
         // =========================
@@ -52,7 +86,7 @@ class PublicInformationSeeder extends Seeder
             'category_id' => $keuanganCategory,
             'opd_id' => $opdId,
             'year' => 2024,
-            'file_path' => 'ppid/laporan-keuangan-dinkes-2024.pdf',
+            'file_path' => 'https://www.ppid.bombanakab.go.id/upload/regular_information/1756267324.pdf',
             'status' => 'published',
             'created_by' => $userId,
             'approved_by' => $userId,
