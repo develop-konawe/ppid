@@ -15,7 +15,7 @@
 <header class="glass-nav sticky top-0 z-50 border-b border-slate-200/50">
     <div class="max-w-[1640px] mx-auto px-4 md:px-8 xl:px-12">
 
-        <nav class="py-3 flex justify-between items-center w-full gap-6 lg:gap-12 xl:gap-20">
+        <nav class="py-3 flex justify-between items-center w-full gap-6 lg:gap-12">
 
             <div class="flex-1 flex items-center justify-start shrink-0">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">

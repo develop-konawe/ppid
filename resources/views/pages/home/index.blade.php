@@ -616,7 +616,7 @@
                         Informasi yang wajib diperbaharui secara rutin dan berkala setiap periode tertentu.
                     </p>
                     <a
-                        href="informasi-berkala"
+                        href="{{ route('ppid.berkala') }}"
                         class="text-primary text-sm font-semibold inline-flex items-center group-hover:underline"
                     >
                         Lihat dokumen
@@ -641,7 +641,7 @@
                         diumumkan.
                     </p>
                     <a
-                        href="informasi-serta-merta"
+                        href="{{ route('ppid.serta-merta') }}"
                         class="text-orange-500 text-sm font-semibold inline-flex items-center group-hover:underline"
                     >
                         Lihat dokumen
@@ -665,7 +665,7 @@
                         Informasi yang tersedia dan dapat diakses publik kapan saja tanpa batasan waktu.
                     </p>
                     <a
-                        href="informasi-setiap-saat"
+                        href="{{ route('ppid.setiap-saat') }}"
                         class="text-green-500 text-sm font-semibold inline-flex items-center group-hover:underline"
                     >
                         Lihat dokumen
@@ -690,7 +690,7 @@
                         negara.
                     </p>
                     <a
-                        href="informasi-dikecualikan.html"
+                        href="{{ route('ppid.dikecualikan') }}"
                         class="text-purple-500 text-sm font-semibold inline-flex items-center group-hover:underline"
                     >
                         Ketentuan
@@ -783,112 +783,44 @@
                 <!-- Tab Content: Berita -->
                 <div id="content-berita" class="tab-content block">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Berita Card 1 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800"
-                                    alt="Berita 1"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full font-medium"
-                        >Berita</span
-                        >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 5 Feb 2026</span>
+                        @forelse($latestBeritas->take(3) as $berita)
+                            <article
+                                class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
+                            >
+                                <div class="h-48 overflow-hidden bg-slate-100">
+                                    @if($berita->image)
+                                        <img src="{{ asset('storage/' . $berita->image) }}" alt="{{ $berita->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                                    @else
+                                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800" alt="Berita" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    @endif
                                 </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    Pelatihan Keterbukaan Informasi Publik bagi ASN se-Kabupaten Konawe
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Diskominfo Konawe menyelenggarakan pelatihan keterbukaan informasi publik bagi
-                                    Aparatur Sipil Negara di lingkungan Pemkab Konawe.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
-
-                        <!-- Berita Card 2 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800"
-                                    alt="Berita 2"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full font-medium"
-                        >Berita</span
-                        >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 2 Feb 2026</span>
+                                <div class="p-6">
+                                    <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                                        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full font-medium">Berita</span>
+                                        <span><i class="fa-regular fa-calendar mr-1"></i> {{ $berita->created_at ? $berita->created_at->translatedFormat('d M Y') : '' }}</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
+                                        {{ $berita->title }}
+                                    </h3>
+                                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">
+                                        {{ html_entity_decode(strip_tags($berita->description ?? '')) }}
+                                    </p>
+                                    <a
+                                        href="{{ route('news.detail', $berita->slug) }}"
+                                        class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
+                                    >
+                                        Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                                    </a>
                                 </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    PPID Konawe Raih Penghargaan Keterbukaan Informasi Publik 2025
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Prestasi membanggakan diraih PPID Kabupaten Konawe sebagai salah satu badan
-                                    publik dengan kategori informatif.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
-
-                        <!-- Berita Card 3 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800"
-                                    alt="Berita 3"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span class="bg-blue-100 text-primary px-3 py-1 rounded-full font-medium"
-                        >Berita</span
-                        >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 28 Jan 2026</span>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    Rapat Koordinasi PPID Utama dan PPID Pembantu se-Konawe
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Dilaksanakan rapat koordinasi untuk meningkatkan sinergi dan kualitas layanan
-                                    informasi publik di seluruh OPD.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
+                            </article>
+                        @empty
+                            <div class="col-span-full text-center py-10 text-slate-500 bg-white rounded-2xl border border-slate-100">Belum ada berita.</div>
+                        @endforelse
                     </div>
                     <!-- View All Berita -->
                     <div class="text-center mt-10">
                         <a
-                            href="#"
+                            href="{{ route('news') }}"
                             class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                         >
                             Lihat Semua Berita <i class="fa-solid fa-arrow-right"></i>
@@ -900,111 +832,69 @@
                 <div id="content-pengumuman" class="tab-content hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Pengumuman Card 1 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden bg-gradient-to-r from-secondary/80 to-secondary">
-                                <img
-                                    src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
-                                    alt="Pengumuman 1"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                        @forelse($latestPengumuman->take(3) as $item)
+                            <article
+                                class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
+                            >
+                                <div class="h-48 overflow-hidden bg-gradient-to-r from-secondary/80 to-secondary">
+                                    @if($item->image)
+                                        <div class="w-full max-h-[500px] overflow-hidden bg-slate-100 border-b border-slate-100 flex justify-center">
+                                            @if(is_file(public_path('storage/'.$item->image)))
+                                                <img src="{{ asset('storage/' . $item->image) }}"
+                                                     alt="{{ $item->title }}"
+                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                                />
+                                            @elseif(is_file(public_path($item->image)))
+                                                <img src="{{ asset($item->image) }}"
+                                                     alt="{{ $item->title }}"
+                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                                />
+
+                                            @else
+                                                <img src="{{ asset('image/28.jpg') }}"
+                                                     alt="{{ $item->title }}"
+                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                                />
+                                            @endif
+                                        </div>
+                                    @endif
+                                    <img
+                                        src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
+                                        alt="Pengumuman 1"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                    />
+                                </div>
+                                <div class="p-6">
+                                    <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
                         <span class="bg-red-100 text-secondary px-3 py-1 rounded-full font-medium"
-                        >Penting</span
+                        >{{ $item->category->name ?? '-' }}</span
                         >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 10 Feb 2026</span>
+                                        <span><i class="fa-regular fa-calendar mr-1"></i> {{ $item->published_at ? $item->published_at->translatedFormat('d M Y') : '-' }}</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
+                                        {{ $item->title }}
+                                    </h3>
+                                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">
+                                        {{ html_entity_decode(strip_tags($item->description)) }}
+                                    </p>
+                                    <a
+                                        href="{{ route('announcement.detail', $item->slug) }}"
+                                        class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
+                                    >
+                                        Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                                    </a>
                                 </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    Libur Nasional dan Cuti Bersama Hari Raya Nyepi 2026
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Pemerintah Kabupaten Konawe menetapkan libur nasional dan cuti bersama dalam
-                                    rangka Hari Raya Nyepi.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
+                            </article>
+                        @empty
+                            <div class="bg-white p-8 rounded-xl shadow-md text-center text-slate-500">Belum ada pengumuman.</div>
+                        @endforelse
 
-                        <!-- Pengumuman Card 2 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden bg-gradient-to-r from-green-600 to-green-500">
-                                <img
-                                    src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800"
-                                    alt="Pengumuman 2"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full font-medium"
-                        >Rekrutmen</span
-                        >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 8 Feb 2026</span>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    Seleksi Terbuka PPPK Teknis 2026
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Pengumuman hasil seleksi administrasi dan jadwal ujian kompetensi PPPK teknis di
-                                    lingkungan Pemkab Konawe.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
 
-                        <!-- Pengumuman Card 3 -->
-                        <article
-                            class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
-                        >
-                            <div class="h-48 overflow-hidden bg-gradient-to-r from-amber-600 to-amber-500">
-                                <img
-                                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800"
-                                    alt="Pengumuman 3"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full font-medium"
-                        >Sosialisasi</span
-                        >
-                                    <span><i class="fa-regular fa-calendar mr-1"></i> 5 Feb 2026</span>
-                                </div>
-                                <h3 class="text-lg font-bold mb-2 text-dark line-clamp-2">
-                                    Sosialisasi Aplikasi SatuData Konawe
-                                </h3>
-                                <p class="text-slate-600 text-sm mb-4 line-clamp-2">
-                                    Undangan sosialisasi penggunaan aplikasi SatuData bagi admin data di seluruh
-                                    perangkat daerah.
-                                </p>
-                                <a
-                                    href="#"
-                                    class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
-                                >
-                                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                                </a>
-                            </div>
-                        </article>
                     </div>
                     <!-- View All Pengumuman -->
                     <div class="text-center mt-10">
                         <a
-                            href="#"
+                            href="{{ route('announcement') }}"
                             class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                         >
                             Lihat Semua Pengumuman <i class="fa-solid fa-arrow-right"></i>

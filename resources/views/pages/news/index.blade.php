@@ -583,7 +583,7 @@
                                 {{ $featuredNews->title }}
                             </h3>
                             <p class="text-slate-600 mb-6 leading-relaxed">
-                                {{ Str::limit(strip_tags($featuredNews->content), 200) }}
+                                {{ Str::limit(html_entity_decode(strip_tags($featuredNews->content)), 200) }}
                             </p>
                             <div class="flex items-center gap-4 mb-8">
                                 <div class="flex items-center">
@@ -632,7 +632,7 @@
                             </div>
                             <div class="news-content">
                                 <h3 class="news-title">{{ $berita->title }}</h3>
-                                <p class="news-excerpt">{{ Str::limit(strip_tags($berita->content), 120) }}</p>
+                                <p class="news-excerpt">{{ Str::limit(html_entity_decode(strip_tags($berita->content)), 120) }}</p>
                                 <div class="news-meta">
                                     <span><i class="fa-regular fa-user mr-1"></i> Admin</span>
                                     <span><i class="fa-regular fa-eye mr-1"></i> {{ $berita->views }}x</span>

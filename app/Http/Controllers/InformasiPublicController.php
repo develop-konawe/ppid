@@ -81,7 +81,6 @@ class InformasiPublicController extends Controller
 
         // 2. Ambil 3 dokumen terkait (kategori yang sama, tapi bukan dokumen yang sedang dibuka)
         $terkait = PublicInformation::with(['category', 'opd'])
-            ->where('category_id', $informasi->category_id)
             ->where('id', '!=', $informasi->id)
             ->where('status', 'published')
             ->latest('published_at')
@@ -127,13 +126,23 @@ class InformasiPublicController extends Controller
      */
     public function dikecualikan(Request $request)
     {
-        $data = PublicInformation::query()
+        // Mengambil data informasi dikecualikan beserta relasi kategori dan detail exception
+        $informations = PublicInformation::with(['category', 'exception'])
             ->where('information_type', 'dikecualikan')
             ->where('status', 'published')
-            ->with(['opd', 'category', 'exception'])
-            ->latest()
+            ->latest('published_at')
             ->paginate(10);
 
-        return view('pages.informasi-public.dikecualikan', compact('data'));
+        // Menghitung total statistik untuk bagian bawah (Ringkasan)
+        $totalDikecualikan = PublicInformation::where('information_type', 'dikecualikan')
+            ->where('status', 'published')
+            ->count();
+
+        $totalKategori = PublicInformation::where('information_type', 'dikecualikan')
+            ->where('status', 'published')
+            ->distinct('category_id')
+            ->count();
+
+        return view('pages.informasi-public.dikecualikan', compact('informations', 'totalDikecualikan', 'totalKategori'));
     }
 }

@@ -9,30 +9,35 @@ class NewsController extends Controller
 {
     public function index()
     {
-        // $beritas = News::paginate(9);
-        // tambahkan kondisi diurutkan berdasarkan kapan dibuat
-        $beritas = News::orderBy('created_at', 'desc')
-            ->paginate(9);
-
+        $beritas = News::orderBy('created_at', 'desc')->paginate(9);
         return view("pages.news.index", ["beritas" => $beritas]);
     }
 
     public function show($slug)
     {
         $berita = News::where('slug', $slug)->firstOrFail();
-
         $berita->increment('views');
 
-        // Ambil berita sebelumnya
-        $prev = News::where('id', '<', $berita->id)
-            ->orderBy('id', 'desc')
-            ->first();
+        $prev = News::where('id', '<', $berita->id)->orderBy('id', 'desc')->first();
+        $next = News::where('id', '>', $berita->id)->orderBy('id', 'asc')->first();
 
-        // Ambil berita selanjutnya
-        $next = News::where('id', '>', $berita->id)
-            ->orderBy('id', 'asc')
-            ->first();
+        // --- TAMBAHKAN INI UNTUK BERITA TERKAIT ---
+        // Cari 3 berita lain di kategori yang sama, kecualikan berita yang sedang dibaca
+        $relatedNews = News::where('category_id', $berita->category_id)
+            ->where('id', '!=', $berita->id)
+            ->latest()
+            ->take(3)
+            ->get();
 
-        return view("pages.news.detail", compact('berita', 'prev', 'next'));
+        // Jika tidak ada berita di kategori yang sama, ambil 3 berita terbaru secara umum
+        if ($relatedNews->isEmpty()) {
+            $relatedNews = News::where('id', '!=', $berita->id)
+                ->latest()
+                ->take(3)
+                ->get();
+        }
+
+        // Jangan lupa tambahkan $relatedNews ke fungsi compact()
+        return view("pages.news.detail", compact('berita', 'prev', 'next', 'relatedNews'));
     }
 }

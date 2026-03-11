@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://ppid.konawelkab.go.id" />
 @endpush
 
-@push('scripts')
+@push('scripts-head')
     <script>
         tailwind.config = {
             theme: {

@@ -33,4 +33,14 @@ class PublicInformation extends Model
     {
         return $this->belongsTo(InformationCategory::class);
     }
+
+    /**
+     * Relasi ke tabel information_exceptions
+     * Satu informasi publik (dikecualikan) memiliki satu detail pengecualian
+     */
+    public function exception()
+    {
+        return $this->hasOne(InformationException::class, 'public_information_id');
+    }
+
 }
