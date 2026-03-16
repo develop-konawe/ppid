@@ -25,9 +25,9 @@ class Menu extends Model
     {
         return match ($this->type) {
             'custom', 'external' => $this->url,
-            'page' => $this->page ? route('page.show', $this->page->slug ?? $this->page->id) : '#',
-            'news' => $this->news ? route('news.show', $this->news->slug ?? $this->news->id) : route('news'),
-            'announcement' => $this->announcement ? route('announcements.show', $this->announcement->slug ?? $this->announcement->id) : route('announcement'),
+            'page' => $this->page ? route('page.detail', $this->page->slug ?? $this->page->id) : '#',
+            'news' => $this->news ? route('news.detail', $this->news->slug ?? $this->news->id) : route('news'),
+            'announcement' => $this->announcement ? route('announcements.detail', $this->announcement->slug ?? $this->announcement->id) : route('announcement'),
             default => '#',
         };
     }
@@ -42,8 +42,7 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_id')->orderBy('order');
     }
 
-    public function page()
-    {
-        return $this->hasOne(Page::class, 'id', 'page_id');
-    }
+    public function page() { return $this->belongsTo(Page::class); }
+    public function news() { return $this->belongsTo(News::class); }
+    public function announcement() { return $this->belongsTo(Announcement::class); }
 }

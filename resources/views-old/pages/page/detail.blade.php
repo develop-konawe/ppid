@@ -5,7 +5,7 @@
 @push('style')
     <meta property="og:title" content="{{ $page->title }}">
     <meta property="og:description" content="{{ Str::limit(strip_tags($page->content), 150) }}">
-    <meta property="og:url" content="{{ route('page.show', $page->slug) }}">
+    <meta property="og:url" content="{{ route('page.detail', $page->slug) }}">
     <meta property="og:type" content="article">
 
     <style>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="news_dt3 mt-3">
                             <ul class="mb-0 text-uppercase fw-bold justify-content-between d-flex">
-                                <li class="d-inline-block"><a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('page.show', $page->slug)) }}" class="d-inline-block bg-primary text-white rounded-1 font_11 p-3 px-5"><i class="fa-brands fa-facebook-f me-2 align-middle"></i> Share on facebook</a></li>
+                                <li class="d-inline-block"><a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('page.detail', $page->slug)) }}" class="d-inline-block bg-primary text-white rounded-1 font_11 p-3 px-5"><i class="fa-brands fa-facebook-f me-2 align-middle"></i> Share on facebook</a></li>
                                 {{--                                <li class="d-inline-block"><a href="#" class="d-inline-block bg-info text-white rounded-1 font_11 p-3 px-5"><i class="fa-brands fa-twitter me-2 align-middle"></i> Share on twitter</a></li>--}}
                                 {{--                                <li class="d-inline-block"><a href="#" class="d-inline-block bg-danger text-white rounded-1 font_11 p-3 px-5"><i class="fa-brands fa-instagram me-2 align-middle"></i> Share on instagram</a></li>--}}
                             </ul>

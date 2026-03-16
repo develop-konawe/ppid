@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $beritas = News::orderBy('created_at', 'desc')->paginate(9);
+        $beritas = News::orderBy('created_at', 'desc')->paginate(6);
         return view("pages.news.index", ["beritas" => $beritas]);
     }
 
@@ -35,6 +35,7 @@ class NewsController extends Controller
                 ->latest()
                 ->take(3)
                 ->get();
+            // Addini26
         }
 
         // Jangan lupa tambahkan $relatedNews ke fungsi compact()

@@ -488,109 +488,6 @@
             </div>
         </section>
 
-        <!-- Quick Services Section -->
-        <section id="layanan" class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-20">
-            <div class="text-center mb-12 fade-scroll">
-                <h2 class="text-3xl md:text-4xl font-black text-dark mb-4">LAYANAN CEPAT PPID KONAWE</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">
-                    Akses berbagai layanan informasi publik dengan mudah melalui portal resmi PPID Kabupaten
-                    Konawe
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Service 1 -->
-                <div
-                    class="bg-white p-6 rounded-2xl shadow-lg card-hover border border-slate-100 group fade-scroll"
-                >
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center text-xl group-hover:bg-primary group-hover:text-white transition-soft"
-                        >
-                            <i class="fa-solid fa-file-circle-plus"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-dark mb-1">Permohonan Informasi</h3>
-                            <p class="text-slate-500 text-sm">Ajukan secara online</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 text-sm mb-4">
-                        Ajukan permohonan informasi publik secara online dengan mudah dan dapatkan respon
-                        dalam waktu 10 hari kerja.
-                    </p>
-                    <a
-                        href="#permohonan"
-                        class="text-primary text-sm font-semibold inline-flex items-center group-hover:underline"
-                    >
-                        Ajukan Sekarang
-                        <i
-                            class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"
-                        ></i>
-                    </a>
-                </div>
-
-                <!-- Service 2 -->
-                <div
-                    class="bg-white p-6 rounded-2xl shadow-lg card-hover border border-slate-100 group fade-scroll"
-                >
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-green-600 group-hover:text-white transition-soft"
-                        >
-                            <i class="fa-solid fa-file-circle-check"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-dark mb-1">Cek Status</h3>
-                            <p class="text-slate-500 text-sm">Pantau perkembangan</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 text-sm mb-4">
-                        Pantau status permohonan informasi yang telah diajukan dengan nomor tracking yang
-                        diberikan.
-                    </p>
-                    <a
-                        href="#status"
-                        class="text-green-600 text-sm font-semibold inline-flex items-center group-hover:underline"
-                    >
-                        Cek Status
-                        <i
-                            class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"
-                        ></i>
-                    </a>
-                </div>
-
-                <!-- Service 3 -->
-                <div
-                    class="bg-white p-6 rounded-2xl shadow-lg card-hover border border-slate-100 group fade-scroll"
-                >
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-orange-600 group-hover:text-white transition-soft"
-                        >
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-dark mb-1">Bantuan & Konsultasi</h3>
-                            <p class="text-slate-500 text-sm">Hubungi kami</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 text-sm mb-4">
-                        Butuh bantuan atau konsultasi? Tim PPID siap membantu Anda dalam mengakses informasi
-                        publik.
-                    </p>
-                    <a
-                        href="#kontak"
-                        class="text-orange-600 text-sm font-semibold inline-flex items-center group-hover:underline"
-                    >
-                        Hubungi Kami
-                        <i
-                            class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"
-                        ></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Jenis Informasi Section -->
         <section id="jenis-informasi" class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-20">
             <div class="text-center mb-12 fade-scroll">
@@ -701,6 +598,163 @@
                 </div>
             </div>
         </section>
+
+        <!-- Kabar Unggulan Section -->
+        <section id="kabar-unggulan" class="py-8 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 fade-scroll gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 text-secondary rounded-full text-xs font-bold uppercase tracking-wider mb-3 border border-red-100">
+                            <span class="relative flex h-2.5 w-2.5">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+                            </span>
+                            Sorotan Utama
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-black text-dark tracking-tight">
+                            KABAR <span class="text-primary">UNGGULAN</span>
+                        </h2>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-sm border-l-2 border-slate-200 pl-4 py-1">
+                        Informasi dan pengumuman prioritas dari PPID Pemerintah Kabupaten Konawe.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                    <div class="lg:col-span-7 relative rounded-3xl overflow-hidden shadow-xl group fade-scroll bg-slate-900 min-h-[450px] lg:min-h-[520px]">
+
+                        <div id="news-slider-container" class="absolute inset-0 flex w-full h-full transition-transform duration-500 ease-in-out">
+                            @forelse($beritas as $news)
+                                @php $imgUrl = $news->image ? asset('storage/'.$news->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
+
+                                <article class="w-full h-full flex-shrink-0 relative">
+                                    <img src="{{ $imgUrl }}" alt="{{ $news->title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+
+                                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="bg-primary text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-3 rounded-md shadow-md">
+                                                {{ $news->category->name ?? 'Berita Pilihan' }}
+                                            </span>
+                                            <span class="text-slate-300 text-xs font-medium flex items-center bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-md">
+                                                <i class="fa-regular fa-calendar mr-1.5"></i>
+                                                {{ $news->created_at ? $news->created_at->translatedFormat('d M Y') : '' }}
+                                            </span>
+                                        </div>
+                                        <a href="{{ route('news.detail', $news->slug) }}" class="block">
+                                            <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight hover:text-blue-300 transition-colors drop-shadow-lg">
+                                                {{ $news->title }}
+                                            </h3>
+                                        </a>
+                                        <p class="text-slate-300 text-sm md:text-base mb-6 line-clamp-2 leading-relaxed hidden md:block">
+                                            {{ Str::limit(html_entity_decode(strip_tags($news->content)), 120) }}
+                                        </p>
+                                        <a href="{{ route('news.detail', $news->slug) }}" class="inline-flex items-center justify-center bg-white/10 hover:bg-primary text-white backdrop-blur-sm border border-white/20 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300">
+                                            Baca Selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                                        </a>
+                                    </div>
+                                </article>
+                            @empty
+                                <div class="w-full h-full flex flex-col items-center justify-center text-slate-400 p-10">
+                                    <i class="fa-regular fa-newspaper text-5xl mb-3 opacity-50"></i>
+                                    <p class="font-medium">Belum ada Berita Unggulan.</p>
+                                </div>
+                            @endforelse
+                        </div>
+
+                        @if($beritas->count() > 1)
+                            <button id="btn-prev-news" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 z-10">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <button id="btn-next-news" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md border border-white/20 text-white rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 z-10">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                            <div class="absolute bottom-6 right-6 flex gap-2 z-10" id="news-dots">
+                                @foreach($beritas as $index => $news)
+                                    <button class="w-2 h-2 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/70' }}" data-index="{{ $index }}"></button>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="lg:col-span-5 bg-slate-50 rounded-3xl border border-slate-200 shadow-inner p-6 lg:p-8 flex flex-col relative overflow-hidden min-h-[450px] lg:min-h-[520px] fade-scroll animate-delay-100">
+                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div class="flex items-center justify-between mb-6 relative z-10">
+                            <h4 class="text-xl font-black text-dark flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                                    <i class="fa-solid fa-thumbtack"></i>
+                                </div>
+                                Papan Pengumuman
+                            </h4>
+                            @if($pengumumans->count() > 3)
+                                <div class="flex gap-1.5" id="ann-dots">
+                                    @foreach($pengumumans->chunk(3) as $index => $chunk)
+                                        <button class="h-1.5 rounded-full transition-all duration-300 {{ $index === 0 ? 'bg-secondary w-4' : 'bg-slate-300 hover:bg-slate-400 w-1.5' }}" data-index="{{ $index }}"></button>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="flex-grow relative overflow-hidden group/ann">
+                            <div id="ann-slider-container" class="absolute inset-0 flex transition-transform duration-500 ease-in-out w-full h-full">
+
+                                @php
+                                    // Memecah pengumuman maksimal 3 item per slide
+                                    $annChunks = $pengumumans->chunk(3);
+                                @endphp
+
+                                @forelse($annChunks as $chunk)
+                                    <div class="w-full h-full flex-shrink-0 flex flex-col gap-4 px-1">
+                                        @foreach($chunk as $ann)
+                                            <a href="{{ route('announcement.detail', $ann->slug) }}" class="flex flex-col gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md border border-slate-100 hover:border-secondary/30 transition-all duration-300 hover:-translate-y-1">
+                                                <div class="flex items-center justify-between gap-2">
+                                                    <span class="text-[10px] font-bold text-secondary uppercase tracking-wider bg-red-50 px-2 py-1 rounded-md">
+                                                        <i class="fa-solid fa-circle-exclamation mr-1"></i> Info Penting
+                                                    </span>
+                                                    <span class="text-[11px] font-semibold text-slate-400">
+                                                        {{ $ann->published_at ? \Carbon\Carbon::parse($ann->published_at)->translatedFormat('d M Y') : '' }}
+                                                    </span>
+                                                </div>
+                                                <h5 class="text-sm font-bold text-slate-700 hover:text-primary line-clamp-2 leading-snug mt-1">
+                                                    {{ $ann->title }}
+                                                </h5>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @empty
+                                    <div class="w-full h-full flex flex-col items-center justify-center text-center opacity-50">
+                                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                                        <p class="text-slate-500 text-sm">Tidak ada pengumuman saat ini.</p>
+                                    </div>
+                                @endforelse
+
+                            </div>
+
+                            @if($pengumumans->count() > 3)
+                                <button id="btn-prev-ann" class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white shadow-md border border-slate-200 text-slate-600 rounded-full flex items-center justify-center transition-all opacity-0 group-hover/ann:opacity-100 -translate-x-2 group-hover/ann:translate-x-0 z-10 hover:text-secondary">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button id="btn-next-ann" class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white shadow-md border border-slate-200 text-slate-600 rounded-full flex items-center justify-center transition-all opacity-0 group-hover/ann:opacity-100 translate-x-2 group-hover/ann:translate-x-0 z-10 hover:text-secondary">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            @endif
+                        </div>
+
+                        <div class="mt-4 text-center relative z-10 pt-4 border-t border-slate-200/60">
+                            <a href="{{ route('announcement') }}" class="text-sm font-bold text-slate-500 hover:text-primary transition-colors inline-flex items-center gap-2">
+                                Lihat Semua Pengumuman <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
 
         <!-- Stats Section -->
         <section id="stats" class="py-16 bg-primary-subtle">
@@ -909,82 +963,36 @@
             <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
                 <div class="text-center mb-12 fade-scroll">
                     <h2 class="text-3xl md:text-4xl font-black text-dark mb-4">GALERI FOTO KEGIATAN</h2>
-                    <p class="text-slate-600 max-w-2xl mx-auto">
-                        Dokumentasi berbagai kegiatan dan momen penting seputar PPID Kabupaten Konawe.
-                    </p>
+                    <p class="text-slate-600 max-w-2xl mx-auto">Dokumentasi berbagai kegiatan dan momen penting seputar PPID Kabupaten Konawe.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Gallery Item 1 -->
-                    <div
-                        class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
-                        onclick="openLightbox(0)"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800"
-                            alt="Gallery Image 1"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        ></div>
-                        <div
-                            class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
-                        >
-                            <p class="text-sm font-semibold">Pelatihan Keterbukaan Informasi</p>
-                        </div>
-                    </div>
+                    @php
+                        // Ambil 6 foto terbaru jika dikirim dari controller, atau gunakan kosong sebagai fallback
+                        $galleryPhotos = isset($gallery) ? $gallery->where('type', 'photo')->take(6) : [];
+                        $loopIndex = 0;
+                    @endphp
 
-                    <!-- Gallery Item 2 -->
-                    <div
-                        class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
-                        onclick="openLightbox(1)"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800"
-                            alt="Gallery Image 2"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        ></div>
-                        <div
-                            class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
-                        >
-                            <p class="text-sm font-semibold">Launching Portal PPID</p>
+                    @forelse($galleryPhotos as $item)
+                        @php $mediaSrc = $item->media_path ? asset('storage/' . $item->media_path) : $item->media_url; @endphp
+                        <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group bg-slate-100" onclick="openLightbox({{ $loopIndex }})">
+                            <img src="{{ $mediaSrc }}" alt="{{ $item->caption ?? 'Kegiatan PPID' }}" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pr-4">
+                                <p class="text-sm font-semibold line-clamp-2">{{ $item->caption ?? 'Dokumentasi PPID' }}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Gallery Item 3 -->
-                    <div
-                        class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
-                        onclick="openLightbox(2)"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800"
-                            alt="Gallery Image 3"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        ></div>
-                        <div
-                            class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
-                        >
-                            <p class="text-sm font-semibold">Rapat Koordinasi PPID</p>
+                        @php $loopIndex++; @endphp
+                    @empty
+                        <div class="col-span-full py-10 text-center bg-slate-50 rounded-2xl border border-slate-100 text-slate-500">
+                            Belum ada foto galeri untuk ditampilkan.
                         </div>
-                    </div>
+                    @endforelse
                 </div>
 
-                <!-- View All Gallery Button -->
                 <div class="text-center mt-12 fade-scroll">
-                    <a
-                        href="#"
-                        class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-semibold transition-soft transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl ripple-light"
-                    >
-                        <i class="fa-solid fa-images"></i>
-                        Lihat Semua Galeri
-                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-semibold transition-soft transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl ripple-light">
+                        <i class="fa-solid fa-images"></i> Lihat Semua Galeri <i class="fa-solid fa-arrow-right ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -1004,83 +1012,55 @@
                 </div>
 
                 <div class="flex flex-wrap justify-center items-center gap-6 md:gap-8 fade-scroll">
-                    <!-- Facebook -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon facebook w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-facebook-f text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">Facebook</span>
-                    </a>
+                    @forelse($socialMedias as $socmed)
+                        @php
+                            // Ambil data langsung dari enum 'platform'
+                            $platform = $socmed->platform;
+                            $cssClass = $platform;
 
-                    <!-- TikTok -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon tiktok w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-tiktok text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">TikTok</span>
-                    </a>
+                            // Merapikan nama untuk ditampilkan di bawah ikon
+                            $displayName = ucfirst($platform);
+                            if ($platform === 'x') $displayName = 'X';
+                            if ($platform === 'tiktok') $displayName = 'TikTok';
+                            if ($platform === 'youtube') $displayName = 'YouTube';
 
-                    <!-- Instagram -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon instagram w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-instagram text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">Instagram</span>
-                    </a>
+                            // Cek apakah admin mengisi kolom 'icon' manual, jika tidak pakai bawaan sistem
+                            if ($socmed->icon) {
+                                $iconClass = 'fa-brands '.$socmed->icon;
+                            } else {
+                                $iconClass = match($platform) {
+                                    'facebook' => 'fa-brands fa-facebook-f',
+                                    'x' => 'fa-brands fa-x-twitter',
+                                    'instagram' => 'fa-brands fa-instagram',
+                                    'tiktok' => 'fa-brands fa-tiktok',
+                                    'youtube' => 'fa-brands fa-youtube',
+                                    'threads' => 'fa-brands fa-threads',
+                                    default => 'fa-solid fa-link'
+                                };
+                            }
+                        @endphp
 
-                    <!-- YouTube -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon youtube w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-youtube text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">YouTube</span>
-                    </a>
+                        <a href="{{ $socmed->url }}" target="_blank" rel="noopener noreferrer"
+                           class="social-icon {{ $cssClass }} w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group">
 
-                    <!-- X (Twitter) - Menggunakan fa-x-twitter -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon x w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-x-twitter text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">X</span>
-                    </a>
+                            <i class="{{ $iconClass }} text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-semibold">{{ $displayName }}</span>
 
-                    <!-- Threads - Menggunakan fa-threads -->
-                    <a
-                        href="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-icon threads w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group"
-                    >
-                        <i
-                            class="fa-brands fa-threads text-3xl md:text-4xl group-hover:scale-110 transition-transform"
-                        ></i>
-                        <span class="text-xs font-semibold">Threads</span>
-                    </a>
+                        </a>
+                    @empty
+                        <a href="#" class="social-icon facebook w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group">
+                            <i class="fa-brands fa-facebook-f text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-semibold">Facebook</span>
+                        </a>
+                        <a href="#" class="social-icon instagram w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group">
+                            <i class="fa-brands fa-instagram text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-semibold">Instagram</span>
+                        </a>
+                        <a href="#" class="social-icon youtube w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-white transition-all duration-300 group">
+                            <i class="fa-brands fa-youtube text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-semibold">YouTube</span>
+                        </a>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -1324,6 +1304,79 @@
             document.querySelectorAll('.card-hover').forEach((card) => {
                 observer.observe(card);
             });
+
+            // 1. SLIDER BERITA UNGGULAN
+            const newsContainer = document.getElementById('news-slider-container');
+            if (newsContainer && newsContainer.children.length > 1) {
+                const slides = newsContainer.children;
+                const dots = document.querySelectorAll('#news-dots button');
+                let currentIndex = 0;
+                let interval;
+
+                const updateNewsSlider = () => {
+                    newsContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    dots.forEach((dot, idx) => {
+                        if (idx === currentIndex) {
+                            dot.className = 'w-6 h-2 rounded-full transition-all duration-300 bg-white';
+                        } else {
+                            dot.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-white/40 hover:bg-white/70';
+                        }
+                    });
+                };
+
+                const nextSlide = () => { currentIndex = (currentIndex + 1) % slides.length; updateNewsSlider(); };
+                const prevSlide = () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateNewsSlider(); };
+
+                document.getElementById('btn-next-news')?.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                document.getElementById('btn-prev-news')?.addEventListener('click', () => { prevSlide(); resetInterval(); });
+                dots.forEach((dot, idx) => {
+                    dot.addEventListener('click', () => { currentIndex = idx; updateNewsSlider(); resetInterval(); });
+                });
+
+                const startInterval = () => { interval = setInterval(nextSlide, 5000); };
+                const resetInterval = () => { clearInterval(interval); startInterval(); };
+
+                newsContainer.parentElement.addEventListener('mouseenter', () => clearInterval(interval));
+                newsContainer.parentElement.addEventListener('mouseleave', startInterval);
+                startInterval();
+            }
+
+            // 2. SLIDER PENGUMUMAN UNGGULAN
+            const annContainer = document.getElementById('ann-slider-container');
+            if (annContainer && annContainer.children.length > 1) {
+                const slides = annContainer.children;
+                const dots = document.querySelectorAll('#ann-dots button');
+                let currentIndex = 0;
+                let interval;
+
+                const updateAnnSlider = () => {
+                    annContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    dots.forEach((dot, idx) => {
+                        if (idx === currentIndex) {
+                            dot.className = 'h-1.5 rounded-full transition-all duration-300 bg-secondary w-4';
+                        } else {
+                            dot.className = 'h-1.5 rounded-full transition-all duration-300 bg-slate-300 hover:bg-slate-400 w-1.5';
+                        }
+                    });
+                };
+
+                const nextSlide = () => { currentIndex = (currentIndex + 1) % slides.length; updateAnnSlider(); };
+                const prevSlide = () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateAnnSlider(); };
+
+                document.getElementById('btn-next-ann')?.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                document.getElementById('btn-prev-ann')?.addEventListener('click', () => { prevSlide(); resetInterval(); });
+                dots.forEach((dot, idx) => {
+                    dot.addEventListener('click', () => { currentIndex = idx; updateAnnSlider(); resetInterval(); });
+                });
+
+                const startInterval = () => { interval = setInterval(nextSlide, 7000); }; // Pengumuman lebih lambat (7 detik)
+                const resetInterval = () => { clearInterval(interval); startInterval(); };
+
+                // Hover area pengumuman akan mem-pause auto-slide
+                annContainer.parentElement.addEventListener('mouseenter', () => clearInterval(interval));
+                annContainer.parentElement.addEventListener('mouseleave', startInterval);
+                startInterval();
+            }
         });
 
     </script>

@@ -93,24 +93,24 @@
 
 @section('content')
     <main class="bg-slate-50 min-h-screen">
-        <section class="announcement-detail-hero py-12 md:py-16 relative overflow-hidden">
-            <div class="absolute inset-0 bg-black/10"></div>
-            <div class="relative max-w-7xl mx-auto px-4 md:px-8 lg:px-12 text-center text-white z-10">
-                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
-                    <i class="fa-solid fa-file-lines text-sm"></i>
-                    <span class="text-sm font-medium">DETAIL PENGUMUMAN</span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-black mb-2 animate-slide-up">#InformasiResmi</h2>
-                <p class="text-lg text-amber-100 max-w-2xl mx-auto">
-                    Baca selengkapnya pengumuman resmi dari PPID Kabupaten Konawe
-                </p>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" fill="#F8FAFC">
-                    <path d="M0,48L80,53.3C160,59,320,69,480,69.3C640,69,800,59,960,53.3C1120,48,1280,48,1360,48L1440,48L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z" />
-                </svg>
-            </div>
-        </section>
+{{--        <section class="announcement-detail-hero py-12 md:py-16 relative overflow-hidden">--}}
+{{--            <div class="absolute inset-0 bg-black/10"></div>--}}
+{{--            <div class="relative max-w-7xl mx-auto px-4 md:px-8 lg:px-12 text-center text-white z-10">--}}
+{{--                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">--}}
+{{--                    <i class="fa-solid fa-file-lines text-sm"></i>--}}
+{{--                    <span class="text-sm font-medium">DETAIL PENGUMUMAN</span>--}}
+{{--                </div>--}}
+{{--                <h2 class="text-3xl md:text-4xl font-black mb-2 animate-slide-up">#InformasiResmi</h2>--}}
+{{--                <p class="text-lg text-amber-100 max-w-2xl mx-auto">--}}
+{{--                    Baca selengkapnya pengumuman resmi dari PPID Kabupaten Konawe--}}
+{{--                </p>--}}
+{{--            </div>--}}
+{{--            <div class="absolute bottom-0 left-0 right-0">--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" fill="#F8FAFC">--}}
+{{--                    <path d="M0,48L80,53.3C160,59,320,69,480,69.3C640,69,800,59,960,53.3C1120,48,1280,48,1360,48L1440,48L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z" />--}}
+{{--                </svg>--}}
+{{--            </div>--}}
+{{--        </section>--}}
 
         <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-4">
             <div class="flex items-center text-sm text-slate-500">

@@ -17,6 +17,7 @@ class HomeController extends Controller
 
         // ambilkan data pengumuman dengan status is_active = true dan is_featured = true
         $pengumumans = Announcement::where('is_active', true)
+            ->where('is_featured', true)
             ->get();//
 
         // ambilkan data 4 berita terbaru

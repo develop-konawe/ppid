@@ -19,7 +19,7 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.detail')
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement');
 Route::get('/announcement/{slug}', [AnnouncementController::class, 'show'])->name('announcement.detail');
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
-Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.detail');
 
 
 Route::get('/informasi-berkala', [InformasiPublicController::class, 'berkala'])

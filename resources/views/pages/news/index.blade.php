@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Berita')
+@section('title', 'Berita & Artikel')
 
 @push('scripts-head')
     <script>
@@ -8,16 +8,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            DEFAULT: '#1F3A8A',
-                            dark: '#172554',
-                            light: '#3B82F6',
-                            subtle: '#EFF6FF',
-                        },
-                        secondary: '#DC2626',
-                        accent: '#059669',
-                        light: '#F8FAFC',
-                        dark: '#0F172A',
+                        primary: { DEFAULT: '#1F3A8A', dark: '#172554', light: '#3B82F6', subtle: '#EFF6FF', },
+                        secondary: '#DC2626', accent: '#059669', light: '#F8FAFC', dark: '#0F172A',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -26,17 +18,10 @@
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-in-out',
                         'slide-up': 'slideUp 0.3s ease-out',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(10px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                     },
                 },
             },
@@ -46,502 +31,135 @@
 
 @push('styles')
     <style>
-        .transition-soft {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-gradient-news {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e4b8a 50%, #0f2b5e 100%);
-        }
+        .transition-soft { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         /* News Card Styles */
         .news-card {
-            background: white;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            box-shadow: 0 10px 30px -10px rgba(31, 58, 138, 0.1);
-            transition: all 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(226, 232, 240, 0.6);
+            background: white; border-radius: 1.5rem; overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(31, 58, 138, 0.1); transition: all 0.3s ease;
+            height: 100%; display: flex; flex-direction: column; border: 1px solid rgba(226, 232, 240, 0.6);
         }
-
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -12px rgba(31, 58, 138, 0.25);
-            border-color: #3b82f6;
-        }
-
-        .news-image-container {
-            position: relative;
-            height: 220px;
-            overflow: hidden;
-        }
-
-        .news-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .news-card:hover .news-image {
-            transform: scale(1.05);
-        }
-
+        .news-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -12px rgba(31, 58, 138, 0.25); border-color: #3b82f6; }
+        .news-image-container { position: relative; height: 220px; overflow: hidden; }
+        .news-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .news-card:hover .news-image { transform: scale(1.05); }
         .news-category {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(31, 58, 138, 0.9);
-            backdrop-filter: blur(4px);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute; top: 1rem; left: 1rem; background: rgba(31, 58, 138, 0.9); backdrop-filter: blur(4px);
+            color: white; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; z-index: 10;
         }
-
         .news-date {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(4px);
-            color: #1f3a8a;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: absolute; top: 1rem; right: 1rem; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px);
+            color: #1f3a8a; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; z-index: 10;
         }
-
-        .news-content {
-            padding: 1.75rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
-            color: #0f172a;
-            transition: color 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .news-card:hover .news-title {
-            color: #1f3a8a;
-        }
-
-        .news-excerpt {
-            color: #475569;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .news-meta {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .news-meta i {
-            color: #1f3a8a;
-            width: 16px;
-        }
-
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #1f3a8a;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: gap 0.3s ease;
-        }
-
-        .read-more:hover {
-            gap: 0.75rem;
-            color: #172554;
-        }
+        .news-content { padding: 1.75rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .news-title { font-size: 1.25rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.75rem; color: #0f172a; transition: color 0.3s ease; }
+        .news-card:hover .news-title { color: #1f3a8a; }
+        .news-excerpt { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
+        .read-more { display: inline-flex; align-items: center; gap: 0.5rem; color: #1f3a8a; font-weight: 600; font-size: 0.9rem; transition: gap 0.3s ease; }
+        .read-more:hover { gap: 0.75rem; color: #172554; }
 
         /* Featured News Card */
         .featured-news-card {
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 2rem;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(31, 58, 138, 0.25);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            transition: all 0.4s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border-radius: 2rem; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(31, 58, 138, 0.25); border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.4s ease;
         }
+        .featured-news-card:hover { transform: scale(1.01); box-shadow: 0 30px 60px -12px rgba(31, 58, 138, 0.35); }
+        .featured-image { height: 100%; min-height: 400px; object-fit: cover; transition: transform 0.8s ease; }
+        .featured-news-card:hover .featured-image { transform: scale(1.02); }
 
-        .featured-news-card:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 60px -12px rgba(31, 58, 138, 0.35);
-        }
-
-        .featured-image {
-            height: 100%;
-            min-height: 400px;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-        }
-
-        .featured-news-card:hover .featured-image {
-            transform: scale(1.02);
-        }
-
-        /* Popular Post Card */
-        .popular-post {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 0.75rem;
-        }
-
-        .popular-post:hover {
-            background: #f1f5f9;
-            transform: translateX(5px);
-            border-color: #3b82f6;
-        }
-
-        .popular-post-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 0.75rem;
-            object-fit: cover;
-        }
-
-        .popular-post-content h4 {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-            color: #0f172a;
-            transition: color 0.3s ease;
-        }
-
-        .popular-post:hover h4 {
-            color: #1f3a8a;
-        }
+        /* Popular Post */
+        .popular-post { display: flex; gap: 1rem; padding: 1rem; border-radius: 1rem; transition: all 0.3s ease; background: white; border: 1px solid #e2e8f0; margin-bottom: 0.75rem; }
+        .popular-post:hover { background: #f1f5f9; transform: translateX(5px); border-color: #3b82f6; }
+        .popular-post-image { width: 80px; height: 80px; border-radius: 0.75rem; object-fit: cover; }
+        .popular-post-content h4 { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; color: #0f172a; transition: color 0.3s ease; }
+        .popular-post:hover h4 { color: #1f3a8a; }
 
         /* Filter Buttons */
-        .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background: white;
-            color: #1f3a8a;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-
-        .filter-btn:hover {
-            background: #eff6ff;
-            border-color: #1f3a8a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(31, 58, 138, 0.2);
-        }
-
-        .filter-btn.active {
-            background: #1f3a8a;
-            color: white;
-            border-color: #1f3a8a;
-        }
-
-        /* Pagination */
-        .pagination-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: white;
-            color: #1f3a8a;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-
-        .pagination-btn:hover {
-            background: #1f3a8a;
-            color: white;
-            border-color: #1f3a8a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(31, 58, 138, 0.3);
-        }
-
-        .pagination-btn.active {
-            background: #1f3a8a;
-            color: white;
-            border-color: #1f3a8a;
-        }
-
-        /* Loading Spinner */
-        .spinner-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-            width: 100%;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(31, 58, 138, 0.3);
-            border-radius: 50%;
-            border-top-color: #1f3a8a;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .breadcrumb a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .breadcrumb a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .news-image-container {
-                height: 180px;
-            }
-
-            .news-content {
-                padding: 1.25rem;
-            }
-
-            .news-title {
-                font-size: 1.1rem;
-            }
-
-            .filter-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .featured-image {
-                min-height: 250px;
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .carousel-container {
-                height: 70vh;
-                max-height: 700px;
-                min-height: 500px;
-            }
-        }
+        .filter-btn { padding: 0.75rem 1.5rem; border-radius: 2rem; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; background: white; color: #1f3a8a; border: 1px solid #e2e8f0; cursor: pointer; }
+        .filter-btn:hover { background: #eff6ff; border-color: #1f3a8a; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(31, 58, 138, 0.2); }
+        .filter-btn.active { background: #1f3a8a; color: white; border-color: #1f3a8a; }
 
         @media (max-width: 768px) {
-            .carousel-container {
-                height: 60vh;
-                max-height: 600px;
-                min-height: 450px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .carousel-container {
-                height: 55vh;
-                max-height: 500px;
-                min-height: 400px;
-            }
-
-            #carousel-prev,
-            #carousel-next {
-                width: 40px;
-                height: 40px;
-            }
-        }
-
-        /* Mobile menu styles */
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .mobile-menu.active {
-            max-height: 500px;
-        }
-
-        /* Focus styles for accessibility */
-        *:focus {
-            outline: 2px solid #1e3a8a;
-            outline-offset: 2px;
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation for content */
-        .animate-delay-100 {
-            animation-delay: 100ms;
-        }
-
-        .animate-delay-200 {
-            animation-delay: 200ms;
-        }
-
-        .animate-delay-300 {
-            animation-delay: 300ms;
-        }
-
-        .animate-delay-400 {
-            animation-delay: 400ms;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e3a8a;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #172554;
+            .news-image-container { height: 180px; }
+            .news-content { padding: 1.25rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .featured-image { min-height: 250px; }
         }
     </style>
 @endpush
 
 @section('content')
     @php
-        // Hitung statistik
+        // Mengambil data tambahan langsung di Blade karena Controller hanya mengirim $beritas
         $totalBerita = $beritas->total();
         $beritaBulanIni = \App\Models\News::whereMonth('created_at', now()->month)
                             ->whereYear('created_at', now()->year)
                             ->count();
         $kategoriCount = \App\Models\Category::count();
-
-        // Ambil berita utama (featured) - bisa berdasarkan views tertinggi atau manual
-        $featuredNews = $beritas->first(); // Atau bisa dengan kondisi tertentu
-        $popularNews = \App\Models\News::orderBy('views', 'desc')->limit(5)->get();
         $categories = \App\Models\Category::all();
+        $popularNews = \App\Models\News::orderBy('views', 'desc')->limit(4)->get();
+
+        // Jadikan berita pertama sebagai Berita Utama (Hanya tampil di Page 1)
+        $currentPage = request()->get('page', 1);
+        $featuredNews = ($currentPage == 1 && $beritas->isNotEmpty()) ? $beritas->first() : null;
     @endphp
 
-    <main>
-        <!-- Hero Section with Gradient -->
-        <section class="hero-gradient-news relative overflow-hidden text-white py-16 md:py-24">
-            <div class="absolute inset-0 bg-black/20 z-0"></div>
-            <div class="absolute top-20 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl"></div>
+    <main class="overflow-hidden bg-slate-50 min-h-screen">
 
-            <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-                <div class="breadcrumb mb-6">
-                    <a href="{{ route('home') }}"><i class="fa-solid fa-home"></i> Beranda</a>
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                    <span class="text-white">Berita & Artikel</span>
-                </div>
+        <section class="bg-gradient-to-r from-primary/10 to-primary-subtle py-12 md:py-16 border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div>
+                        <nav class="text-sm flex items-center gap-2 text-slate-500 mb-4 flex-wrap">
+                            <a href="{{ route('home') }}" class="hover:text-primary transition-soft"><i class="fa-solid fa-home"></i> Beranda</a> /
+                            <span class="text-primary font-semibold">Berita & Artikel</span>
+                        </nav>
 
-                <div class="max-w-3xl">
-                    <div
-                        class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/30"
-                    >
-                        <i class="fa-regular fa-newspaper mr-2"></i> Update Informasi Terkini
+                        <h1 class="text-3xl md:text-4xl font-black text-dark uppercase tracking-tight animate-slide-up">
+                            Berita & <span class="text-primary">Artikel</span>
+                        </h1>
+                        <p class="text-slate-600 mt-2 max-w-2xl animate-fade-in">
+                            Dapatkan informasi terbaru seputar kegiatan, kebijakan, dan perkembangan terkait keterbukaan informasi publik di Kabupaten Konawe.
+                        </p>
+
+                        <div class="flex gap-6 mt-6 pt-6 border-t border-slate-200/60 animate-fade-in">
+                            <div>
+                                <p class="text-2xl font-black text-primary">{{ $totalBerita }}</p>
+                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Total Publikasi</p>
+                            </div>
+                            <div class="w-px bg-slate-200"></div>
+                            <div>
+                                <p class="text-2xl font-black text-primary">{{ $beritaBulanIni }}</p>
+                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Bulan Ini</p>
+                            </div>
+                            <div class="w-px bg-slate-200"></div>
+                            <div>
+                                <p class="text-2xl font-black text-primary">{{ $kategoriCount }}</p>
+                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Kategori</p>
+                            </div>
+                        </div>
                     </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-                        BERITA & <span class="text-yellow-300">ARTIKEL</span> PPID
-                    </h1>
-                    <p class="text-lg text-white/90 mb-8 leading-relaxed max-w-2xl">
-                        Dapatkan informasi terbaru seputar kegiatan, kebijakan, dan perkembangan terkait
-                        keterbukaan informasi publik di Kabupaten Konawe.
-                    </p>
 
-                    <!-- Stats -->
-                    <div class="flex flex-wrap gap-8">
-                        <div>
-                            <p class="text-3xl font-black text-yellow-300">{{ $totalBerita }}+</p>
-                            <p class="text-white/80 text-sm">Total Berita</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-black text-yellow-300">{{ $kategoriCount }}</p>
-                            <p class="text-white/80 text-sm">Kategori</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-black text-yellow-300">{{ $beritaBulanIni }}</p>
-                            <p class="text-white/80 text-sm">Berita Bulan Ini</p>
-                        </div>
+                    <div class="hidden md:flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-sm text-primary text-3xl border border-slate-100 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <i class="fa-regular fa-newspaper"></i>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Filter & Search Section -->
-        <section class="max-w-7xl mx-auto px-4 md:px-8 -mt-8 relative z-20">
-            <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
+        <section class="max-w-7xl mx-auto px-4 md:px-8 py-8 relative z-20">
+            <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6 border border-slate-200">
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <!-- Filter Buttons by Category -->
                     <div class="flex flex-wrap gap-2" id="filter-buttons">
-                        <button class="filter-btn active" data-filter="all">Semua Berita</button>
+                        <a href="{{ route('news') }}" class="filter-btn active">Semua Berita</a>
                         @foreach($categories as $category)
-                            <button class="filter-btn" data-filter="{{ $category->slug }}">{{ $category->name }}</button>
+                            <a href="{{ url('berita/kategori/' . $category->slug) }}" class="filter-btn">{{ $category->name }}</a>
                         @endforeach
                     </div>
 
-                    <!-- Search Box -->
                     <div class="relative w-full lg:w-72">
-                        <form action="{{ 'search' }}" method="GET">
-                            <input
-                                type="text"
-                                name="q"
-                                id="search-news"
-                                placeholder="Cari berita..."
-                                value="{{ request('q') }}"
-                                class="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                            />
+                        <form action="{{ url('berita/search') }}" method="GET">
+                            <input type="text" name="q" placeholder="Cari berita..." value="{{ request('q') }}" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all" />
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400"></i>
                         </form>
                     </div>
@@ -549,35 +167,28 @@
             </div>
         </section>
 
-        <!-- Featured News -->
         @if($featuredNews)
-            <section class="max-w-7xl mx-auto px-4 md:px-8 py-16">
-                <h2 class="text-3xl md:text-4xl font-black text-dark mb-10 flex items-center">
-                    <i class="fa-solid fa-star text-yellow-400 mr-3 text-3xl"></i>
-                    Berita Utama
+            <section class="max-w-7xl mx-auto px-4 md:px-8 pb-12">
+                <h2 class="text-2xl md:text-3xl font-black text-dark mb-8 flex items-center">
+                    <i class="fa-solid fa-star text-yellow-400 mr-3 text-2xl"></i> Berita Utama
                 </h2>
 
-                <div class="featured-news-card">
+                <div class="featured-news-card bg-white">
                     <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="h-64 lg:h-auto overflow-hidden">
-                            @if(is_file(public_path('storage/'.$featuredNews->image)))
-                                <img src="{{ asset('storage/'.$featuredNews->image) }}" alt="{{ $featuredNews->title }}" class="featured-image w-full h-full object-cover">
-                            @elseif(is_file(public_path($featuredNews->image)))
-                                <img src="{{ asset($featuredNews->image) }}" alt="{{ $featuredNews->title }}" class="featured-image w-full h-full object-cover">
-                            @else
-                                <img src="{{ asset('image/28.jpg') }}" alt="{{ $featuredNews->title }}" class="featured-image w-full h-full object-cover">
-                            @endif
+                        <div class="h-64 lg:h-full min-h-[400px] overflow-hidden">
+                            @php $featuredImg = $featuredNews->image ? asset('storage/'.$featuredNews->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
+                            <img src="{{ $featuredImg }}" alt="{{ $featuredNews->title }}" class="featured-image w-full h-full object-cover">
                         </div>
-                        <div class="p-8 md:p-10 flex flex-col">
+                        <div class="p-8 md:p-10 flex flex-col justify-center">
                             <div class="flex items-center gap-3 mb-4">
                                 @if($featuredNews->category)
-                                    <span class="bg-primary text-white px-4 py-1.5 rounded-full text-xs font-bold">
-                                    {{ strtoupper($featuredNews->category->name) }}
-                                </span>
+                                    <span class="bg-primary-subtle text-primary border border-primary/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        {{ $featuredNews->category->name }}
+                                    </span>
                                 @endif
-                                <span class="text-slate-500 text-sm">
-                                <i class="fa-regular fa-calendar mr-1"></i> {{ $featuredNews->created_at->format('d F Y') }}
-                            </span>
+                                <span class="text-slate-500 text-xs font-semibold">
+                                    <i class="fa-regular fa-calendar mr-1"></i> {{ $featuredNews->created_at->translatedFormat('d F Y') }}
+                                </span>
                             </div>
                             <h3 class="text-2xl md:text-3xl font-bold text-dark mb-4 leading-tight">
                                 {{ $featuredNews->title }}
@@ -585,283 +196,202 @@
                             <p class="text-slate-600 mb-6 leading-relaxed">
                                 {{ Str::limit(html_entity_decode(strip_tags($featuredNews->content)), 200) }}
                             </p>
-                            <div class="flex items-center gap-4 mb-8">
-                                <div class="flex items-center">
+                            <div class="flex items-center justify-between mt-auto pt-6 border-t border-slate-100">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500">
+                                        <i class="fa-solid fa-user text-xs"></i>
+                                    </div>
                                     <div>
-                                        <p class="font-semibold text-dark">Admin</p>
-                                        <p class="text-xs text-slate-500">{{ $featuredNews->views }} dilihat</p>
+                                        <p class="font-semibold text-dark text-sm">Admin PPID</p>
+                                        <p class="text-xs text-slate-500">{{ $featuredNews->views }} kali dibaca</p>
                                     </div>
                                 </div>
+                                <a href="{{ route('news.detail', $featuredNews->slug) }}" class="read-more bg-primary/5 px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-all">
+                                    Baca Artikel <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
                             </div>
-                            <a href="{{ route('news.detail', $featuredNews->slug) }}" class="read-more mt-auto">
-                                Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
             </section>
         @endif
 
-        <!-- News Grid Section -->
         <section class="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-            <!-- Loading Indicator (will be hidden by default as we render server-side) -->
-            <div id="loading-indicator" class="spinner-container hidden">
-                <div class="loading-spinner"></div>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl md:text-3xl font-black text-dark flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper text-primary"></i> Berita Terkini
+                </h2>
             </div>
 
-            <!-- News Grid Container -->
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @if($beritas && $beritas->isNotEmpty())
-                    @foreach($beritas as $berita)
-                        <div class="news-card">
-                            <div class="news-image-container">
-                                @if(is_file(public_path('storage/'.$berita->image)))
-                                    <img src="{{ asset('storage/'.$berita->image) }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
-                                @elseif(is_file(public_path($berita->image)))
-                                    <img src="{{ asset($berita->image) }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
-                                @else
-                                    <img src="{{ asset('image/28.jpg') }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
-                                @endif
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                @forelse($beritas as $index => $berita)
+                    @if($featuredNews && $index === 0 && $currentPage == 1)
+                        @continue
+                    @endif
 
-                                @if($berita->category)
-                                    <span class="news-category">{{ $berita->category->name }}</span>
-                                @endif
-                                <span class="news-date">
-                                    <i class="fa-regular fa-calendar mr-1"></i> {{ $berita->created_at->format('d M Y') }}
-                                </span>
-                            </div>
-                            <div class="news-content">
-                                <h3 class="news-title">{{ $berita->title }}</h3>
-                                <p class="news-excerpt">{{ Str::limit(html_entity_decode(strip_tags($berita->content)), 120) }}</p>
-                                <div class="news-meta">
-                                    <span><i class="fa-regular fa-user mr-1"></i> Admin</span>
-                                    <span><i class="fa-regular fa-eye mr-1"></i> {{ $berita->views }}x</span>
+                    <div class="news-card">
+                        <div class="news-image-container">
+                            @php $imgUrl = $berita->image ? asset('storage/'.$berita->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'; @endphp
+                            <img src="{{ $imgUrl }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
+                            @if($berita->category)
+                                <span class="news-category">{{ $berita->category->name }}</span>
+                            @endif
+                            <span class="news-date">
+                                <i class="fa-regular fa-calendar mr-1"></i> {{ $berita->created_at->format('d M') }}
+                            </span>
+                        </div>
+                        <div class="news-content">
+                            <h3 class="news-title line-clamp-2">{{ $berita->title }}</h3>
+                            <p class="news-excerpt line-clamp-3">{{ Str::limit(html_entity_decode(strip_tags($berita->content)), 120) }}</p>
+
+                            <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
+                                <div class="text-sm text-slate-500">
+                                    <i class="fa-regular fa-eye mr-1 text-primary"></i> {{ $berita->views }}
                                 </div>
-                                <a href="{{ route('news.detail', $berita->slug) }}" class="read-more mt-4">
-                                    Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                                <a href="{{ route('news.detail', $berita->slug) }}" class="read-more">
+                                    Selengkapnya <i class="fa-solid fa-arrow-right text-xs"></i>
                                 </a>
                             </div>
                         </div>
+                    </div>
+                @empty
+                    <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200">
+                        <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-regular fa-newspaper text-slate-400 text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark mb-2">Belum Ada Berita</h3>
+                        <p class="text-slate-500 max-w-md mx-auto">Maaf, tidak ada berita yang sesuai dengan kriteria Anda saat ini.</p>
+                    </div>
+                @endforelse
+            </div>
+
+            @if (method_exists($beritas, 'hasPages') && $beritas->hasPages())
+                <div class="flex justify-center items-center gap-2 mt-12">
+
+                    {{-- Tombol Previous --}}
+                    @if ($beritas->onFirstPage())
+                        <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed shadow-sm border border-slate-200">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </span>
+                    @else
+                        <a href="{{ $beritas->previousPageUrl() }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </a>
+                    @endif
+
+                    {{-- Logika Penomoran Halaman Dinamis --}}
+                    @php
+                        // Menampilkan maksimal 2 angka sebelum dan sesudah halaman aktif
+                        $start = max($beritas->currentPage() - 2, 1);
+                        $end = min($beritas->currentPage() + 2, $beritas->lastPage());
+                    @endphp
+
+                    {{-- Angka 1 dan titik-titik awal --}}
+                    @if($start > 1)
+                        <a href="{{ $beritas->url(1) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">1</a>
+                        @if($start > 2)
+                            <span class="w-10 h-10 flex items-center justify-center text-slate-400 font-black tracking-widest">...</span>
+                        @endif
+                    @endif
+
+                    {{-- Looping Angka Halaman Tengah --}}
+                    @foreach (range($start, $end) as $page)
+                        @if ($page == $beritas->currentPage())
+                            <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md transform scale-105 cursor-default">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $beritas->url($page) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">
+                                {{ $page }}
+                            </a>
+                        @endif
                     @endforeach
-                @endif
-            </div>
 
-            <!-- No Results Message -->
-            <div id="no-results" class="{{ $beritas && $beritas->isNotEmpty() ? 'hidden' : '' }} text-center py-16">
-                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fa-regular fa-newspaper text-primary text-3xl"></i>
+                    {{-- Titik-titik akhir dan Halaman Terakhir --}}
+                    @if($end < $beritas->lastPage())
+                        @if($end < $beritas->lastPage() - 1)
+                            <span class="w-10 h-10 flex items-center justify-center text-slate-400 font-black tracking-widest">...</span>
+                        @endif
+                        <a href="{{ $beritas->url($beritas->lastPage()) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">{{ $beritas->lastPage() }}</a>
+                    @endif
+
+                    {{-- Tombol Next --}}
+                    @if ($beritas->hasMorePages())
+                        <a href="{{ $beritas->nextPageUrl() }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </a>
+                    @else
+                        <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed shadow-sm border border-slate-200">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </span>
+                    @endif
+
                 </div>
-                <h3 class="text-xl font-bold text-dark mb-3">Tidak Ditemukan</h3>
-                <p class="text-slate-600 max-w-md mx-auto">
-                    Maaf, tidak ada berita yang sesuai dengan pencarian Anda.
-                </p>
-            </div>
-
-            <!-- Pagination -->
-            <div id="pagination-container" class="flex justify-center items-center gap-2 mt-12">
-                {{ $beritas->onEachSide(1)->links('layouts.pagination.tailwind') }}
-            </div>
+            @endif
         </section>
 
-        <!-- Popular News & Newsletter Section -->
-        <section class="bg-slate-50 py-20">
+        <section class="bg-white border-t border-slate-200 py-20">
             <div class="max-w-7xl mx-auto px-4 md:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    <!-- Popular Posts -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+
                     <div class="lg:col-span-2">
-                        <h3 class="text-2xl font-bold text-dark mb-6 flex items-center">
-                            <i class="fa-solid fa-fire-flame text-orange-500 mr-3"></i>
-                            Berita Populer
+                        <h3 class="text-2xl font-black text-dark mb-8 flex items-center border-b border-slate-100 pb-4">
+                            <i class="fa-solid fa-fire-flame-curved text-orange-500 mr-3"></i> Sedang Hangat Dibicarakan
                         </h3>
 
-                        <div class="space-y-3" id="popular-posts">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             @foreach($popularNews as $popular)
                                 <a href="{{ route('news.detail', $popular->slug) }}" class="popular-post">
-                                    @if(is_file(public_path('storage/'.$popular->image)))
-                                        <img src="{{ asset('storage/'.$popular->image) }}" alt="{{ $popular->title }}" class="popular-post-image">
-                                    @elseif(is_file(public_path($popular->image)))
-                                        <img src="{{ asset($popular->image) }}" alt="{{ $popular->title }}" class="popular-post-image">
-                                    @else
-                                        <img src="{{ asset('image/28.jpg') }}" alt="{{ $popular->title }}" class="popular-post-image">
-                                    @endif
-                                    <div class="popular-post-content">
-                                        <h4>{{ Str::limit($popular->title, 50) }}</h4>
-                                        <p class="text-xs text-slate-500 mt-1">
-                                            <i class="fa-regular fa-calendar mr-1"></i> {{ $popular->created_at->format('d F Y') }}
-                                        </p>
-                                        <p class="text-xs text-slate-500">
-                                            <i class="fa-regular fa-eye mr-1"></i> {{ $popular->views }} dilihat
-                                        </p>
+                                    @php $popImg = $popular->image ? asset('storage/'.$popular->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=300'; @endphp
+                                    <img src="{{ $popImg }}" alt="{{ $popular->title }}" class="popular-post-image shrink-0">
+                                    <div class="popular-post-content flex flex-col justify-center">
+                                        <span class="text-[10px] font-bold text-primary uppercase tracking-wider mb-1 block">
+                                            {{ $popular->category->name ?? 'Berita' }}
+                                        </span>
+                                        <h4 class="line-clamp-2 leading-snug">{{ $popular->title }}</h4>
+                                        <div class="flex items-center gap-3 mt-2">
+                                            <p class="text-[11px] text-slate-500 font-medium">
+                                                <i class="fa-regular fa-calendar mr-1"></i> {{ $popular->created_at->format('d M Y') }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </a>
                             @endforeach
                         </div>
                     </div>
 
-                    <!-- Newsletter -->
-                    <div class="bg-primary rounded-3xl p-8 text-white">
-                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fa-regular fa-envelope text-3xl"></i>
+                    <div class="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10">
+                            <div class="w-14 h-14 bg-white/20 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fa-regular fa-envelope text-2xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-black mb-2">Berlangganan Info</h4>
+                            <p class="text-blue-100 mb-8 text-sm leading-relaxed">
+                                Dapatkan ringkasan berita terbaru PPID Konawe langsung ke email Anda.
+                            </p>
+
+                            <form action="#" method="POST" class="space-y-4">
+                                @csrf
+                                <div class="relative">
+                                    <i class="fa-regular fa-user absolute left-4 top-3.5 text-slate-400"></i>
+                                    <input type="text" name="name" placeholder="Nama Lengkap" required class="w-full pl-11 pr-4 py-3 rounded-xl text-slate-800 bg-white border-0 focus:ring-2 focus:ring-yellow-400 text-sm" />
+                                </div>
+                                <div class="relative">
+                                    <i class="fa-regular fa-envelope absolute left-4 top-3.5 text-slate-400"></i>
+                                    <input type="email" name="email" placeholder="Alamat Email" required class="w-full pl-11 pr-4 py-3 rounded-xl text-slate-800 bg-white border-0 focus:ring-2 focus:ring-yellow-400 text-sm" />
+                                </div>
+                                <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-2 flex justify-center items-center gap-2">
+                                    Berlangganan Sekarang <i class="fa-solid fa-paper-plane text-sm"></i>
+                                </button>
+                            </form>
                         </div>
-                        <h4 class="text-2xl font-bold mb-3">Newsletter PPID</h4>
-                        <p class="text-white/80 mb-6 text-sm leading-relaxed">
-                            Dapatkan update berita terbaru langsung di email Anda. Kami tidak akan mengirim spam.
-                        </p>
-                        <form id="newsletter-form" action="{{ "route('newsletter.subscribe')" }}" method="POST" class="space-y-3">
-                            @csrf
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Nama Anda"
-                                required
-                                class="w-full px-4 py-3 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email Anda"
-                                required
-                                class="w-full px-4 py-3 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                            />
-                            <button
-                                type="submit"
-                                class="w-full bg-yellow-400 hover:bg-yellow-500 text-primary-dark font-bold py-3 rounded-xl transition-soft transform hover:-translate-y-0.5"
-                            >
-                                <i class="fa-regular fa-bell mr-2"></i> Berlangganan
-                            </button>
-                        </form>
-                        <p class="text-white/60 text-xs mt-4">
-                            Dengan berlangganan, Anda menyetujui kebijakan privasi kami.
-                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Categories Cloud -->
-        <section class="max-w-7xl mx-auto px-4 md:px-8 py-16">
-            <h3 class="text-2xl font-bold text-dark mb-6 text-center">Kategori Populer</h3>
-            <div class="flex flex-wrap justify-center gap-3">
-                @foreach($categories as $category)
-                    <a
-                        href="{{ "route('news.category', $category->slug)" }}"
-                        class="px-4 py-2 bg-primary-subtle text-primary rounded-full text-sm font-medium hover:bg-primary hover:text-white transition-soft"
-                    >{{ $category->name }}</a>
-                @endforeach
-            </div>
-        </section>
     </main>
 @endsection
-
-@push('scripts')
-    <script>
-        // Filter functionality with URL parameters
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const searchInput = document.getElementById('search-news');
-
-            // Handle filter buttons
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    // Remove active class from all buttons
-                    filterButtons.forEach(b => {
-                        b.classList.remove('active');
-                        b.classList.remove('bg-primary', 'text-white');
-                        b.classList.add('bg-white', 'text-primary');
-                    });
-
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    this.classList.remove('bg-white', 'text-primary');
-                    this.classList.add('bg-primary', 'text-white');
-
-                    const filter = this.dataset.filter;
-
-                    if (filter === 'all') {
-                        window.location.href = '{{ route("news") }}';
-                    } else {
-                        window.location.href = '{{ url("berita/kategori") }}/' + filter;
-                    }
-                });
-            });
-
-            // Set active filter based on current URL
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/kategori/')) {
-                const categorySlug = currentPath.split('/').pop();
-                filterButtons.forEach(btn => {
-                    if (btn.dataset.filter === categorySlug) {
-                        btn.classList.add('active');
-                        btn.classList.remove('bg-white', 'text-primary');
-                        btn.classList.add('bg-primary', 'text-white');
-                    }
-                });
-            } else {
-                // If on main news page, activate 'all' button
-                const allBtn = document.querySelector('[data-filter="all"]');
-                if (allBtn) {
-                    allBtn.classList.add('active');
-                    allBtn.classList.remove('bg-white', 'text-primary');
-                    allBtn.classList.add('bg-primary', 'text-white');
-                }
-            }
-
-            // Newsletter form submission with AJAX
-            const newsletterForm = document.getElementById('newsletter-form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    const formData = new FormData(this);
-
-                    fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert('Terima kasih telah berlangganan newsletter PPID Konawe!');
-                                this.reset();
-                            } else {
-                                alert('Terjadi kesalahan. Silakan coba lagi.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Terjadi kesalahan. Silakan coba lagi.');
-                        });
-                });
-            }
-
-            // Mobile Menu Toggle (if exists)
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (mobileMenuToggle && mobileMenu) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-                    mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenu.classList.toggle('hidden');
-                    mobileMenu.classList.toggle('active');
-
-                    const spans = mobileMenuToggle.querySelectorAll('span');
-                    if (!isExpanded) {
-                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                        spans[1].style.opacity = '0';
-                        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                    } else {
-                        spans[0].style.transform = 'none';
-                        spans[1].style.opacity = '1';
-                        spans[2].style.transform = 'none';
-                    }
-                });
-            }
-        });
-    </script>
-@endpush
