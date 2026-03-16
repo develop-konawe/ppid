@@ -58,15 +58,6 @@
         .read-more { display: inline-flex; align-items: center; gap: 0.5rem; color: #1f3a8a; font-weight: 600; font-size: 0.9rem; transition: gap 0.3s ease; }
         .read-more:hover { gap: 0.75rem; color: #172554; }
 
-        /* Featured News Card */
-        .featured-news-card {
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border-radius: 2rem; overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(31, 58, 138, 0.25); border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.4s ease;
-        }
-        .featured-news-card:hover { transform: scale(1.01); box-shadow: 0 30px 60px -12px rgba(31, 58, 138, 0.35); }
-        .featured-image { height: 100%; min-height: 400px; object-fit: cover; transition: transform 0.8s ease; }
-        .featured-news-card:hover .featured-image { transform: scale(1.02); }
-
         /* Popular Post */
         .popular-post { display: flex; gap: 1rem; padding: 1rem; border-radius: 1rem; transition: all 0.3s ease; background: white; border: 1px solid #e2e8f0; margin-bottom: 0.75rem; }
         .popular-post:hover { background: #f1f5f9; transform: translateX(5px); border-color: #3b82f6; }
@@ -83,33 +74,19 @@
             .news-image-container { height: 180px; }
             .news-content { padding: 1.25rem; }
             .filter-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
-            .featured-image { min-height: 250px; }
         }
     </style>
 @endpush
 
 @section('content')
-    @php
-        // Mengambil data tambahan langsung di Blade karena Controller hanya mengirim $beritas
-        $totalBerita = $beritas->total();
-        $beritaBulanIni = \App\Models\News::whereMonth('created_at', now()->month)
-                            ->whereYear('created_at', now()->year)
-                            ->count();
-        $kategoriCount = \App\Models\Category::count();
-        $categories = \App\Models\Category::all();
-        $popularNews = \App\Models\News::orderBy('views', 'desc')->limit(4)->get();
-
-        // Jadikan berita pertama sebagai Berita Utama (Hanya tampil di Page 1)
-        $currentPage = request()->get('page', 1);
-        $featuredNews = ($currentPage == 1 && $beritas->isNotEmpty()) ? $beritas->first() : null;
-    @endphp
 
     <main class="overflow-hidden bg-slate-50 min-h-screen">
 
         <section class="bg-gradient-to-r from-primary/10 to-primary-subtle py-12 md:py-16 border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 md:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="max-w-3xl">
                         <nav class="text-sm flex items-center gap-2 text-slate-500 mb-4 flex-wrap">
                             <a href="{{ route('home') }}" class="hover:text-primary transition-soft"><i class="fa-solid fa-home"></i> Beranda</a> /
                             <span class="text-primary font-semibold">Berita & Artikel</span>
@@ -118,38 +95,46 @@
                         <h1 class="text-3xl md:text-4xl font-black text-dark uppercase tracking-tight animate-slide-up">
                             Berita & <span class="text-primary">Artikel</span>
                         </h1>
-                        <p class="text-slate-600 mt-2 max-w-2xl animate-fade-in">
+                        <p class="text-slate-600 mt-2 animate-fade-in leading-relaxed">
                             Dapatkan informasi terbaru seputar kegiatan, kebijakan, dan perkembangan terkait keterbukaan informasi publik di Kabupaten Konawe.
                         </p>
-
-                        <div class="flex gap-6 mt-6 pt-6 border-t border-slate-200/60 animate-fade-in">
-                            <div>
-                                <p class="text-2xl font-black text-primary">{{ $totalBerita }}</p>
-                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Total Publikasi</p>
-                            </div>
-                            <div class="w-px bg-slate-200"></div>
-                            <div>
-                                <p class="text-2xl font-black text-primary">{{ $beritaBulanIni }}</p>
-                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Bulan Ini</p>
-                            </div>
-                            <div class="w-px bg-slate-200"></div>
-                            <div>
-                                <p class="text-2xl font-black text-primary">{{ $kategoriCount }}</p>
-                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mt-1">Kategori</p>
-                            </div>
-                        </div>
                     </div>
 
-                    <div class="hidden md:flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-sm text-primary text-3xl border border-slate-100 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <div class="hidden md:flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-sm text-primary text-3xl border border-slate-100 transform rotate-3 hover:rotate-0 transition-transform duration-300 shrink-0">
                         <i class="fa-regular fa-newspaper"></i>
                     </div>
                 </div>
+
             </div>
         </section>
 
         <section class="max-w-7xl mx-auto px-4 md:px-8 py-8 relative z-20">
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 animate-fade-in">
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $totalBerita }}</p>
+                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Total Publikasi</p>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $beritaBulanIni }}</p>
+                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Bulan Ini</p>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $kategoriCount }}</p>
+                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Kategori</p>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
+                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ number_format($totalViews, 0, ',', '.') }}</p>
+                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Total Dilihat</p>
+                </div>
+            </div>
+
             <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6 border border-slate-200">
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+
                     <div class="flex flex-wrap gap-2" id="filter-buttons">
                         <a href="{{ route('news') }}" class="filter-btn active">Semua Berita</a>
                         @foreach($categories as $category)
@@ -157,66 +142,19 @@
                         @endforeach
                     </div>
 
-                    <div class="relative w-full lg:w-72">
+                    <div class="relative w-full lg:w-72 shrink-0">
                         <form action="{{ url('berita/search') }}" method="GET">
                             <input type="text" name="q" placeholder="Cari berita..." value="{{ request('q') }}" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all" />
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400"></i>
                         </form>
                     </div>
+
                 </div>
             </div>
+
         </section>
 
-        @if($featuredNews)
-            <section class="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-                <h2 class="text-2xl md:text-3xl font-black text-dark mb-8 flex items-center">
-                    <i class="fa-solid fa-star text-yellow-400 mr-3 text-2xl"></i> Berita Utama
-                </h2>
-
-                <div class="featured-news-card bg-white">
-                    <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="h-64 lg:h-full min-h-[400px] overflow-hidden">
-                            @php $featuredImg = $featuredNews->image ? asset('storage/'.$featuredNews->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
-                            <img src="{{ $featuredImg }}" alt="{{ $featuredNews->title }}" class="featured-image w-full h-full object-cover">
-                        </div>
-                        <div class="p-8 md:p-10 flex flex-col justify-center">
-                            <div class="flex items-center gap-3 mb-4">
-                                @if($featuredNews->category)
-                                    <span class="bg-primary-subtle text-primary border border-primary/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                                        {{ $featuredNews->category->name }}
-                                    </span>
-                                @endif
-                                <span class="text-slate-500 text-xs font-semibold">
-                                    <i class="fa-regular fa-calendar mr-1"></i> {{ $featuredNews->created_at->translatedFormat('d F Y') }}
-                                </span>
-                            </div>
-                            <h3 class="text-2xl md:text-3xl font-bold text-dark mb-4 leading-tight">
-                                {{ $featuredNews->title }}
-                            </h3>
-                            <p class="text-slate-600 mb-6 leading-relaxed">
-                                {{ Str::limit(html_entity_decode(strip_tags($featuredNews->content)), 200) }}
-                            </p>
-                            <div class="flex items-center justify-between mt-auto pt-6 border-t border-slate-100">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500">
-                                        <i class="fa-solid fa-user text-xs"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-dark text-sm">Admin PPID</p>
-                                        <p class="text-xs text-slate-500">{{ $featuredNews->views }} kali dibaca</p>
-                                    </div>
-                                </div>
-                                <a href="{{ route('news.detail', $featuredNews->slug) }}" class="read-more bg-primary/5 px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-all">
-                                    Baca Artikel <i class="fa-solid fa-arrow-right text-xs"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        @endif
-
-        <section class="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        <section class="max-w-7xl mx-auto px-4 md:px-8 pb-20 pt-6">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl md:text-3xl font-black text-dark flex items-center gap-2">
                     <i class="fa-solid fa-newspaper text-primary"></i> Berita Terkini
@@ -224,11 +162,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                @forelse($beritas as $index => $berita)
-                    @if($featuredNews && $index === 0 && $currentPage == 1)
-                        @continue
-                    @endif
-
+                @forelse($beritas as $berita)
                     <div class="news-card">
                         <div class="news-image-container">
                             @php $imgUrl = $berita->image ? asset('storage/'.$berita->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'; @endphp
@@ -281,7 +215,6 @@
 
                     {{-- Logika Penomoran Halaman Dinamis --}}
                     @php
-                        // Menampilkan maksimal 2 angka sebelum dan sesudah halaman aktif
                         $start = max($beritas->currentPage() - 2, 1);
                         $end = min($beritas->currentPage() + 2, $beritas->lastPage());
                     @endphp

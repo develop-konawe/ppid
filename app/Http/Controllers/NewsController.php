@@ -10,7 +10,26 @@ class NewsController extends Controller
     public function index()
     {
         $beritas = News::orderBy('created_at', 'desc')->paginate(6);
-        return view("pages.news.index", ["beritas" => $beritas]);
+
+        // Mengambil data tambahan langsung di Blade karena Controller hanya mengirim $beritas
+        $totalBerita = $beritas->total();
+        $beritaBulanIni = \App\Models\News::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+        $kategoriCount = \App\Models\Category::count();
+        $categories = \App\Models\Category::all();
+        $popularNews = \App\Models\News::orderBy('views', 'desc')->limit(4)->get();
+        $totalViews = \App\Models\News::sum('views');
+
+        return view("pages.news.index", [
+            "beritas" => $beritas,
+            "totalBerita" => $totalBerita,
+            "beritaBulanIni" => $beritaBulanIni,
+            "kategoriCount" => $kategoriCount,
+            "categories" => $categories,
+            "popularNews" => $popularNews,
+            "totalViews" => $totalViews,
+        ]);
     }
 
     public function show($slug)
