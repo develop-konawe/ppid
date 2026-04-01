@@ -10,18 +10,23 @@ class PublicInformation extends Model
 
     protected $fillable = [
         'category_id',
+        'opd_id',              // Wajib ada
         'title',
         'slug',
         'description',
+        'information_type',    // Wajib ada
+        'report_level',        // Wajib ada
+        'year',                // Wajib ada
         'image',
         'file_path',
-        'is_active',
-        'is_featured',
+        'file_url',            // INI YANG MEMBUAT LINK TIDAK TERSIMPAN
+        'file_type',
+        'file_size',
+        'status',              // Wajib ada
         'views',
         'published_at',
-        'source_type',
-        'opd_id',
         'created_by',
+        'approved_by',
     ];
 
     public function opd()

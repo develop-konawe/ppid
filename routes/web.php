@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InformasiPublicController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
@@ -21,6 +22,7 @@ Route::get('/announcement/{slug}', [AnnouncementController::class, 'show'])->nam
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.detail');
 
+Route::get('/search', [SearchController::class, 'index'])->name('search.global');
 
 Route::get('/informasi-berkala', [InformasiPublicController::class, 'berkala'])
     ->name('ppid.berkala');
@@ -33,6 +35,9 @@ Route::get('/informasi-setiap-saat', [InformasiPublicController::class, 'setiapS
 
 Route::get('/informasi-serta-merta', [InformasiPublicController::class, 'sertaMerta'])
     ->name('ppid.serta-merta');
+
+Route::get('/informasi-serta-merta-test', [InformasiPublicController::class, 'sertaMerta'])
+    ->name('serta-merta.detail');
 
 Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecualikan'])
     ->name('ppid.dikecualikan');

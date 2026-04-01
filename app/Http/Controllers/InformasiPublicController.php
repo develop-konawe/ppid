@@ -111,14 +111,67 @@ class InformasiPublicController extends Controller
      */
     public function sertaMerta(Request $request)
     {
-        $data = PublicInformation::query()
+        // 1. Query Dasar
+        $query = PublicInformation::query()
             ->where('information_type', 'serta_merta')
             ->where('status', 'published')
-            ->with(['opd', 'category'])
-            ->latest()
-            ->paginate(10);
+            ->with(['opd', 'category']);
 
-        return view('pages.informasi-public.serta-merta', compact('data'));
+        // Filter Pencarian Text
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filter Berdasarkan Kategori
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Eksekusi Query untuk Tabel Paginasi
+        $informations = $query->latest('published_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        // 2. Ambil 3 Data Terbaru untuk Kotak Peringatan (Alert Cards) di atas
+        $latestAlerts = PublicInformation::with(['opd', 'category'])
+            ->where('information_type', 'serta_merta')
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // 3. Hitung Statistik (Total & Tahun Ini)
+        $total = PublicInformation::where('information_type', 'serta_merta')
+            ->where('status', 'published')
+            ->count();
+
+        $tahunIni = PublicInformation::where('information_type', 'serta_merta')
+            ->where('status', 'published')
+            ->whereYear('published_at', now()->year)
+            ->count();
+
+        $stats = [
+            'total' => $total,
+            'tahun_ini' => $tahunIni,
+        ];
+
+        // 4. Ambil Daftar Kategori untuk Dropdown Filter
+        $categories = InformationCategory::whereHas('publicInformations', function($q) {
+            $q->where('information_type', 'serta_merta')
+                ->where('status', 'published');
+        })->get();
+
+        // Kirim semua variabel ke view
+        return view('pages.informasi-public.serta-merta', compact(
+            'informations',
+            'latestAlerts',
+            'stats',
+            'categories'
+        ));
     }
 
     /**

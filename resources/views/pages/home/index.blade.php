@@ -428,64 +428,62 @@
 
         <!-- Search Section -->
         <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-12 mb-16 mt-8">
-            <div
-                class="bg-white p-2 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-slate-100 hover-glow"
-            >
+
+            <form action="{{ url('/search') }}" method="GET" class="bg-white p-2 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-slate-100 hover-glow">
+
                 <div class="flex-grow flex items-center px-4">
                     <i class="fa-solid fa-magnifying-glass text-slate-400 mr-3" aria-hidden="true"></i>
                     <input
                         type="text"
+                        name="q"
                         placeholder="Cari informasi publik, dokumen, atau berita..."
                         class="w-full py-4 outline-none text-sm text-slate-700 placeholder-slate-400"
                         aria-label="Pencarian informasi publik"
+                        required
                     />
                 </div>
-                <select
-                    class="md:w-48 px-4 py-4 border-l border-slate-200 text-slate-600 text-sm focus:outline-none hover:bg-primary-subtle transition-soft"
-                >
-                    <option>Semua Kategori</option>
-                    <option>Informasi Berkala</option>
-                    <option>Informasi Serta Merta</option>
-                    <option>Informasi Setiap Saat</option>
-                    <option>Dokumen Publik</option>
-                    <option>Berita & Pengumuman</option>
+
+                <select name="kategori" class="md:w-56 px-4 py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer font-medium transition-all">
+                    <option value="">Semua Kategori</option>
+                    <option value="berita">Berita</option>
+                    <option value="pengumuman">Pengumuman</option>
+                    <option value="dokumen">Dokumen Publik</option>
+                    <option value="berkala">Informasi Berkala</option>
+                    <option value="serta-merta">Informasi Serta Merta</option>
+                    <option value="setiap-saat">Informasi Setiap Saat</option>
                 </select>
+
                 <button
+                    type="submit"
                     class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl font-bold shadow-lg transition-soft transform hover:-translate-y-0.5 ripple-light"
                 >
                     <i class="fa-solid fa-search mr-2"></i> CARI
                 </button>
-            </div>
-            <div class="flex flex-wrap gap-3 mt-4 justify-center">
+            </form>
+
+            <div class="flex flex-wrap gap-3 mt-4 justify-center items-center">
                 <span class="text-slate-500 text-sm">Pencarian cepat:</span>
-                <a
-                    href="#"
-                    class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border"
-                >
+
+                <a href="{{ url('/search') }}?q=APBD+2026" class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border">
                     APBD 2026
                 </a>
                 <span class="text-slate-300">•</span>
-                <a
-                    href="#"
-                    class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border"
-                >
+
+                <a href="{{ url('/search') }}?q=Peraturan+Daerah" class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border">
                     Peraturan Daerah
                 </a>
                 <span class="text-slate-300">•</span>
-                <a
-                    href="#"
-                    class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border"
-                >
+
+                <a href="{{ url('/search') }}?q=Laporan+Keuangan" class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border">
                     Laporan Keuangan
                 </a>
                 <span class="text-slate-300">•</span>
-                <a
-                    href="#"
-                    class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border"
-                >
+
+                <a href="{{ url('/search') }}?q=Profil+Pejabat" class="text-primary hover:text-primary-dark text-sm font-medium hover:underline hover-border">
                     Profil Pejabat
                 </a>
             </div>
+
         </section>
 
         <!-- Jenis Informasi Section -->
