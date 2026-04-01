@@ -124,5 +124,73 @@ class PublicInformationSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        // =========================
+        // INFORMASI SETIAP SAAT
+        // =========================
+        DB::table('public_informations')->insert([
+            [
+                'title' => 'Peraturan Bupati Konawe No. 15 Tahun 2026',
+                'description' => 'Tentang Standar Pelayanan Publik. Dokumen ini mengatur tata cara standar pelayanan untuk masyarakat Kabupaten Konawe.',
+                'information_type' => 'setiap_saat',
+                'report_level' => 'konsolidasi',
+                'category_id' => 1, // Anggap 1 adalah Peraturan
+                'opd_id' => $opdId,
+                'year' => 2026,
+                'file_url' => 'https://jdih.konawekab.go.id/dokumen/perbup-15-2026.pdf',
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now(),
+                'created_at' => now(),
+            ],
+            [
+                'title' => 'Profil Kabupaten Konawe 2026',
+                'description' => 'Buku Profil Kabupaten memuat data geografis, demografis, sosial ekonomi, dan potensi daerah.',
+                'information_type' => 'setiap_saat',
+                'report_level' => 'konsolidasi',
+                'category_id' => 2, 
+                'opd_id' => $opdId,
+                'year' => 2026,
+                'file_url' => 'https://ppid.konawekab.go.id/upload/profil-konawe-2026.pdf',
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now()->subDays(5),
+                'created_at' => now()->subDays(5),
+            ]
+        ]);
+
+        // =========================
+        // INFORMASI SERTA MERTA
+        // =========================
+        DB::table('public_informations')->insert([
+            [
+                'title' => 'Peringatan Dini Cuaca Ekstrem (Banjir Bandang)',
+                'description' => 'Himbauan kepada masyarakat di bantaran sungai Konaweeha untuk waspada terhadap potensi banjir bandang curah hujan tinggi selama seminggu ke depan.',
+                'information_type' => 'serta_merta',
+                'report_level' => 'konsolidasi',
+                'category_id' => 3, // Anggap 3 adalah Peringatan Bencana
+                'opd_id' => $opdId,
+                'year' => 2026,
+                'file_url' => null,
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now(),
+                'created_at' => now(),
+            ],
+            [
+                'title' => 'Pengalihan Arus Lalu Lintas Trans Sulawesi',
+                'description' => 'Informasi pengalihan arus akibat adanya perbaikan jembatan utama di jalan poros Trans Sulawesi ruas Unaaha selama 14 hari kerja.',
+                'information_type' => 'serta_merta',
+                'report_level' => 'konsolidasi',
+                'category_id' => 4,
+                'opd_id' => $opdId,
+                'year' => 2026,
+                'file_url' => 'https://dishub.konawekab.go.id/pengalihan-arus.jpg',
+                'status' => 'published',
+                'created_by' => $userId,
+                'published_at' => now()->subDays(2),
+                'created_at' => now()->subDays(2),
+            ]
+        ]);
     }
 }

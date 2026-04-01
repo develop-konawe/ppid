@@ -17,8 +17,9 @@ class PengaturanResource extends Resource
 {
     protected static ?string $model = Pengaturan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
+    protected static ?string $modelLabel = 'Pengaturan Portal';
+    protected static ?string $pluralModelLabel = 'Pengaturan Portal';
     protected static ?string $navigationGroup = 'Sistem';
 
     protected static ?string $pluralLabel = 'Pengaturan';

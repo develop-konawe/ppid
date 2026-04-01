@@ -17,13 +17,33 @@ class InformationExceptionResource extends Resource
 {
     protected static ?string $model = InformationException::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-exclamation';
+    protected static ?string $modelLabel = 'Pengecualian Informasi';
+    protected static ?string $pluralModelLabel = 'Pengecualian Informasi';
+    protected static ?string $navigationGroup = 'Layanan Publik';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('public_information_id')
+                    ->label('Judul Informasi (Dikecualikan)')
+                    ->relationship('publicInformation', 'title', fn ($query) => $query->where('information_type', 'dikecualikan'))
+                    ->required()
+                    ->searchable()
+                    ->preload()
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('exception_reason')
+                    ->label('Alasan Pengecualian')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('legal_basis')
+                    ->label('Dasar Hukum')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\DatePicker::make('valid_until')
+                    ->label('Batas Waktu Pengecualian (Berlaku Sampai)')
+                    ->nullable(),
             ]);
     }
 

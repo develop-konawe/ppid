@@ -23,6 +23,9 @@ class RegulationResource extends Resource
     protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationIcon = 'heroicon-o-scale';
+    protected static ?string $modelLabel = 'Regulasi';
+    protected static ?string $pluralModelLabel = 'Regulasi';
+    protected static ?string $navigationGroup = 'Publikasi';
 
     public static function form(Form $form): Form
     {

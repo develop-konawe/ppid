@@ -22,6 +22,9 @@ class FaqResource extends Resource
     protected static ?int $navigationSort = 9;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
+    protected static ?string $modelLabel = 'Tanya Jawab (FAQ)';
+    protected static ?string $pluralModelLabel = 'Tanya Jawab (FAQ)';
+    protected static ?string $navigationGroup = 'Pengaturan Tampilan';
 
     public static function form(Form $form): Form
     {

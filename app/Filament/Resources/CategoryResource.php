@@ -22,7 +22,9 @@ class CategoryResource extends Resource
     // Set the navigation sort order 8
     protected static ?int $navigationSort = 10;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $modelLabel = 'Kategori Berita';
+    protected static ?string $pluralModelLabel = 'Kategori Berita';
     protected static ?string $navigationGroup = 'Master Data';
 
     public static function shouldRegisterNavigation(): bool

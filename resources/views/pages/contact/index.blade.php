@@ -354,18 +354,55 @@
                         Isi formulir di bawah ini untuk mengirimkan pertanyaan atau masukan kepada kami.
                     </p>
 
-                    <form id="contactForm" class="space-y-6">
+                    @if(session('success'))
+                        <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4 mb-8 shadow-sm flex items-start">
+                            <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <h3 class="font-bold text-green-800">Berhasil!</h3>
+                                <p class="text-green-700 text-sm">{{ session('success') }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    @if($errors->any())
+                        <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-8 shadow-sm">
+                            <ul class="list-disc pl-5 text-red-700 text-sm space-y-1">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('contact.submit') }}" method="POST" id="contactForm" class="space-y-6">
+                        @csrf
                         <!-- Nama -->
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">
-                                <i class="fa-regular fa-user text-primary mr-1"></i> Nama Lengkap
-                            </label>
-                            <input
-                                type="text"
-                                class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
-                                placeholder="Masukkan nama lengkap"
-                                required
-                            />
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    <i class="fa-regular fa-user text-primary mr-1"></i> Nama Depan
+                                </label>
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    value="{{ old('first_name') }}"
+                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
+                                    placeholder="Nama depan"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">
+                                    Nama Belakang (Opsional)
+                                </label>
+                                <input
+                                    type="text"
+                                    name="last_name"
+                                    value="{{ old('last_name') }}"
+                                    class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
+                                    placeholder="Nama belakang"
+                                />
+                            </div>
                         </div>
 
                         <!-- Email -->
@@ -375,21 +412,11 @@
                             </label>
                             <input
                                 type="email"
+                                name="email"
+                                value="{{ old('email') }}"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
                                 placeholder="nama@email.com"
                                 required
-                            />
-                        </div>
-
-                        <!-- No. HP (opsional) -->
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-2">
-                                <i class="fa-regular fa-phone text-primary mr-1"></i> Nomor HP (opsional)
-                            </label>
-                            <input
-                                type="tel"
-                                class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
-                                placeholder="08xxxxxxxxxx"
                             />
                         </div>
 
@@ -400,6 +427,8 @@
                             </label>
                             <input
                                 type="text"
+                                name="subject"
+                                value="{{ old('subject') }}"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft"
                                 placeholder="Subjek pesan"
                                 required
@@ -412,28 +441,38 @@
                                 <i class="fa-regular fa-pen-to-square text-primary mr-1"></i> Pesan
                             </label>
                             <textarea
+                                name="message"
                                 rows="5"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft resize-none"
                                 placeholder="Tulis pesan Anda di sini..."
                                 required
-                            ></textarea>
+                            >{{ old('message') }}</textarea>
                         </div>
 
-                        <!-- Captcha Sederhana (simulasi) -->
+                        <!-- Captcha Sederhana -->
                         <div class="bg-slate-50 p-4 rounded-xl">
                             <p class="text-sm text-slate-600 mb-2">
                                 <i class="fa-solid fa-shield-halved text-primary mr-1"></i> Verifikasi Keamanan
                             </p>
                             <div class="flex items-center gap-3">
-                  <span class="bg-primary text-white px-4 py-2 rounded-lg font-mono font-bold"
-                  >5 + 3 =</span
-                  >
+                                <span class="bg-primary text-white px-4 py-2 rounded-lg font-mono font-bold">5 + 3 =</span>
                                 <input
                                     type="number"
+                                    id="captcha_answer"
                                     class="w-24 px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                                     placeholder="?"
                                     required
                                 />
+                            </div>
+                        </div>
+                        
+                        <!-- Checkbox Persetujuan (wajib untuk controller validation 'agree' => 'accepted') -->
+                        <div class="flex items-start mb-6">
+                            <div class="flex items-center h-5">
+                                <input id="agree" name="agree" type="checkbox" value="1" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300" required>
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agree" class="font-medium text-gray-900">Saya menyetujui <a href="#" class="text-blue-600 hover:underline">Syarat dan Ketentuan</a></label>
                             </div>
                         </div>
 
@@ -642,15 +681,14 @@
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function (e) {
-                e.preventDefault();
                 // Validasi captcha sederhana
-                const captchaInput = this.querySelector('input[type="number"]');
+                const captchaInput = document.getElementById('captcha_answer');
                 if (captchaInput && captchaInput.value != 8) {
+                    e.preventDefault();
                     alert('Jawaban captcha salah. Silakan coba lagi.');
                     return;
                 }
-                alert('Pesan Anda telah terkirim. Terima kasih telah menghubungi kami.');
-                this.reset();
+                // Allow normal submission to backend
             });
         }
     </script>

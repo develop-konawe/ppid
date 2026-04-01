@@ -17,6 +17,8 @@ class OpdResource extends Resource
 {
     protected static ?string $model = Opd::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
+    protected static ?string $modelLabel = 'Daftar OPD';
+    protected static ?string $pluralModelLabel = 'Daftar OPD';
     protected static ?string $navigationLabel = 'Data OPD';
     protected static ?string $navigationGroup = 'Master Data';
 

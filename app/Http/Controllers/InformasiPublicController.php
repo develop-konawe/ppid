@@ -96,14 +96,39 @@ class InformasiPublicController extends Controller
      */
     public function setiapSaat(Request $request)
     {
-        $data = PublicInformation::query()
+        $query = PublicInformation::query()
             ->where('information_type', 'setiap_saat')
             ->where('status', 'published')
-            ->with(['opd', 'category'])
-            ->latest()
-            ->paginate(10);
+            ->with(['opd', 'category']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        $data = $query->latest('published_at')->paginate(10)->withQueryString();
 
         return view('pages.informasi-public.setiap-saat', compact('data'));
+    }
+
+    public function setiapSaatDetail(Request $request, $id)
+    {
+        $informasi = PublicInformation::with(['category', 'opd'])
+            ->where('status', 'published')
+            ->findOrFail($id);
+
+        $terkait = PublicInformation::with(['category', 'opd'])
+            ->where('id', '!=', $informasi->id)
+            ->where('information_type', 'setiap_saat')
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('pages.informasi-public.setiap-saat-detail', compact('informasi', 'terkait'));
     }
 
     /**
@@ -172,6 +197,23 @@ class InformasiPublicController extends Controller
             'stats',
             'categories'
         ));
+    }
+
+    public function sertaMertaDetail(Request $request, $id)
+    {
+        $informasi = PublicInformation::with(['category', 'opd'])
+            ->where('status', 'published')
+            ->findOrFail($id);
+
+        $terkait = PublicInformation::with(['category', 'opd'])
+            ->where('id', '!=', $informasi->id)
+            ->where('information_type', 'serta_merta')
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('pages.informasi-public.serta-merta-detail', compact('informasi', 'terkait'));
     }
 
     /**

@@ -26,6 +26,9 @@ class AnnouncementResource extends Resource
     protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
+    protected static ?string $modelLabel = 'Pengumuman';
+    protected static ?string $pluralModelLabel = 'Pengumuman';
+    protected static ?string $navigationGroup = 'Publikasi';
 
     public static function form(Form $form): Form
     {

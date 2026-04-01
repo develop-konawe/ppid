@@ -94,12 +94,13 @@
             box-shadow: 0 20px 40px rgba(31, 58, 138, 0.15);
         }
 
-        /* CAROUSEL FIX - Ukuran tetap dan gambar cover penuh */
+        /* CAROUSEL FIX - Responsive & Tanpa Crop */
         .carousel-container {
             position: relative;
             overflow: hidden;
             width: 100%;
-            height: 650px;
+            /* Menggunakan aspect-ratio agar tinggi otomatis menyesuaikan lebar, mirip rasio 1920x650 */
+            aspect-ratio: 21 / 8; 
             background: linear-gradient(135deg, #1e3a8a 0%, #2d4ba0 100%);
         }
 
@@ -111,6 +112,9 @@
             height: 100%;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-slide.active {
@@ -121,27 +125,30 @@
         .carousel-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            /* Contain memastikan seluruh gambar terlihat utuh dan tidak ada bagian yang terpotong sedikitpun di berbagai resolusi layar */
+            object-fit: contain; 
             object-position: center center;
             display: block;
             background: transparent;
+            max-width: 100%;
         }
 
+        /* Menyesuaikan rasio di perangkat lebih kecil agar banner tetap proporsional dan tidak telalu kecil */
         @media (max-width: 1024px) {
             .carousel-container {
-                height: 500px;
+                aspect-ratio: 16 / 7;
             }
         }
 
         @media (max-width: 768px) {
             .carousel-container {
-                height: 400px;
+                aspect-ratio: 16 / 9;
             }
         }
 
         @media (max-width: 480px) {
             .carousel-container {
-                height: 300px;
+                aspect-ratio: 4 / 3;
             }
         }
 

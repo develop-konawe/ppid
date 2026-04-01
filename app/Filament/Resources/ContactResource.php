@@ -22,6 +22,9 @@ class ContactResource extends Resource
     protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationIcon = 'heroicon-o-phone';
+    protected static ?string $modelLabel = 'Pesan Kotak Masuk';
+    protected static ?string $pluralModelLabel = 'Pesan Kotak Masuk';
+    protected static ?string $navigationGroup = 'Layanan Publik';
 
     public static function shouldRegisterNavigation(): bool
     {

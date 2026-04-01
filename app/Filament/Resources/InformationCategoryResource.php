@@ -17,13 +17,26 @@ class InformationCategoryResource extends Resource
 {
     protected static ?string $model = InformationCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $modelLabel = 'Kategori Informasi';
+    protected static ?string $pluralModelLabel = 'Kategori Informasi';
+    protected static ?string $navigationGroup = 'Layanan Publik';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->label('Nama Kategori')
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+                Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(InformationCategory::class, 'slug', ignoreRecord: true),
             ]);
     }
 

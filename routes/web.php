@@ -10,6 +10,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\RegulationController;
+use App\Http\Controllers\InformationRequestController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
@@ -33,11 +34,19 @@ Route::get('/informasi-berkala/{id}', [InformasiPublicController::class, 'berkal
 Route::get('/informasi-setiap-saat', [InformasiPublicController::class, 'setiapSaat'])
     ->name('ppid.setiap-saat');
 
+Route::get('/informasi-setiap-saat/{id}', [InformasiPublicController::class, 'setiapSaatDetail'])
+    ->name('setiap-saat.detail');
+
 Route::get('/informasi-serta-merta', [InformasiPublicController::class, 'sertaMerta'])
     ->name('ppid.serta-merta');
 
-Route::get('/informasi-serta-merta-test', [InformasiPublicController::class, 'sertaMerta'])
+Route::get('/informasi-serta-merta/{id}', [InformasiPublicController::class, 'sertaMertaDetail'])
     ->name('serta-merta.detail');
 
 Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecualikan'])
     ->name('ppid.dikecualikan');
+
+// Permohonan Informasi Publik
+Route::get('/permohonan-informasi', [InformationRequestController::class, 'index'])->name('permohonan.index');
+Route::post('/permohonan-informasi', [InformationRequestController::class, 'store'])->name('permohonan.store');
+

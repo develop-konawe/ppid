@@ -23,6 +23,9 @@ class PageResource extends Resource
     protected static ?int $navigationSort = 7;
 
     protected static ?string $navigationIcon = 'heroicon-m-square-2-stack';
+    protected static ?string $modelLabel = 'Halaman Statis';
+    protected static ?string $pluralModelLabel = 'Halaman Statis';
+    protected static ?string $navigationGroup = 'Pengaturan Tampilan';
 
     public static function shouldRegisterNavigation(): bool
     {

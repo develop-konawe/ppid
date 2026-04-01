@@ -18,8 +18,10 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationLabel = 'Manajemen User';
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $modelLabel = 'Pengguna';
+    protected static ?string $pluralModelLabel = 'Pengguna';
+    protected static ?string $navigationLabel = 'Pengguna';
+    protected static ?string $navigationGroup = 'Sistem';
 
     public static function shouldRegisterNavigation(): bool
     {

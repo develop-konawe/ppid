@@ -28,6 +28,9 @@ class CarouselResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-view-columns';
+    protected static ?string $modelLabel = 'Banner Utama';
+    protected static ?string $pluralModelLabel = 'Banner Utama';
+    protected static ?string $navigationGroup = 'Pengaturan Tampilan';
 
     public static function shouldRegisterNavigation(): bool
     {

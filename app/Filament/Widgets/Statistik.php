@@ -4,6 +4,8 @@ namespace App\Filament\Widgets;
 
 use App\Models\Announcement;
 use App\Models\News;
+use App\Models\PublicInformation;
+use App\Models\InformationRequest;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -12,33 +14,30 @@ class Statistik extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Pengumuman', Announcement::count())
-                ->description('Jumlah seluruh pengumuman')
-                ->icon('heroicon-o-megaphone'),
+            Stat::make('Total Dokumen Publik', PublicInformation::where('status', 'published')->count())
+                ->description('Informasi Publik Terbit')
+                ->icon('heroicon-o-document-text'),
+                
+            Stat::make('Permohonan Informasi Masuk', InformationRequest::count())
+                ->description('Total permohonan')
+                ->icon('heroicon-o-document-magnifying-glass'),
 
-            Stat::make('Pengumuman Aktif', Announcement::where('is_active', true)->count())
-                ->description('Pengumuman yang sedang aktif')
-                ->icon('heroicon-o-check-circle'),
-
+            Stat::make('Permohonan Menunggu', InformationRequest::whereIn('status', ['pending', 'diproses'])->count())
+                ->description('Belum ditanggapi final')
+                ->icon('heroicon-o-clock')
+                ->color('warning'),
+                
             Stat::make('Total Berita', News::count())
                 ->description('Jumlah seluruh berita')
                 ->icon('heroicon-o-newspaper'),
-
-            Stat::make('Berita Unggulan', News::where('is_featured', true)->count())
-                ->description('Berita yang ditandai unggulan')
-                ->icon('heroicon-o-star'),
-
+                
             Stat::make('Total Views Berita', News::sum('views'))
-                ->description('Jumlah total pembaca berita')
+                ->description('Jumlah total pembaca')
                 ->icon('heroicon-o-eye'),
 
-            Stat::make('PPID Utama', News::where('source_type', 'ppid_utama')->count())
-                ->description('Berita dari PPID Utama')
-                ->icon('heroicon-o-building-office'),
-
-            Stat::make('PPID Pelaksana', News::where('source_type', 'ppid_pelaksana')->count())
-                ->description('Berita dari PPID Pelaksana')
-                ->icon('heroicon-o-building-library'),
+            Stat::make('Total Pengumuman', Announcement::count())
+                ->description('Jumlah seluruh pengumuman')
+                ->icon('heroicon-o-megaphone'),
         ];
     }
 }

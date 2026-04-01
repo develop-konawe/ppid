@@ -94,7 +94,7 @@
                     </p>
                 </div>
                 <div class="ml-auto bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100">
-                    <span class="text-2xl font-bold text-info">456</span>
+                    <span class="text-2xl font-bold text-info">{{ $data->total() }}</span>
                     <span class="text-sm text-slate-500 ml-1">Dokumen</span>
                 </div>
             </div>
@@ -103,40 +103,21 @@
         <!-- Filter Section -->
         <section class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-6">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                <div class="flex flex-col md:flex-row gap-3">
+                <form action="{{ route('ppid.setiap-saat') ?? '#' }}" method="GET" class="flex flex-col md:flex-row gap-3">
                     <div class="flex-grow relative">
-                        <i
-                            class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
-                        ></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                         <input
                             type="text"
+                            name="search"
+                            value="{{ request('search') }}"
                             placeholder="Cari dokumen..."
                             class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-info"
                         />
                     </div>
-                    <select
-                        class="md:w-40 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-info"
-                    >
-                        <option>Semua Kategori</option>
-                        <option>Peraturan</option>
-                        <option>Statistik</option>
-                        <option>Profil Wilayah</option>
-                        <option>Kelembagaan</option>
-                    </select>
-                    <select
-                        class="md:w-32 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-info"
-                    >
-                        <option>PDF</option>
-                        <option>DOC</option>
-                        <option>XLS</option>
-                        <option>Semua</option>
-                    </select>
-                    <button
-                        class="bg-info hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-soft"
-                    >
+                    <button type="submit" class="bg-info hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-soft">
                         <i class="fa-solid fa-search mr-2"></i> CARI
                     </button>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -153,454 +134,63 @@
                     <table class="w-full">
                         <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                No
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Judul Informasi
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Kategori
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Tahun
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Format
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Ukuran
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Diunduh
-                            </th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
-                                Aksi
-                            </th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">No</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Judul Informasi</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Kategori</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Tahun</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-slate-600 uppercase">Aksi</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200">
-                        <!-- Row 1 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm text-slate-600">1</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Peraturan Bupati Konawe No. 15 Tahun 2026</span
-                    >
-                                <p class="text-xs text-slate-500">Tentang Standar Pelayanan Publik</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs"
-                    >Peraturan</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2026</td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs font-medium"
-                    >PDF</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm text-slate-600">2.1 MB</td>
-                            <td class="px-4 py-3 text-sm text-slate-600">1,284x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                        title="Download"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                        title="Lihat"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">2</td>
-                            <td class="px-4 py-3">
-                                <span class="font-medium text-dark">Profil Kabupaten Konawe Tahun 2026</span>
-                                <p class="text-xs text-slate-500">
-                                    Data geografis, demografis, dan potensi daerah
-                                </p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs"
-                    >Profil</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2026</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">PDF</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">2.4 MB</td>
-                            <td class="px-4 py-3 text-sm">956x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 3 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">3</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Rencana Pembangunan Jangka Menengah Daerah 2025-2030</span
-                    >
-                                <p class="text-xs text-slate-500">Dokumen perencanaan pembangunan daerah</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs"
-                    >Perencanaan</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2025</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">PDF</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">3.2 MB</td>
-                            <td class="px-4 py-3 text-sm">843x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 4 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">4</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Data Statistik Daerah Kabupaten Konawe 2025</span
-                    >
-                                <p class="text-xs text-slate-500">Indikator makro ekonomi dan kesejahteraan</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs"
-                    >Statistik</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2025</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded text-xs">XLSX</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">1.8 MB</td>
-                            <td class="px-4 py-3 text-sm">712x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 5 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">5</td>
-                            <td class="px-4 py-3">
-                                <span class="font-medium text-dark">Struktur Organisasi Perangkat Daerah</span>
-                                <p class="text-xs text-slate-500">Data kelembagaan dan pejabat struktural</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs"
-                    >Kelembagaan</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2026</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">PDF</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">1.2 MB</td>
-                            <td class="px-4 py-3 text-sm">654x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 6 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">6</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Standar Operasional Prosedur Pelayanan Publik</span
-                    >
-                                <p class="text-xs text-slate-500">SOP pelayanan di lingkungan Pemkab Konawe</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-teal-100 text-teal-600 rounded-full text-xs"
-                    >Layanan</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2026</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">PDF</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">4.5 MB</td>
-                            <td class="px-4 py-3 text-sm">543x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 7 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">7</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Peta Administrasi Wilayah Kabupaten Konawe</span
-                    >
-                                <p class="text-xs text-slate-500">Peta batas kecamatan dan desa/kelurahan</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-amber-100 text-amber-600 rounded-full text-xs"
-                    >Peta</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2026</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-xs">JPG</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">5.1 MB</td>
-                            <td class="px-4 py-3 text-sm">432x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 8 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">8</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Laporan Kinerja Instansi Pemerintah 2025</span
-                    >
-                                <p class="text-xs text-slate-500">Laporan akuntabilitas kinerja</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-cyan-100 text-cyan-600 rounded-full text-xs"
-                    >Kinerja</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2025</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">PDF</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">2.8 MB</td>
-                            <td class="px-4 py-3 text-sm">387x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 9 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">9</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Rencana Strategis Perangkat Daerah 2025-2030</span
-                    >
-                                <p class="text-xs text-slate-500">Renstra seluruh OPD</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded-full text-xs"
-                    >Perencanaan</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2025</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-xs">DOCX</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">3.5 MB</td>
-                            <td class="px-4 py-3 text-sm">321x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Row 10 -->
-                        <tr class="table-row-hover transition-soft">
-                            <td class="px-4 py-3 text-sm">10</td>
-                            <td class="px-4 py-3">
-                    <span class="font-medium text-dark"
-                    >Indeks Kepuasan Masyarakat Semester II 2025</span
-                    >
-                                <p class="text-xs text-slate-500">Hasil survei kepuasan masyarakat</p>
-                            </td>
-                            <td class="px-4 py-3">
-                    <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs"
-                    >Statistik</span
-                    >
-                            </td>
-                            <td class="px-4 py-3 text-sm">2025</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 bg-green-100 text-green-600 rounded text-xs">XLSX</span>
-                            </td>
-                            <td class="px-4 py-3 text-sm">0.8 MB</td>
-                            <td class="px-4 py-3 text-sm">298x</td>
-                            <td class="px-4 py-3">
-                                <div class="flex gap-2">
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-download text-xs"></i>
-                                    </a>
-                                    <a
-                                        href="#"
-                                        class="w-7 h-7 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft"
-                                    >
-                                        <i class="fa-solid fa-eye text-xs"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                            @forelse($data as $index => $item)
+                                <tr class="table-row-hover transition-soft">
+                                    <td class="px-4 py-3 text-sm text-slate-600">{{ $data->firstItem() + $index }}</td>
+                                    <td class="px-4 py-3">
+                                        <span class="font-medium text-dark">{{ $item->title }}</span>
+                                        <p class="text-xs text-slate-500">{{ Str::limit(strip_tags($item->description), 50) }}</p>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">
+                                            {{ $item->category->name ?? 'Umum' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">{{ $item->year ?? '-' }}</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex gap-2 justify-center">
+                                            @if($item->file_url)
+                                                <a href="{{ $item->file_url }}" target="_blank" class="w-8 h-8 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft" title="Buka Eksternal">
+                                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                                </a>
+                                            @elseif($item->file_path)
+                                                <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank" class="w-8 h-8 bg-info/10 text-info rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft" title="Download">
+                                                    <i class="fa-solid fa-download text-xs"></i>
+                                                </a>
+                                            @endif
+                                            
+                                            <a href="{{ route('setiap-saat.detail', $item->id) }}" class="w-8 h-8 bg-slate-100 text-slate-600 rounded flex items-center justify-center hover:bg-info hover:text-white transition-soft" title="Lihat Detail">
+                                                <i class="fa-solid fa-eye text-xs"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-4 py-8 text-center text-slate-500">
+                                        <i class="fa-regular fa-folder-open text-4xl mb-3 text-slate-300"></i>
+                                        <p>Belum ada data informasi setiap saat.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Pagination -->
+                @if($data->hasPages())
                 <div class="bg-slate-50 px-4 py-3 border-t border-slate-200">
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-3">
-                        <p class="text-sm text-slate-600">Menampilkan 1-10 dari 456 dokumen</p>
-                        <div class="flex gap-2">
-                            <button
-                                class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center text-slate-400 hover:bg-info hover:text-white disabled:opacity-50"
-                                disabled
-                            >
-                                <i class="fa-solid fa-chevron-left text-xs"></i>
-                            </button>
-                            <button class="w-8 h-8 bg-info text-white rounded text-sm font-semibold">1</button>
-                            <button
-                                class="w-8 h-8 bg-white border border-slate-200 rounded text-sm hover:bg-info hover:text-white"
-                            >
-                                2
-                            </button>
-                            <button
-                                class="w-8 h-8 bg-white border border-slate-200 rounded text-sm hover:bg-info hover:text-white"
-                            >
-                                3
-                            </button>
-                            <span class="text-slate-400">...</span>
-                            <button
-                                class="w-8 h-8 bg-white border border-slate-200 rounded text-sm hover:bg-info hover:text-white"
-                            >
-                                46
-                            </button>
-                            <button
-                                class="w-8 h-8 bg-white border border-slate-200 rounded flex items-center justify-center hover:bg-info hover:text-white"
-                            >
-                                <i class="fa-solid fa-chevron-right text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
+                    {{ $data->links() }}
                 </div>
+                @endif
             </div>
         </section>
 

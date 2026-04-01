@@ -23,8 +23,10 @@ class MenuResource extends Resource
 
     // Svg by name "o-menu" from set "heroicons" not found.
     //i want to use build-in icon
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
+    protected static ?string $modelLabel = 'Manajemen Menu';
+    protected static ?string $pluralModelLabel = 'Manajemen Menu';
+    protected static ?string $navigationGroup = 'Pengaturan Tampilan';
     public static function shouldRegisterNavigation(): bool
     {
         return auth()->user()->hasRole('admin_utama');

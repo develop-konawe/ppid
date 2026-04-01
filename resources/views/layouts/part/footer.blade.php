@@ -52,63 +52,33 @@
                 </div>
             </div>
 
-            <!-- Quick Links -->
+            <!-- Tentang PPID -->
             <div class="fade-scroll">
-                <h5 class="font-bold mb-6 text-lg text-white">TAUTAN CEPAT</h5>
+                <h5 class="font-bold mb-6 text-lg text-white">TENTANG PPID</h5>
                 <ul class="space-y-3">
                     <li>
-                        <a
-                            href="#profil"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
-                            ></i>
-                            Profil PPID
+                        <a href="{{ route('page.detail', 'profil-singkat-ppid') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"></i>Profil PPID
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#standar-layanan"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
-                            ></i>
-                            Standar Layanan
+                        <a href="{{ route('page.detail', 'standar-pelayanan-ppid') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"></i>Standar Pelayanan
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#maklumat"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
-                            ></i>
-                            Maklumat Pelayanan
+                        <a href="{{ route('page.detail', 'maklumat-ppid') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"></i>Maklumat Pelayanan
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#sop"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
-                            ></i>
-                            SOP Layanan
+                        <a href="{{ route('page.detail', 'sop-ppid') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"></i>SOP Layanan
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#regulasi"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"
-                            ></i>
-                            Regulasi
+                        <a href="{{ route('regulation') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-chevron-right text-xs mr-3 group-hover:translate-x-1 transition-transform"></i>Regulasi Publik
                         </a>
                     </li>
                 </ul>
@@ -116,61 +86,31 @@
 
             <!-- Layanan Publik -->
             <div class="fade-scroll">
-                <h5 class="font-bold mb-6 text-lg text-white">LAYANAN PUBLIK</h5>
+                <h5 class="font-bold mb-6 text-lg text-white">LAYANAN INFORMASI</h5>
                 <ul class="space-y-3">
                     <li>
-                        <a
-                            href="#permohonan"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-file-import text-xs mr-3 group-hover:scale-110 transition-transform"
-                            ></i>
-                            Permohonan Informasi
+                        <a href="{{ route('ppid.berkala') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-clock-rotate-left text-xs mr-3 group-hover:scale-110 transition-transform"></i>Informasi Berkala
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#keberatan"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-comment-exclamation text-xs mr-3 group-hover:scale-110 transition-transform"
-                            ></i>
-                            Pengajuan Keberatan
+                        <a href="{{ route('ppid.setiap-saat') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-folder-open text-xs mr-3 group-hover:scale-110 transition-transform"></i>Informasi Setiap Saat
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#status"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-file-circle-check text-xs mr-3 group-hover:scale-110 transition-transform"
-                            ></i>
-                            Cek Status Permohonan
+                        <a href="{{ route('ppid.serta-merta') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-bolt text-xs mr-3 group-hover:scale-110 transition-transform"></i>Informasi Serta Merta
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#faq"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-circle-question text-xs mr-3 group-hover:scale-110 transition-transform"
-                            ></i>
-                            FAQ
+                        <a href="{{ route('permohonan.index') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-file-import text-xs mr-3 group-hover:scale-110 transition-transform"></i>Permohonan Informasi
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="#bantuan"
-                            class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group"
-                        >
-                            <i
-                                class="fa-solid fa-headset text-xs mr-3 group-hover:scale-110 transition-transform"
-                            ></i>
-                            Pusat Bantuan
+                        <a href="{{ route('contact') }}" class="text-slate-400 hover:text-primary transition-soft inline-flex items-center group">
+                            <i class="fa-solid fa-headset text-xs mr-3 group-hover:scale-110 transition-transform"></i>Hubungi Kami (Bantuan)
                         </a>
                     </li>
                 </ul>

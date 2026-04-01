@@ -21,6 +21,9 @@ class SocialMediaResource extends Resource
     protected static ?int $navigationSort = 8;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $modelLabel = 'Media Sosial';
+    protected static ?string $pluralModelLabel = 'Media Sosial';
+    protected static ?string $navigationGroup = 'Pengaturan Tampilan';
 
     public static function shouldRegisterNavigation(): bool
     {

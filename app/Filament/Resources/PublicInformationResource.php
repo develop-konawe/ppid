@@ -15,8 +15,9 @@ class PublicInformationResource extends Resource
 {
     protected static ?string $model = PublicInformation::class;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected static ?string $navigationLabel = 'Informasi Publik';
-    protected static ?string $pluralLabel = 'Informasi Publik';
+    protected static ?string $modelLabel = 'Informasi Publik';
+    protected static ?string $pluralModelLabel = 'Informasi Publik';
+    protected static ?string $navigationGroup = 'Layanan Publik';
 
     public static function form(Form $form): Form
     {

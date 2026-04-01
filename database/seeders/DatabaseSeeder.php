@@ -75,6 +75,58 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        // Seed Information Requests
+        DB::table('information_requests')->insert([
+            [
+                'kategori_pemohon' => 'Perorangan',
+                'nama_lengkap' => 'Budi Santoso',
+                'nik_no_identitas' => '7402010101900001',
+                'email' => 'budi.santoso@example.com',
+                'no_telp' => '081234567890',
+                'alamat' => 'Jl. Poros Unaaha, Kecamatan Wawotobi, Konawe',
+                'pekerjaan' => 'Wiraswasta',
+                'rincian_informasi' => 'Meminta data salinan belanja anggaran dinas kesehatan tahun 2024 untuk kebutuhan penelitian.',
+                'tujuan_penggunaan' => 'Penelitian Akademis',
+                'cara_memperoleh' => 'Mendapatkan Salinan Softcopy',
+                'cara_mendapatkan' => 'Email',
+                'status' => 'pending',
+                'created_at' => now()->subDays(2),
+                'updated_at' => now()->subDays(2),
+            ],
+            [
+                'kategori_pemohon' => 'Badan Hukum/Lembaga',
+                'nama_lengkap' => 'LSM Peduli Konawe',
+                'nik_no_identitas' => '1234567890123456', 
+                'email' => 'contact@lsmpedulikonawe.org',
+                'no_telp' => '085200001111',
+                'alamat' => 'Jl. Abunawas No. 10, Unaaha',
+                'pekerjaan' => 'Lembaga Swadaya Masyarakat',
+                'rincian_informasi' => 'Laporan Hasil Penilaian (LHP) Inspektorat terkait dana desa Konawe tahun 2025.',
+                'tujuan_penggunaan' => 'Pengawasan Publik',
+                'cara_memperoleh' => 'Mendapatkan Salinan Hardcopy',
+                'cara_mendapatkan' => 'Mengambil Langsung',
+                'status' => 'diproses',
+                'created_at' => now()->subDays(5),
+                'updated_at' => now()->subDays(3),
+            ],
+            [
+                'kategori_pemohon' => 'Perorangan',
+                'nama_lengkap' => 'Siti Aminah',
+                'nik_no_identitas' => '7402020202800002',
+                'email' => 'siti.am@ymail.com',
+                'no_telp' => '085311223344',
+                'alamat' => 'Desa Lalonggowuna, Kecamatan Tongauna',
+                'pekerjaan' => 'Mahasiswa',
+                'rincian_informasi' => 'Data statistik tenaga kerja dan pengangguran di Kabupaten Konawe periode 2021-2025.',
+                'tujuan_penggunaan' => 'Penyusunan Skripsi',
+                'cara_memperoleh' => 'Mendapatkan Salinan Softcopy',
+                'cara_mendapatkan' => 'Email',
+                'status' => 'approved',
+                'created_at' => now()->subDays(10),
+                'updated_at' => now()->subDays(1),
+            ]
+        ]);
+
     }
 
     // untuk memanggil 1 seeder saja, gunakan command berikut di terminal:
