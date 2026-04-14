@@ -414,7 +414,7 @@
                                 <span class="hidden md:inline">Download Formulir</span>
                             </a>
                             <a
-                                href="#status"
+                                href="{{ route('permohonan.status') }}"
                                 class="flex items-center gap-2 px-4 py-2 bg-primary-subtle text-primary rounded-lg hover:bg-primary hover:text-white transition-soft text-sm font-medium hover-lift"
                             >
                                 <i class="fa-solid fa-search"></i>

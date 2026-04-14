@@ -48,4 +48,24 @@ class InformationRequestController extends Controller
 
         return redirect()->back()->with('success', 'Permohonan informasi Anda telah berhasil dikirim. Kami akan memprosesnya dan memberikan balasan ke email Anda.');
     }
+
+    public function checkStatus()
+    {
+        return view('pages.permohonan.status');
+    }
+
+    public function processCheckStatus(Request $request)
+    {
+        $validated = $request->validate([
+            'nik_no_identitas' => 'required|string',
+            'email' => 'required|email'
+        ]);
+
+        $requests = InformationRequest::where('nik_no_identitas', $validated['nik_no_identitas'])
+            ->where('email', $validated['email'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pages.permohonan.status', compact('requests', 'validated'));
+    }
 }

@@ -50,3 +50,7 @@ Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecu
 Route::get('/permohonan-informasi', [InformationRequestController::class, 'index'])->name('permohonan.index');
 Route::post('/permohonan-informasi', [InformationRequestController::class, 'store'])->name('permohonan.store');
 
+// Cek Status Permohonan
+Route::get('/cek-status', [InformationRequestController::class, 'checkStatus'])->name('permohonan.status');
+Route::post('/cek-status', [InformationRequestController::class, 'processCheckStatus'])->name('permohonan.status.check');
+
