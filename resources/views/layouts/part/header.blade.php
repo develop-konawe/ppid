@@ -102,13 +102,17 @@
 
                     {{-- DYNAMIC MENUS --}}
                     @foreach ($otherMenus as $menu)
+                        @php
+                            $menuPath = trim(str_replace(url('/'), '', url($menu->link)), '/');
+                            $isMenuActive = $menuPath ? request()->is($menuPath) || request()->is($menuPath . '/*') : false;
+                        @endphp
                         <li class="relative group">
                             <a
                                 href="{{ $menu->link }}"
                                 @if($menu->children->count())
-                                    class="flex items-center gap-1 px-2 xl:px-3 py-3 hover:text-primary hover:bg-primary-subtle transition-soft rounded-t-lg focus:outline-none whitespace-nowrap"
+                                    class="flex items-center gap-1 px-2 xl:px-3 py-3 hover:text-primary hover:bg-primary-subtle transition-soft rounded-t-lg focus:outline-none whitespace-nowrap {{ $isMenuActive ? 'text-primary' : '' }}"
                                 @else
-                                    class="px-2 xl:px-3 py-3 hover:text-primary hover:bg-primary-subtle transition-soft rounded-t-lg hover-lift inline-block whitespace-nowrap {{ $currentRoute == $menu->type ? 'text-primary border-b-2 border-primary' : '' }}"
+                                    class="px-2 xl:px-3 py-3 hover:text-primary hover:bg-primary-subtle transition-soft rounded-t-lg hover-lift inline-block whitespace-nowrap {{ $isMenuActive ? 'text-primary border-b-2 border-primary' : '' }}"
                                 @endif
                             >
                                 {{ strtoupper($menu->name) }}
@@ -120,7 +124,11 @@
                             @if($menu->children->count())
                                 <div class="absolute left-0 mt-0 w-56 bg-white rounded-b-lg shadow-2xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 text-sm text-left">
                                     @foreach ($menu->children as $child)
-                                        <a href="{{ $child->link }}" class="block py-2 px-3 hover:bg-primary-subtle rounded-lg hover:text-primary transition-soft hover-lift">
+                                        @php
+                                            $childPath = trim(str_replace(url('/'), '', url($child->link)), '/');
+                                            $isChildActive = $childPath ? request()->is($childPath) || request()->is($childPath . '/*') : false;
+                                        @endphp
+                                        <a href="{{ $child->link }}" class="block py-2 px-3 hover:bg-primary-subtle rounded-lg hover:text-primary transition-soft hover-lift {{ $isChildActive ? 'bg-primary-subtle text-primary font-medium' : '' }}">
                                             {{ $child->name }}
                                         </a>
                                     @endforeach
@@ -199,22 +207,30 @@
 
                 {{-- Mobile DYNAMIC MENUS (excluding Profil & Informasi Publik) --}}
                 @foreach ($otherMenus as $menu)
+                    @php
+                        $menuPath = trim(str_replace(url('/'), '', url($menu->link)), '/');
+                        $isMenuActive = $menuPath ? request()->is($menuPath) || request()->is($menuPath . '/*') : false;
+                    @endphp
                     @if($menu->children->count())
                         <div>
-                            <button class="mobile-dropdown-toggle w-full flex items-center justify-between py-3 px-6 hover:bg-primary-subtle hover:text-primary border-l-4 border-transparent text-sm font-medium transition-soft focus:outline-none">
+                            <button class="mobile-dropdown-toggle w-full flex items-center justify-between py-3 px-6 hover:bg-primary-subtle {{ $isMenuActive ? 'text-primary bg-primary-subtle border-l-4 border-primary' : 'hover:text-primary border-l-4 border-transparent' }} text-sm font-medium transition-soft focus:outline-none">
                                 <span>{{ strtoupper($menu->name) }}</span>
                                 <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
                             </button>
                             <div class="mobile-submenu max-h-0 overflow-hidden bg-slate-50 flex-col transition-all duration-300">
                                 @foreach ($menu->children as $child)
-                                    <a href="{{ $child->link }}" class="block py-3 pl-10 pr-6 hover:text-primary text-slate-600 text-sm transition-soft border-l-[3px] border-slate-200 hover:border-primary hover:bg-slate-100">
+                                    @php
+                                        $childPath = trim(str_replace(url('/'), '', url($child->link)), '/');
+                                        $isChildActive = $childPath ? request()->is($childPath) || request()->is($childPath . '/*') : false;
+                                    @endphp
+                                    <a href="{{ $child->link }}" class="block py-3 pl-10 pr-6 hover:text-primary {{ $isChildActive ? 'text-primary border-primary bg-slate-100 font-medium' : 'text-slate-600 border-slate-200 hover:border-primary hover:bg-slate-100' }} text-sm transition-soft border-l-[3px]">
                                         {{ $child->name }}
                                     </a>
                                 @endforeach
                             </div>
                         </div>
                     @else
-                        <a href="{{ $menu->link }}" class="block py-3 px-6 hover:bg-primary-subtle hover:text-primary border-l-4 border-transparent text-sm font-medium transition-soft">
+                        <a href="{{ $menu->link }}" class="block py-3 px-6 hover:bg-primary-subtle hover:text-primary {{ $isMenuActive ? 'bg-primary-subtle text-primary border-l-4 border-primary font-medium' : 'border-l-4 border-transparent' }} text-sm font-medium transition-soft">
                             {{ strtoupper($menu->name) }}
                         </a>
                     @endif

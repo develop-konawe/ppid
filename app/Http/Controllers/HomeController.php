@@ -6,6 +6,9 @@ use App\Models\Announcement;
 use App\Models\Carousel;
 use App\Models\Gallery;
 use App\Models\News;
+use App\Models\PublicInformation;
+use App\Models\InformationRequest;
+use App\Models\Opd;
 
 class HomeController extends Controller
 {
@@ -46,6 +49,14 @@ class HomeController extends Controller
         // ambil data akun sosial media
         $socialMedias = \App\Models\SocialMedia::where('is_active', true)->get();
 
+        // Hitung statistik untuk Transparansi Dalam Angka
+        $totalDokumen = PublicInformation::where('status', 'published')->count();
+        $permohonanSelesai = InformationRequest::where('status', 'approved')->count();
+        $totalOpd = Opd::count();
+        
+        $totalPermohonan = InformationRequest::count();
+        $kepatuhanWaktu = $totalPermohonan > 0 ? round((InformationRequest::whereIn('status', ['approved', 'rejected'])->count() / $totalPermohonan) * 100) : 100;
+
         return view('pages.home.index', [
             "banners" => $banners,
             "beritas" => $beritas,
@@ -56,6 +67,10 @@ class HomeController extends Controller
             "popularBeritas" => $popularBeritas,
             "popularPengumumans" => $popularPengumumans,
             "socialMedias" => $socialMedias,
+            "totalDokumen" => $totalDokumen,
+            "permohonanSelesai" => $permohonanSelesai,
+            "totalOpd" => $totalOpd,
+            "kepatuhanWaktu" => $kepatuhanWaktu,
         ]);
     }
 }

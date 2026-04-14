@@ -50,10 +50,11 @@ class UserResource extends Resource
 
                 Forms\Components\Select::make('opd_id')
                     ->relationship('opd', 'nama_opd')
-                    ->required(),
+                    ->required(fn (Forms\Get $get) => !$get('is_super_admin')),
 
                 Forms\Components\Toggle::make('is_super_admin')
                     ->label('Super Admin Kominfo')
+                    ->live()
                     ->hidden(fn () => !auth()->user()->hasRole('admin_utama')),
             ]);
     }

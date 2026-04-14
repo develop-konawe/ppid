@@ -33,7 +33,18 @@ class InformationRequestController extends Controller
             $validated['foto_ktp'] = $request->file('foto_ktp')->store('permohonan/ktp', 'public');
         }
 
-        InformationRequest::create($validated);
+        $informationRequest = InformationRequest::create($validated);
+
+        try {
+            // Mengambil semua email user yang memiliki is_super_admin = true
+            $superAdminEmails = \App\Models\User::where('is_super_admin', true)->pluck('email')->toArray();
+            
+            if (!empty($superAdminEmails)) {
+                \Illuminate\Support\Facades\Mail::to($superAdminEmails)->send(new \App\Mail\AdminInformationRequestMail($informationRequest));
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send admin notification email: ' . $e->getMessage());
+        }
 
         return redirect()->back()->with('success', 'Permohonan informasi Anda telah berhasil dikirim. Kami akan memprosesnya dan memberikan balasan ke email Anda.');
     }

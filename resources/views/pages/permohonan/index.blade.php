@@ -7,6 +7,53 @@
     <meta property="og:description" content="Formulir permohonan informasi publik secara online di Kabupaten Konawe." />
 @endpush
 
+@push('scripts-head')
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#1F3A8A',
+                            dark: '#172554',
+                            light: '#3B82F6',
+                            subtle: '#EFF6FF',
+                        },
+                        secondary: '#DC2626',
+                        accent: '#059669',
+                        info: '#0284C7',
+                        light: '#F8FAFC',
+                        dark: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        heading: ['Poppins', 'Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        float: 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+@endpush
+
 @push('styles')
     <style>
         .contact-hero {
@@ -239,5 +286,24 @@
                 </form>
             </div>
         </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.querySelector('form');
+                const fileInput = document.getElementById('foto_ktp');
+
+                if (form && fileInput) {
+                    form.addEventListener('submit', function(e) {
+                        if (fileInput.files.length > 0) {
+                            const fileSize = fileInput.files[0].size / 1024 / 1024; // in MB
+                            if (fileSize > 2) {
+                                e.preventDefault();
+                                alert('Maaf, ukuran file KTP tidak boleh lebih dari 2MB. Silakan kompres foto Anda terlebih dahulu sebelum mengunggah.');
+                                fileInput.value = ''; // clear the input
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
     </main>
 @endsection

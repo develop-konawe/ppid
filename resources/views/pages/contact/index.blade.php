@@ -497,7 +497,7 @@
                                 LOKASI KAMI
                             </h3>
                         </div>
-                        <div id="map" class="w-full h-[400px]"></div>
+                        <iframe src="https://maps.google.com/maps?q=-3.8549123,122.0427052&t=&z=17&ie=UTF8&iwloc=&output=embed" class="w-full h-[400px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         <div class="p-4 bg-slate-50 text-sm text-slate-600">
                             <i class="fa-solid fa-location-dot text-primary mr-2"></i>
                             Kompleks Perkantoran Pemerintah Kabupaten Konawe, Sulawesi Tenggara
@@ -651,32 +651,7 @@
 @endsection
 
 @push('scripts')
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""
-    ></script>
     <script>
-        // Inisialisasi Peta Leaflet
-        document.addEventListener('DOMContentLoaded', function () {
-            // Koordinat Kabupaten Konawe (contoh, sesuaikan dengan koordinat sebenarnya)
-            const latitude = -3.917; // Contoh koordinat Konawe
-            const longitude = 122.083; // Contoh koordinat Konawe
-
-            const map = L.map('map').setView([latitude, longitude], 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution:
-                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            }).addTo(map);
-
-            // Marker untuk lokasi PPID
-            const marker = L.marker([latitude, longitude]).addTo(map);
-            marker
-                .bindPopup('<b>PPID Kabupaten Konawe</b><br>Kompleks Perkantoran Pemkab Konawe')
-                .openPopup();
-        });
-
         // Handle form submission
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {

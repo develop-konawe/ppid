@@ -381,8 +381,8 @@
                                     <i class="fa-solid fa-file-lines text-primary group-hover:text-white"></i>
                                 </div>
                                 <div>
-                                    <p class="text-2xl font-black text-primary counter-value" data-target="1240">
-                                        1,240+
+                                    <p class="text-2xl font-black text-primary counter-value" data-target="{{ $totalDokumen }}">
+                                        {{ number_format($totalDokumen) }}+
                                     </p>
                                     <p class="text-slate-600 text-xs">Dokumen Publik</p>
                                 </div>
@@ -397,8 +397,8 @@
                                     ></i>
                                 </div>
                                 <div>
-                                    <p class="text-2xl font-black text-green-600 counter-value" data-target="100">
-                                        100%
+                                    <p class="text-2xl font-black text-green-600 counter-value" data-target="{{ $kepatuhanWaktu }}">
+                                        {{ $kepatuhanWaktu }}%
                                     </p>
                                     <p class="text-slate-600 text-xs">Kepatuhan Waktu</p>
                                 </div>
@@ -773,8 +773,8 @@
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div class="bg-white p-8 rounded-3xl shadow-lg hover-lift fade-scroll">
-                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="1240">
-                            1,240
+                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="{{ $totalDokumen }}">
+                            {{ number_format($totalDokumen) }}
                         </p>
                         <p class="text-slate-700 font-semibold uppercase tracking-wider text-sm">
                             Total Dokumen
@@ -782,17 +782,17 @@
                         <p class="text-slate-500 text-xs mt-2">Tersedia untuk publik</p>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-lg hover-lift fade-scroll">
-                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="342">
-                            342
+                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="{{ $permohonanSelesai }}">
+                            {{ number_format($permohonanSelesai) }}
                         </p>
                         <p class="text-slate-700 font-semibold uppercase tracking-wider text-sm">
                             Permohonan Selesai
                         </p>
-                        <p class="text-slate-500 text-xs mt-2">Tahun 2025</p>
+                        <p class="text-slate-500 text-xs mt-2">Tahun {{ date('Y') }}</p>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-lg hover-lift fade-scroll">
-                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="100">
-                            100%
+                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="{{ $kepatuhanWaktu }}">
+                            {{ $kepatuhanWaktu }}%
                         </p>
                         <p class="text-slate-700 font-semibold uppercase tracking-wider text-sm">
                             Kepatuhan Waktu
@@ -800,9 +800,9 @@
                         <p class="text-slate-500 text-xs mt-2">Respon permohonan</p>
                     </div>
                     <div class="bg-white p-8 rounded-3xl shadow-lg hover-lift fade-scroll">
-                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="24">24</p>
+                        <p class="text-4xl font-black text-primary mb-2 counter-value" data-target="{{ $totalOpd }}">{{ number_format($totalOpd) }}</p>
                         <p class="text-slate-700 font-semibold uppercase tracking-wider text-sm">
-                            Kecamatan Terlayani
+                            Instansi & OPD
                         </p>
                         <p class="text-slate-500 text-xs mt-2">Seluruh wilayah Konawe</p>
                     </div>
