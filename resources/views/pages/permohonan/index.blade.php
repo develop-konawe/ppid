@@ -102,9 +102,15 @@
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
                     PERMOHONAN <span class="text-blue-200">INFORMASI PUBLIK</span>
                 </h1>
-                <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
+                <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-8">
                     Formulir pengajuan permintaan informasi publik kepada PPID Kabupaten Konawe sesuai dengan UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik.
                 </p>
+                <div class="flex justify-center mt-4">
+                    <a href="{{ route('permohonan.status') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary hover:bg-blue-50 rounded-xl font-bold transition-soft shadow-lg hover:-translate-y-1">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Cek Status Permohonan
+                    </a>
+                </div>
             </div>
 
             <div class="absolute bottom-0 left-0 right-0">
