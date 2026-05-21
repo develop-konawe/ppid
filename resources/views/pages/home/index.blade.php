@@ -278,53 +278,36 @@
             <div class="carousel-container">
                 <!-- Carousel Slides -->
                 <div class="relative w-full h-full">
-                    <!-- Slide 1 - Government Focus -->
-                    <div class="carousel-slide active" data-slide="1">
-                        <img
-                            src="https://ppid.konawekab.go.id/storage/banners/01KGNRCM0SYD59DGMTHRGVSKK3.jpg"
-                            alt="Pemerintah Kabupaten Konawe - Kantor Bupati"
-                            class="carousel-image"
-                            loading="eager"
-                            onload="this.style.opacity = '1'"
-                            style="opacity: 0; transition: opacity 0.3s"
-                        />
-                    </div>
-
-                    <!-- Slide 2 - Public Service -->
-                    <div class="carousel-slide" data-slide="2">
-                        <img
-                            src="https://ppid.konawekab.go.id/storage/banners/01KGNR3WZ6B9BT47VTTZRSGBBA.jpg"
-                            alt="Pelayanan Publik di Konawe"
-                            class="carousel-image"
-                            loading="lazy"
-                            onload="this.style.opacity = '1'"
-                            style="opacity: 0; transition: opacity 0.3s"
-                        />
-                    </div>
-
-                    <!-- Slide 3 - Transparency -->
-                    <div class="carousel-slide" data-slide="3">
-                        <img
-                            src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&q=80&w=1920"
-                            alt="Transparansi Informasi Publik"
-                            class="carousel-image"
-                            loading="lazy"
-                            onload="this.style.opacity = '1'"
-                            style="opacity: 0; transition: opacity 0.3s"
-                        />
-                    </div>
-
-                    <!-- Slide 4 - Community Engagement -->
-                    <div class="carousel-slide" data-slide="4">
-                        <img
-                            src="https://ppid.konawekab.go.id/storage/banners/01KFW5M2Y7KFD0MTY6HPK28ZTD.png"
-                            alt="Partisipasi Masyarakat Konawe"
-                            class="carousel-image"
-                            loading="lazy"
-                            onload="this.style.opacity = '1'"
-                            style="opacity: 0; transition: opacity 0.3s"
-                        />
-                    </div>
+                    @forelse($banners as $index => $banner)
+                        <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index + 1 }}">
+                            @if($banner->link_url)
+                                <a href="{{ $banner->link_url }}" target="_blank" class="w-full h-full block">
+                            @endif
+                            <img
+                                src="{{ asset('storage/' . $banner->image) }}"
+                                alt="{{ $banner->title ?? 'Banner PPID Konawe' }}"
+                                class="carousel-image"
+                                loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                                onload="this.style.opacity = '1'"
+                                style="opacity: 0; transition: opacity 0.3s"
+                            />
+                            @if($banner->link_url)
+                                </a>
+                            @endif
+                        </div>
+                    @empty
+                        <!-- Default Slide -->
+                        <div class="carousel-slide active" data-slide="1">
+                            <img
+                                src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&q=80&w=1920"
+                                alt="Transparansi Informasi Publik"
+                                class="carousel-image"
+                                loading="eager"
+                                onload="this.style.opacity = '1'"
+                                style="opacity: 0; transition: opacity 0.3s"
+                            />
+                        </div>
+                    @endforelse
                 </div>
 
                 <!-- Carousel Navigation -->
@@ -343,29 +326,24 @@
 
                 <!-- Carousel Dots -->
                 <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-                    <button
-                        class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft active hover-scale"
-                        data-slide="0"
-                    ></button>
-                    <button
-                        class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft hover-scale"
-                        data-slide="1"
-                    ></button>
-                    <button
-                        class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft hover-scale"
-                        data-slide="2"
-                    ></button>
-                    <button
-                        class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft hover-scale"
-                        data-slide="3"
-                    ></button>
+                    @forelse($banners as $index => $banner)
+                        <button
+                            class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft hover-scale {{ $index === 0 ? 'active' : '' }}"
+                            data-slide="{{ $index }}"
+                        ></button>
+                    @empty
+                        <button
+                            class="carousel-dot w-12 h-2 bg-white/50 rounded-full hover:bg-white/80 transition-soft active hover-scale"
+                            data-slide="0"
+                        ></button>
+                    @endforelse
                 </div>
 
                 <!-- Slide Indicator -->
                 <div
                     class="absolute top-6 right-6 bg-black/30 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium z-20"
                 >
-                    <span id="current-slide">1</span> / <span id="total-slides">4</span>
+                    <span id="current-slide">1</span> / <span id="total-slides">{{ max(1, count($banners)) }}</span>
                 </div>
             </div>
 
