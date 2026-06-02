@@ -959,7 +959,7 @@
                     @forelse($galleryPhotos as $item)
                         @php $mediaSrc = $item->media_path ? asset('storage/' . $item->media_path) : $item->media_url; @endphp
                         <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group bg-slate-100" onclick="openLightbox({{ $loopIndex }})">
-                            <img src="{{ $mediaSrc }}" alt="{{ $item->caption ?? 'Kegiatan PPID' }}" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                            <img src="{{ $mediaSrc }}" alt="{{ $item->caption ?? 'Kegiatan PPID' }}" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pr-4">
                                 <p class="text-sm font-semibold line-clamp-2">{{ $item->caption ?? 'Dokumentasi PPID' }}</p>
@@ -1132,30 +1132,39 @@
 
         // Gallery Lightbox Functions
         const galleryImages = [
-            {
-                src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 1',
-            },
-            {
-                src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 2',
-            },
-            {
-                src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 3',
-            },
-            {
-                src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 4',
-            },
-            {
-                src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 5',
-            },
-            {
-                src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
-                alt: 'Gallery Image 6',
-            },
+            @if(isset($gallery) && $gallery->where('type', 'photo')->count() > 0)
+                @foreach($gallery->where('type', 'photo')->take(6) as $item)
+                    {
+                        src: '{{ $item->media_path ? asset('storage/' . $item->media_path) : $item->media_url }}',
+                        alt: '{!! addslashes(str_replace("\n", " ", $item->caption ?? "Kegiatan PPID")) !!}',
+                    },
+                @endforeach
+            @else
+                {
+                    src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 1',
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 2',
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 3',
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 4',
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 5',
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
+                    alt: 'Gallery Image 6',
+                },
+            @endif
         ];
 
         let currentLightboxIndex = 0;

@@ -37,7 +37,7 @@
 
         /* Gallery Card Styles */
         .gallery-card { position: relative; overflow: hidden; border-radius: 1.5rem; box-shadow: 0 10px 30px -10px rgba(31, 58, 138, 0.2); cursor: pointer; height: 350px; display: block; text-decoration: none; background: linear-gradient(135deg, #1f3a8a 0%, #3b82f6 100%); }
-        .gallery-card img, .gallery-card video, .gallery-card iframe { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); display: block; border: none; }
+        .gallery-card img, .gallery-card video, .gallery-card iframe { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); display: block; border: none; }
 
         /* Hanya jalankan efek zoom untuk foto */
         .gallery-card.type-photo:hover img { transform: scale(1.1); }
