@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulir Permohonan Informasi Publik – #{{ str_pad($permohonan->id, 5, '0', STR_PAD_LEFT) }}</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Paksa browser mempertahankan warna background & gambar saat print */
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
 
         body {
             font-family: 'Arial', sans-serif;
