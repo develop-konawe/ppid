@@ -13,6 +13,12 @@ class EditInformationRequest extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('cetak')
+                ->label('Cetak PDF')
+                ->icon('heroicon-o-printer')
+                ->color('gray')
+                ->url(fn () => route('permohonan.print', $this->record))
+                ->openUrlInNewTab(),
             Actions\DeleteAction::make(),
         ];
     }

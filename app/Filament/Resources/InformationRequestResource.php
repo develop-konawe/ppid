@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\InformationRequestResource\Pages;
+use App\Filament\Traits\HasPublicInfoAccess;
 use App\Models\InformationRequest;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -10,9 +11,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\Action;
 
 class InformationRequestResource extends Resource
 {
+    use HasPublicInfoAccess;
     protected static ?string $model = InformationRequest::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-magnifying-glass';
@@ -157,6 +160,12 @@ class InformationRequestResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Proses / Detail'),
+                Action::make('cetak')
+                    ->label('Cetak PDF')
+                    ->icon('heroicon-o-printer')
+                    ->color('gray')
+                    ->url(fn (InformationRequest $record): string => route('permohonan.print', $record))
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

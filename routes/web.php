@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\RegulationController;
 use App\Http\Controllers\InformationRequestController;
+use App\Http\Controllers\KlaController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
@@ -22,6 +23,11 @@ Route::get('/announcement', [AnnouncementController::class, 'index'])->name('ann
 Route::get('/announcement/{slug}', [AnnouncementController::class, 'show'])->name('announcement.detail');
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.detail');
+
+// KLA - Kabupaten/Kota Layak Anak
+Route::get('/kla', [KlaController::class, 'index'])->name('kla');
+Route::get('/kla/publikasi/{slug}', [KlaController::class, 'showProgram'])->name('kla.program.detail');
+Route::post('/kla/pengaduan', [KlaController::class, 'submitComplaint'])->name('kla.complaint.store');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.global');
 
@@ -49,6 +55,9 @@ Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecu
 // Permohonan Informasi Publik
 Route::get('/permohonan-informasi', [InformationRequestController::class, 'index'])->name('permohonan.index');
 Route::post('/permohonan-informasi', [InformationRequestController::class, 'store'])->name('permohonan.store');
+
+// Cetak permohonan – hanya untuk user yang sudah login (admin/petugas)
+Route::middleware('auth')->get('/permohonan/{informationRequest}/cetak', [InformationRequestController::class, 'printPdf'])->name('permohonan.print');
 
 // Cek Status Permohonan
 Route::get('/cek-status', [InformationRequestController::class, 'checkStatus'])->name('permohonan.status');

@@ -49,6 +49,19 @@ class InformationRequestController extends Controller
         return redirect()->back()->with('success', 'Permohonan informasi Anda telah berhasil dikirim. Kami akan memprosesnya dan memberikan balasan ke email Anda.');
     }
 
+    /**
+     * Cetak / tampilkan halaman PDF permohonan.
+     * Hanya dapat diakses oleh user yang sudah login (admin/petugas PPID).
+     */
+    public function printPdf(InformationRequest $informationRequest)
+    {
+        abort_unless(auth()->check(), 403, 'Akses ditolak.');
+
+        $permohonan = $informationRequest->load(['information', 'responder']);
+
+        return view('print.permohonan', compact('permohonan'));
+    }
+
     public function checkStatus()
     {
         return view('pages.permohonan.status');
