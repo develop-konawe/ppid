@@ -13,6 +13,7 @@ use App\Http\Controllers\RegulationController;
 use App\Http\Controllers\InformationRequestController;
 use App\Http\Controllers\KlaController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\PpidPelaksanaController;
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -30,6 +31,9 @@ Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.detail')
 Route::get('/kla', [KlaController::class, 'index'])->name('kla');
 Route::get('/kla/publikasi/{slug}', [KlaController::class, 'showProgram'])->name('kla.program.detail');
 Route::post('/kla/pengaduan', [KlaController::class, 'submitComplaint'])->name('kla.complaint.store');
+
+// PPID Pelaksana
+Route::get('/ppid-pelaksana', [PpidPelaksanaController::class, 'index'])->name('ppid.pelaksana');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.global');
 
