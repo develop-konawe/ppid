@@ -14,6 +14,8 @@
     />
     <meta name="author" content="Pemerintah Kabupaten Konawe" />
 
+    <link rel="canonical" href="{{ request()->url() }}">
+
     @stack('meta-head')
 
     <!-- Fonts -->

@@ -12,7 +12,9 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\RegulationController;
 use App\Http\Controllers\InformationRequestController;
 use App\Http\Controllers\KlaController;
+use App\Http\Controllers\SitemapController;
 
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'submit'])->name('contact.submit');
