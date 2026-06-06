@@ -214,8 +214,8 @@ class InformationRequestResource extends Resource
     {
         $query = parent::getEloquentQuery();
         
-        // Super admin bisa lihat semua
-        if (auth()->user()->is_super_admin) {
+        // Super admin & Operator PPID Utama bisa lihat semua permohonan
+        if (auth()->user()->isSuperAdmin() || auth()->user()->hasRole('operator_ppid')) {
             return $query;
         }
         
