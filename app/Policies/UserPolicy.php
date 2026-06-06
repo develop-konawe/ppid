@@ -9,21 +9,27 @@ class UserPolicy
 {
     public function viewAny(User $user)
     {
-        return $user->hasRole('operator_ppid');
+        return $user->isSuperAdmin();
+    }
+
+    public function view(User $user, User $model)
+    {
+        return $user->isSuperAdmin();
     }
 
     public function create(User $user)
     {
-        return $user->hasRole('operator_ppid');
+        return $user->isSuperAdmin();
     }
 
     public function update(User $user, User $model)
     {
-        return $user->hasRole('operator_ppid');
+        return $user->isSuperAdmin();
     }
 
     public function delete(User $user, User $model)
     {
-        return !$model->is_super_admin && $user->hasRole('operator_ppid');
+        // Cegah Super Admin menghapus akunnya sendiri
+        return $user->isSuperAdmin() && $user->id !== $model->id;
     }
 }
