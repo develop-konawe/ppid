@@ -54,7 +54,7 @@
             background-color: #000 !important;
             color: #ff0 !important;
         }
-        body.acc-high-contrast * {
+        body.acc-high-contrast *:not(.grayscale-overlay) {
             background-color: #000 !important;
             color: #ff0 !important;
             border-color: #ff0 !important;
