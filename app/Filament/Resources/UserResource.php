@@ -23,9 +23,14 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Pengguna';
     protected static ?string $navigationGroup = 'Sistem';
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isSuperAdmin();
+    }
+
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->hasRole('admin_utama');
+        return auth()->user()->isSuperAdmin();
     }
 
     public static function form(Forms\Form $form): Forms\Form
@@ -48,7 +53,6 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn ($state) => bcrypt($state))
                     ->label('Password'),
 
-                // Gunakan name sebagai key agar OPD logic bisa langsung compare string
                 Forms\Components\Select::make('role')
                     ->label('Role')
                     ->options(\Spatie\Permission\Models\Role::orderBy('name')->pluck('name', 'name'))
@@ -61,7 +65,8 @@ class UserResource extends Resource
                             $component->state($record->roles->first()?->name);
                         }
                     })
-                    ->helperText('Pilih satu role. Role PPID membutuhkan OPD; role KLA tidak.'),
+                    ->disabled(fn (Forms\Get $get): bool => (bool) $get('is_super_admin'))
+                    ->helperText('Pilih satu role. Role PPID Pelaksana membutuhkan OPD; role Operator PPID & KLA tidak.'),
 
                 Forms\Components\Select::make('opd_id')
                     ->relationship('opd', 'nama_opd')
@@ -70,10 +75,9 @@ class UserResource extends Resource
                     ->preload()
                     ->placeholder('Pilih OPD (hanya untuk user PPID)')
                     ->helperText('Wajib diisi hanya untuk role PPID Pelaksana. Kosongkan untuk user KLA.')
-                    ->visible(fn (Forms\Get $get): bool =>
+                    ->hidden(fn (Forms\Get $get): bool =>
                         $get('is_super_admin') ||
-                        empty($get('role')) ||
-                        $get('role') === 'ppid_pelaksana'
+                        (!empty($get('role')) && $get('role') !== 'ppid_pelaksana')
                     )
                     ->required(fn (Forms\Get $get): bool =>
                         !$get('is_super_admin') &&
@@ -83,7 +87,13 @@ class UserResource extends Resource
                 Forms\Components\Toggle::make('is_super_admin')
                     ->label('Super Admin Kominfo')
                     ->live()
-                    ->hidden(fn () => !auth()->user()->hasRole('admin_utama')),
+                    ->afterStateUpdated(function (Forms\Set $set, $state) {
+                        if ($state) {
+                            $set('role', null);
+                            $set('opd_id', null);
+                        }
+                    })
+                    ->hidden(fn () => !auth()->user()->isSuperAdmin()),
             ]);
     }
 

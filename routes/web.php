@@ -69,3 +69,15 @@ Route::middleware('auth')->get('/permohonan/{informationRequest}/cetak', [Inform
 Route::get('/cek-status', [InformationRequestController::class, 'checkStatus'])->name('permohonan.status');
 Route::post('/cek-status', [InformationRequestController::class, 'processCheckStatus'])->name('permohonan.status.check');
 
+// Temporary route to run specific migration
+Route::get('/run-migration/{filename}', function ($filename) {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', [
+            '--path' => 'database/migrations/' . $filename . '.php',
+            '--force' => true
+        ]);
+        return "Migration {$filename} executed successfully. Output: <br><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+    } catch (\Exception $e) {
+        return "Error executing migration: " . $e->getMessage();
+    }
+});

@@ -86,7 +86,7 @@ class GalleryResource extends Resource
         $user = auth()->user();
 
         // Admin PPID Utama → lihat semua
-        if ($user->hasRole('admin_utama')) {
+        if ($user->hasRole('operator_ppid')) {
             return parent::getEloquentQuery();
         }
 

@@ -165,6 +165,16 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Tujuan OPD (Instansi yang Dituju) <span class="text-red-500">*</span></label>
+                                <select name="opd_id" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft text-slate-700">
+                                    <option value="" disabled selected>-- Pilih OPD Tujuan --</option>
+                                    @foreach($opds as $opd)
+                                        <option value="{{ $opd->id }}" {{ old('opd_id') == $opd->id ? 'selected' : '' }}>{{ $opd->nama_opd }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Kategori Pemohon <span class="text-red-500">*</span></label>
                                 <select name="kategori_pemohon" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft text-slate-700">
                                     <option value="Perorangan" {{ old('kategori_pemohon') == 'Perorangan' ? 'selected' : '' }}>Perorangan</option>

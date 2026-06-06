@@ -88,7 +88,7 @@ class NewsResource extends Resource
         $user = auth()->user();
 
         // Admin PPID Utama → lihat semua
-        if ($user->hasRole('admin_utama')) {
+        if ($user->hasRole('operator_ppid')) {
             return parent::getEloquentQuery();
         }
 
@@ -109,7 +109,7 @@ class NewsResource extends Resource
                 Tables\Columns\IconColumn::make('is_featured')
                     ->boolean()
                     ->label('Unggulan')
-                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
+                    ->visible(fn () => auth()->user()->hasRole('operator_ppid')),
                 Tables\Columns\TextColumn::make('title')->label('Judul Berita')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('category.name')->label('Kategori')->searchable()->sortable(),
                 Tables\Columns\ImageColumn::make('image')->label('Foto Berita')->disk('public')->rounded(),
@@ -164,7 +164,7 @@ class NewsResource extends Resource
                     })
                     ->color(fn (News $record) => $record->is_featured ? 'success' : 'gray')
                     ->successNotification(null)
-                    ->visible(fn () => auth()->user()->hasRole('admin_utama')),
+                    ->visible(fn () => auth()->user()->hasRole('operator_ppid')),
             ], Tables\Enums\ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

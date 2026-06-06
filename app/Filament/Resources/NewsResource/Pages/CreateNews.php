@@ -23,7 +23,7 @@ class CreateNews extends CreateRecord
         }
 
         // Admin PPID
-        if ($user->hasRole('admin_utama')) {
+        if ($user->hasRole('operator_ppid')) {
             $data['source_type'] = $data['opd_id']
                 ? 'ppid_pelaksana'   // atas nama OPD
                 : 'ppid_utama';      // berita pusat

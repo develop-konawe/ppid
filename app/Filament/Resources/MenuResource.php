@@ -28,10 +28,6 @@ class MenuResource extends Resource
     protected static ?string $modelLabel = 'Manajemen Menu';
     protected static ?string $pluralModelLabel = 'Manajemen Menu';
     protected static ?string $navigationGroup = 'Pengaturan Tampilan';
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->hasRole('admin_utama');
-    }
     public static function form(Form $form): Form
     {
         return $form

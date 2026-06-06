@@ -27,11 +27,6 @@ class ContactResource extends Resource
     protected static ?string $pluralModelLabel = 'Pesan Kotak Masuk';
     protected static ?string $navigationGroup = 'Layanan Publik';
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->hasRole('admin_utama');
-    }
-
     public static function form(Form $form): Form
     {
         return $form

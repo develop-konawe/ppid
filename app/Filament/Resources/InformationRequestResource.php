@@ -41,6 +41,11 @@ class InformationRequestResource extends Resource
             ->schema([
                 Forms\Components\Group::make()->schema([
                     Forms\Components\Section::make('Identitas Pemohon')->schema([
+                        Forms\Components\Select::make('opd_id')
+                            ->relationship('opd', 'nama_opd')
+                            ->label('OPD Tujuan')
+                            ->disabled()
+                            ->columnSpanFull(),
                         Forms\Components\TextInput::make('kategori_pemohon')
                             ->disabled(),
                         Forms\Components\TextInput::make('nik_no_identitas')
@@ -144,6 +149,11 @@ class InformationRequestResource extends Resource
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('opd.singkatan')
+                    ->label('Tujuan OPD')
+                    ->description(fn (InformationRequest $record): string => $record->opd ? $record->opd->nama_opd : 'Semua / Umum')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('nama_lengkap')
                     ->label('Pemohon')
                     ->searchable()
@@ -198,6 +208,19 @@ class InformationRequestResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        
+        // Super admin bisa lihat semua
+        if (auth()->user()->is_super_admin) {
+            return $query;
+        }
+        
+        // PPID Pelaksana / Operator PPID (di OPD masing-masing) hanya lihat yang ditujukan ke OPD nya
+        return $query->where('opd_id', auth()->user()->opd_id);
     }
 
     public static function getPages(): array

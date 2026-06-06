@@ -12,7 +12,7 @@ namespace App\Filament\Traits;
  *
  * Resource dengan trait ini dapat diakses oleh:
  *   - is_super_admin = true  (Super Admin Kominfo)
- *   - role: admin_utama
+ *   - role: operator_ppid
  *   - role: ppid_pelaksana   (operator OPD — hanya kelola data informasi publik milik OPD-nya)
  *
  * User dengan role KLA saja TIDAK bisa mengakses resource ini.
@@ -40,7 +40,7 @@ trait HasPublicInfoAccess
             return true;
         }
 
-        // admin_utama dan ppid_pelaksana boleh akses resource Informasi Publik
-        return $user->hasAnyRole(['admin_utama', 'ppid_pelaksana']);
+        // operator_ppid dan ppid_pelaksana boleh akses resource Informasi Publik
+        return $user->hasAnyRole(['operator_ppid', 'ppid_pelaksana']);
     }
 }

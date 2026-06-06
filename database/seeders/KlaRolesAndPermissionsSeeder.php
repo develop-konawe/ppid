@@ -34,11 +34,7 @@ class KlaRolesAndPermissionsSeeder extends Seeder
 
         // Create Roles and assign permissions
         
-        // 1. admin_kla (Full access to KLA)
-        $adminKla = Role::firstOrCreate(['name' => 'admin_kla', 'guard_name' => 'web']);
-        $adminKla->syncPermissions($permissions);
-
-        // 2. operator_kla (Manage content, but limited admin powers)
+        // 1. operator_kla (Manage content, but limited admin powers)
         $operatorKla = Role::firstOrCreate(['name' => 'operator_kla', 'guard_name' => 'web']);
         $operatorKla->syncPermissions([
             'kla.view',
@@ -50,18 +46,10 @@ class KlaRolesAndPermissionsSeeder extends Seeder
             'kla.gallery.manage',
         ]);
 
-        // 3. verifikator_kla (Verify indicators and complaints)
-        $verifikatorKla = Role::firstOrCreate(['name' => 'verifikator_kla', 'guard_name' => 'web']);
-        $verifikatorKla->syncPermissions([
-            'kla.view',
-            'kla.monitoring.manage',
-            'kla.complaint.manage',
-        ]);
-
-        // If admin_utama exists, assign all KLA permissions to it as well
-        $adminUtama = Role::where('name', 'admin_utama')->where('guard_name', 'web')->first();
-        if ($adminUtama) {
-            $adminUtama->givePermissionTo($permissions);
+        // If operator_ppid exists, assign all KLA permissions to it as well
+        $operatorPpid = Role::where('name', 'operator_ppid')->where('guard_name', 'web')->first();
+        if ($operatorPpid) {
+            $operatorPpid->givePermissionTo($permissions);
         }
     }
 }

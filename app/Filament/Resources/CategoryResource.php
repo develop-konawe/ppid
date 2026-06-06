@@ -28,11 +28,6 @@ class CategoryResource extends Resource
     protected static ?string $pluralModelLabel = 'Kategori Berita';
     protected static ?string $navigationGroup = 'Master Data';
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->hasRole('admin_utama');
-    }
-
     public static function form(Form $form): Form
     {
         return $form

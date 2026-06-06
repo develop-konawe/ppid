@@ -68,8 +68,8 @@ class UserRoleSeeder extends Seeder
         // Create Roles
         // ===============================
 
-        $adminUtama = Role::firstOrCreate([
-            'name' => 'admin_utama',
+        $operatorPpid = Role::firstOrCreate([
+            'name' => 'operator_ppid',
             'guard_name' => 'web'
         ]);
 
@@ -82,8 +82,8 @@ class UserRoleSeeder extends Seeder
         // Assign Permission ke Role
         // ===============================
 
-        // Admin Utama → Semua permission
-        $adminUtama->syncPermissions(Permission::all());
+        // Operator PPID → Semua permission
+        $operatorPpid->syncPermissions(Permission::all());
 
         // PPID Pelaksana → Permission terbatas
         $ppidPelaksana->syncPermissions([
@@ -102,7 +102,7 @@ class UserRoleSeeder extends Seeder
 
         $admin = User::where('email', 'ppid_admin@gmail.com')->first();
         if ($admin) {
-            $admin->syncRoles(['admin_utama']);
+            $admin->syncRoles(['operator_ppid']);
         }
 
         $ppid = User::where('email', 'rsud_admin@gmail.com')->first();

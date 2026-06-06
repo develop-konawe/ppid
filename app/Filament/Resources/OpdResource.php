@@ -23,12 +23,6 @@ class OpdResource extends Resource
     protected static ?string $navigationLabel = 'Data OPD';
     protected static ?string $navigationGroup = 'Master Data';
 
-    // Hanya Admin Utama yang bisa lihat menu OPD
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->hasRole('admin_utama');
-    }
-
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([

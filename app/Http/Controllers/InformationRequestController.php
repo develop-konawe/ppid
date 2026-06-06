@@ -9,12 +9,14 @@ class InformationRequestController extends Controller
 {
     public function index()
     {
-        return view('pages.permohonan.index');
+        $opds = \App\Models\Opd::orderBy('nama_opd')->get();
+        return view('pages.permohonan.index', compact('opds'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'opd_id' => 'required|exists:opds,id',
             'kategori_pemohon' => 'required|string',
             'nik_no_identitas' => 'required|string|max:50',
             'nama_lengkap' => 'required|string|max:100',
@@ -37,10 +39,16 @@ class InformationRequestController extends Controller
 
         try {
             // Mengambil semua email user yang memiliki is_super_admin = true
-            $superAdminEmails = \App\Models\User::where('is_super_admin', true)->pluck('email')->toArray();
+            $adminEmails = \App\Models\User::where('is_super_admin', true)->pluck('email')->toArray();
             
-            if (!empty($superAdminEmails)) {
-                \Illuminate\Support\Facades\Mail::to($superAdminEmails)->send(new \App\Mail\AdminInformationRequestMail($informationRequest));
+            // Tambahkan email admin dari OPD tujuan (jika ada)
+            if ($informationRequest->opd_id) {
+                $opdAdmins = \App\Models\User::where('opd_id', $informationRequest->opd_id)->pluck('email')->toArray();
+                $adminEmails = array_unique(array_merge($adminEmails, $opdAdmins));
+            }
+            
+            if (!empty($adminEmails)) {
+                \Illuminate\Support\Facades\Mail::to($adminEmails)->send(new \App\Mail\AdminInformationRequestMail($informationRequest));
             }
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Failed to send admin notification email: ' . $e->getMessage());

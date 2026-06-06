@@ -13,7 +13,7 @@ class OpdPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin_utama');
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -21,7 +21,7 @@ class OpdPolicy
      */
     public function view(User $user, Opd $opd): bool
     {
-        return false;
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -29,7 +29,7 @@ class OpdPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin_utama');
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -37,7 +37,7 @@ class OpdPolicy
      */
     public function update(User $user, Opd $opd): bool
     {
-        return false;
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -45,7 +45,7 @@ class OpdPolicy
      */
     public function delete(User $user, Opd $opd): bool
     {
-        return false;
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -53,7 +53,7 @@ class OpdPolicy
      */
     public function restore(User $user, Opd $opd): bool
     {
-        return false;
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 
     /**
@@ -61,6 +61,6 @@ class OpdPolicy
      */
     public function forceDelete(User $user, Opd $opd): bool
     {
-        return false;
+        return $user->isSuperAdmin() || $user->hasRole('operator_ppid');
     }
 }

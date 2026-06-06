@@ -34,11 +34,6 @@ class CarouselResource extends Resource
     protected static ?string $pluralModelLabel = 'Banner Utama';
     protected static ?string $navigationGroup = 'Pengaturan Tampilan';
 
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()->hasRole('admin_utama');
-    }
-
     public static function form(Form $form): Form
     {
         return $form

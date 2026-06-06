@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InformationRequest extends Model
 {
     protected $fillable = [
+        'opd_id',
         'user_id',
         'kategori_pemohon',
         'nik_no_identitas',
@@ -32,6 +33,11 @@ class InformationRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function opd()
+    {
+        return $this->belongsTo(Opd::class);
     }
 
     public function information()
