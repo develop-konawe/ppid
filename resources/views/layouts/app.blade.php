@@ -49,6 +49,43 @@
 
 
     <style>
+        /* Accessibility Overrides */
+        body.acc-high-contrast {
+            background-color: #000 !important;
+            color: #ff0 !important;
+        }
+        body.acc-high-contrast * {
+            background-color: #000 !important;
+            color: #ff0 !important;
+            border-color: #ff0 !important;
+        }
+        body.acc-high-contrast img, body.acc-high-contrast svg {
+            filter: contrast(200%) !important;
+        }
+        
+        /* Fix for grayscale breaking position:fixed */
+        .grayscale-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            backdrop-filter: grayscale(100%);
+            -webkit-backdrop-filter: grayscale(100%);
+            pointer-events: none;
+            z-index: 55; /* Di bawah accessibility widget (z-60) tapi di atas navbar (z-50) */
+            display: none;
+        }
+        body.acc-grayscale .grayscale-overlay {
+            display: block;
+        }
+
+        body.acc-underline-links a {
+            text-decoration: underline !important;
+            text-decoration-thickness: 2px !important;
+            text-underline-offset: 4px !important;
+        }
+        body.acc-readable-font, body.acc-readable-font * {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
+
         /* Custom Styles */
         .glass-nav {
             background: rgba(255, 255, 255, 0.98);
@@ -357,6 +394,8 @@
     @stack('styles')
 </head>
 <body class="bg-light text-slate-800 antialiased">
+<!-- Grayscale Overlay -->
+<div class="grayscale-overlay"></div>
 <!-- Reading Progress Bar -->
 <div class="progress-bar" id="progress-bar"></div>
 
@@ -668,5 +707,8 @@
         });
     });
 </script>
+
+@include('layouts.part.accessibility')
+
 </body>
 </html>
