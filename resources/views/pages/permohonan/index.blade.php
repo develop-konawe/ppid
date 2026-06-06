@@ -166,7 +166,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Tujuan OPD (Instansi yang Dituju) <span class="text-red-500">*</span></label>
-                                <select name="opd_id" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft text-slate-700">
+                                <select name="opd_id" id="opd_id" required class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-soft text-slate-700">
                                     <option value="" disabled selected>-- Pilih OPD Tujuan --</option>
                                     @foreach($opds as $opd)
                                         <option value="{{ $opd->id }}" {{ old('opd_id') == $opd->id ? 'selected' : '' }}>{{ $opd->nama_opd }}</option>
@@ -251,10 +251,10 @@
                                         <input type="radio" name="cara_memperoleh" value="Mendapatkan Salinan Softcopy" required class="w-4 h-4 text-primary" {{ old('cara_memperoleh', 'Mendapatkan Salinan Softcopy') == 'Mendapatkan Salinan Softcopy' ? 'checked' : '' }}>
                                         <span class="text-sm text-slate-700">Mendapatkan Salinan Soft Copy</span>
                                     </label>
-                                    <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                                    <!-- <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
                                         <input type="radio" name="cara_memperoleh" value="Mendapatkan Salinan Hardcopy" required class="w-4 h-4 text-primary" {{ old('cara_memperoleh') == 'Mendapatkan Salinan Hardcopy' ? 'checked' : '' }}>
                                         <span class="text-sm text-slate-700">Mendapatkan Salinan Hard Copy</span>
-                                    </label>
+                                    </label> -->
                                 </div>
                             </div>
 
@@ -269,14 +269,14 @@
                                         <input type="radio" name="cara_mendapatkan" value="Email" required class="w-4 h-4 text-primary" {{ old('cara_mendapatkan', 'Email') == 'Email' ? 'checked' : '' }}>
                                         <span class="text-sm text-slate-700">Dikirim via Email</span>
                                     </label>
-                                    <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                                    <!-- <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
                                         <input type="radio" name="cara_mendapatkan" value="Kurir/Pos" required class="w-4 h-4 text-primary" {{ old('cara_mendapatkan') == 'Kurir/Pos' ? 'checked' : '' }}>
                                         <span class="text-sm text-slate-700">Dikirim via Pos / Kurir</span>
                                     </label>
                                     <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
                                         <input type="radio" name="cara_mendapatkan" value="Faksimili" required class="w-4 h-4 text-primary" {{ old('cara_mendapatkan') == 'Faksimili' ? 'checked' : '' }}>
                                         <span class="text-sm text-slate-700">Dikirim via Faksimili</span>
-                                    </label>
+                                    </label> -->
                                 </div>
                             </div>
                         </div>
@@ -322,4 +322,56 @@
             });
         </script>
     </main>
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<style>
+    /* Styling TomSelect to match Tailwind border and focus styles */
+    .ts-control {
+        border-radius: 0.75rem !important;
+        border: 1px solid #e2e8f0 !important;
+        padding: 0.75rem 1rem !important;
+        font-family: inherit;
+        font-size: 1rem;
+        box-shadow: none !important;
+        background-color: white !important;
+    }
+    .ts-control.focus {
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+    }
+    .ts-dropdown {
+        border-radius: 0.75rem !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+        overflow: hidden;
+    }
+    .ts-dropdown .option {
+        padding: 0.75rem 1rem !important;
+    }
+    .ts-dropdown .active {
+        background-color: #eff6ff !important;
+        color: #1e3a8a !important;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('opd_id')) {
+            new TomSelect("#opd_id", {
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                },
+                placeholder: "-- Ketik untuk mencari OPD --"
+            });
+        }
+    });
+</script>
+@endpush
+
 @endsection
