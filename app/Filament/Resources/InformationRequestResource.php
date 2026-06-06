@@ -25,6 +25,16 @@ class InformationRequestResource extends Resource
     protected static ?string $pluralModelLabel = 'Permohonan Informasi';
     protected static ?string $navigationGroup = 'Layanan Publik';
 
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return auth()->check() && auth()->user()->is_super_admin;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->check() && auth()->user()->is_super_admin;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -71,8 +81,16 @@ class InformationRequestResource extends Resource
                             ->label('Foto KTP / Identitas')
                             ->image()
                             ->disabled()
+                            ->downloadable()
+                            ->openable()
                             ->columnSpanFull(),
-                    ])->collapsed(),
+                        // Forms\Components\FileUpload::make('dokumen_pendukung')
+                        //     ->label('Dokumen Tambahan (Opsional)')
+                        //     ->disabled()
+                        //     ->downloadable()
+                        //     ->openable()
+                        //     ->columnSpanFull(),
+                    ]),
                 ])->columnSpan(['lg' => 2]),
 
                 Forms\Components\Group::make()->schema([
