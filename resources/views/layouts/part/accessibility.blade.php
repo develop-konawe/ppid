@@ -1,10 +1,10 @@
 <!-- Accessibility Floating Button -->
-<button id="acc-toggle-btn" class="fixed bottom-6 right-6 z-[60] bg-primary text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50" aria-label="Buka Menu Aksesibilitas">
+<button id="acc-toggle-btn" class="fixed bottom-6 left-6 z-[60] bg-primary text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50" aria-label="Buka Menu Aksesibilitas">
     <i class="fa-solid fa-wheelchair text-2xl"></i>
 </button>
 
 <!-- Accessibility Panel -->
-<div id="acc-panel" class="fixed bottom-24 right-6 z-[60] bg-white rounded-2xl shadow-2xl border border-slate-100 w-80 max-h-[80vh] overflow-y-auto transform scale-0 origin-bottom-right transition-transform duration-300 opacity-0 hidden">
+<div id="acc-panel" class="fixed bottom-24 left-6 z-[60] bg-white rounded-2xl shadow-2xl border border-slate-100 w-80 max-h-[80vh] overflow-y-auto transform scale-0 origin-bottom-left transition-transform duration-300 opacity-0 hidden">
     <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-2xl">
         <h3 class="font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-universal-access text-primary"></i> Aksesibilitas
