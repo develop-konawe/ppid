@@ -12,6 +12,8 @@ class CreateUser extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $this->record->assignRole('ppid_pelaksana');
+        // Simpan role tunggal dari field 'role' (tidak di-dehydrate otomatis)
+        $roleName = $this->data['role'] ?? null;
+        $this->record->syncRoles($roleName ? [$roleName] : []);
     }
 }

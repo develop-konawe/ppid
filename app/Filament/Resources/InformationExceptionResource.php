@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\InformationExceptionResource\Pages;
 use App\Filament\Resources\InformationExceptionResource\RelationManagers;
+use App\Filament\Traits\HasPublicInfoAccess;
 use App\Models\InformationException;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class InformationExceptionResource extends Resource
 {
+    use HasPublicInfoAccess;
     protected static ?string $model = InformationException::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-exclamation';

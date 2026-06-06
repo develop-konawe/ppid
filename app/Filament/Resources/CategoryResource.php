@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Category::class;
 
     protected static ?string $pluralLabel = "Kategori";

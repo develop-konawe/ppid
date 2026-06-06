@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DocumentResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Document::class;
 
     protected static ?string $pluralLabel = "Dokumen";

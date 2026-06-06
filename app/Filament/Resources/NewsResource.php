@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\NewsResource\Pages;
+use App\Filament\Traits\HasPpidAccess;
 use App\Models\Category;
 use App\Models\News;
 use Filament\Forms;
@@ -22,6 +23,7 @@ use Filament\Tables\Table;
 
 class NewsResource extends Resource
 {
+    use HasPpidAccess;
     protected static ?string $model = News::class;
     protected static ?string $pluralLabel = "Berita";
 

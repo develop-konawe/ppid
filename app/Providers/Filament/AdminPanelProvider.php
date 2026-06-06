@@ -49,6 +49,19 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-key')
                     ->url(fn(): string => ChangePassword::getUrl()),
             ])
+            ->navigationGroups([
+                'Master Data',
+                'Publikasi',
+                'Layanan Publik',
+                'Pengaturan Tampilan',
+                'Sistem',
+                'KLA - Profil & Pengaturan',
+                'KLA - Evaluasi & Indikator',
+                'KLA - Layanan & Pengaduan',
+                'KLA - Informasi & Publikasi',
+                'KLA - Kemitraan',
+                'KLA - Sistem',
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

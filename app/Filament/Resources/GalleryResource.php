@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\GalleryResource\Pages;
 use App\Filament\Resources\GalleryResource\RelationManagers;
+use App\Filament\Traits\HasPpidAccess;
 use App\Models\Gallery;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GalleryResource extends Resource
 {
+    use HasPpidAccess;
     protected static ?string $model = Gallery::class;
 
     protected static ?string $pluralLabel = "Galeri";

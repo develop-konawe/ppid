@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PengaturanResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Pengaturan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';

@@ -16,4 +16,11 @@ class EditUser extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function afterSave(): void
+    {
+        // Update role tunggal dari field 'role' (tidak di-dehydrate otomatis)
+        $roleName = $this->data['role'] ?? null;
+        $this->record->syncRoles($roleName ? [$roleName] : []);
+    }
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OpdResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Opd::class;
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
     protected static ?string $modelLabel = 'Daftar OPD';

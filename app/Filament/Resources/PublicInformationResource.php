@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PublicInformationResource\Pages;
+use App\Filament\Traits\HasPublicInfoAccess;
 use App\Models\PublicInformation;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PublicInformationResource extends Resource
 {
+    use HasPublicInfoAccess;
     protected static ?string $model = PublicInformation::class;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $modelLabel = 'Informasi Publik';

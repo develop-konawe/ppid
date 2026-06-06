@@ -48,9 +48,37 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn ($state) => bcrypt($state))
                     ->label('Password'),
 
+                // Gunakan name sebagai key agar OPD logic bisa langsung compare string
+                Forms\Components\Select::make('role')
+                    ->label('Role')
+                    ->options(\Spatie\Permission\Models\Role::orderBy('name')->pluck('name', 'name'))
+                    ->searchable()
+                    ->live()
+                    ->dehydrated(false) // disimpan manual via afterCreate/afterSave di Page
+                    ->afterStateHydrated(function ($component, $record) {
+                        // Pre-populate saat edit: ambil role pertama user
+                        if ($record) {
+                            $component->state($record->roles->first()?->name);
+                        }
+                    })
+                    ->helperText('Pilih satu role. Role PPID membutuhkan OPD; role KLA tidak.'),
+
                 Forms\Components\Select::make('opd_id')
                     ->relationship('opd', 'nama_opd')
-                    ->required(fn (Forms\Get $get) => !$get('is_super_admin')),
+                    ->label('OPD')
+                    ->searchable()
+                    ->preload()
+                    ->placeholder('Pilih OPD (hanya untuk user PPID)')
+                    ->helperText('Wajib diisi hanya untuk role PPID Pelaksana. Kosongkan untuk user KLA.')
+                    ->visible(fn (Forms\Get $get): bool =>
+                        $get('is_super_admin') ||
+                        empty($get('role')) ||
+                        $get('role') === 'ppid_pelaksana'
+                    )
+                    ->required(fn (Forms\Get $get): bool =>
+                        !$get('is_super_admin') &&
+                        $get('role') === 'ppid_pelaksana'
+                    ),
 
                 Forms\Components\Toggle::make('is_super_admin')
                     ->label('Super Admin Kominfo')

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AnnouncementResource\Pages;
 use App\Filament\Resources\AnnouncementResource\RelationManagers;
+use App\Filament\Traits\HasPpidAccess;
 use App\Models\Announcement;
 use App\Models\Category;
 use Filament\Forms;
@@ -19,6 +20,7 @@ use Illuminate\Support\Str;
 
 class AnnouncementResource extends Resource
 {
+    use HasPpidAccess;
     protected static ?string $model = Announcement::class;
 
     protected static ?string $pluralLabel = "Pengumuman";

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CarouselResource\Pages;
 use App\Filament\Resources\CarouselResource\RelationManagers;
+use App\Filament\Traits\HasPpidAccess;
 use App\Models\Carousel;
 use App\Models\Category;
 use Filament\Forms;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CarouselResource extends Resource
 {
+    use HasPpidAccess;
     protected static ?string $model = Carousel::class;
 
     protected static ?string $pluralLabel = "Hero Banner";

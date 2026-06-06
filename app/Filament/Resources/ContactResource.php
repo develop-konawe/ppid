@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ContactResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Contact::class;
 
     protected static ?string $pluralLabel = "Kontak";

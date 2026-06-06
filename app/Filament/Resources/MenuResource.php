@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 
 class MenuResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Menu::class;
 
     protected static ?int $navigationSort = 11;

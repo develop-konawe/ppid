@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 
 class PageResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Page::class;
 
     protected static ?string $pluralLabel = "Halaman";

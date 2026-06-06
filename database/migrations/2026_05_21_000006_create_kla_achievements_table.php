@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('kla_achievements', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->integer('year');
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('awarded_by')->nullable()->comment('Pemberi penghargaan');
+            $table->boolean('is_active')->default(true);
+            $table->foreignId('created_by')->constrained('users');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('kla_achievements');
+    }
+};

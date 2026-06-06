@@ -16,6 +16,7 @@ use function Illuminate\Events\queueable;
 
 class FaqResource extends Resource
 {
+    use \App\Filament\Traits\HasPpidAccess;
     protected static ?string $model = Faq::class;
 
     // Atur urutan ke-9 di sidebar
