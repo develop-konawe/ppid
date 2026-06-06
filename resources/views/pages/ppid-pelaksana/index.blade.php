@@ -119,8 +119,8 @@
                     <div class="bg-white rounded-2xl shadow-lg p-6 card-hover border border-slate-100 flex flex-col h-full">
                         <div class="flex items-start gap-4 mb-4">
                             <div class="w-20 h-20 bg-slate-50 rounded-xl p-1.5 border border-slate-100 flex-shrink-0 flex items-center justify-center">
-                                @if($opd->logo && file_exists(public_path('storage/' . $opd->logo)))
-                                    <img src="{{ asset('storage/' . $opd->logo) }}" alt="Logo {{ $opd->singkatan ?? $opd->nama_opd }}" class="max-w-full max-h-full object-contain">
+                                @if($opd->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($opd->logo))
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($opd->logo) }}" alt="Logo {{ $opd->singkatan ?? $opd->nama_opd }}" class="max-w-full max-h-full object-contain">
                                 @else
                                     <img src="{{ asset('image/logo_konawe.png') }}" alt="Logo Kabupaten Konawe" class="max-w-full max-h-full object-contain">
                                 @endif
