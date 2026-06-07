@@ -198,19 +198,19 @@
         <section class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <div class="text-info text-2xl font-bold">456</div>
+                    <div class="text-info text-2xl font-bold">{{ number_format($totalDokumen ?? 0, 0, ',', '.') }}</div>
                     <div class="text-sm text-slate-500">Total Dokumen</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <div class="text-info text-2xl font-bold">12</div>
+                    <div class="text-info text-2xl font-bold">{{ number_format($totalKategori ?? 0, 0, ',', '.') }}</div>
                     <div class="text-sm text-slate-500">Kategori</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <div class="text-info text-2xl font-bold">1.2 GB</div>
+                    <div class="text-info text-2xl font-bold">{{ $totalUkuran ?? '0 B' }}</div>
                     <div class="text-sm text-slate-500">Total Ukuran</div>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <div class="text-info text-2xl font-bold">5.234</div>
+                    <div class="text-info text-2xl font-bold">{{ number_format($totalDiunduh ?? 0, 0, ',', '.') }}</div>
                     <div class="text-sm text-slate-500">Total Diunduh</div>
                 </div>
             </div>

@@ -111,7 +111,55 @@ class InformasiPublicController extends Controller
 
         $data = $query->latest('published_at')->paginate(10)->withQueryString();
 
-        return view('pages.informasi-public.setiap-saat', compact('data'));
+        // Statistik
+        $totalDokumen = PublicInformation::where('information_type', 'setiap_saat')
+            ->where('status', 'published')
+            ->count();
+
+        $totalKategori = PublicInformation::where('information_type', 'setiap_saat')
+            ->where('status', 'published')
+            ->distinct('category_id')
+            ->count('category_id');
+
+        $totalUkuranBytes = (int) PublicInformation::where('information_type', 'setiap_saat')
+            ->where('status', 'published')
+            ->sum('file_size');
+
+        if ($totalUkuranBytes === 0) {
+            $files = PublicInformation::where('information_type', 'setiap_saat')
+                ->where('status', 'published')
+                ->whereNotNull('file_path')
+                ->pluck('file_path');
+
+            foreach ($files as $file) {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($file)) {
+                    $totalUkuranBytes += \Illuminate\Support\Facades\Storage::disk('public')->size($file);
+                }
+            }
+        } else {
+            // Asumsikan dalam KB sesuai komentar di migrasi
+            $totalUkuranBytes = $totalUkuranBytes * 1024;
+        }
+
+        $totalUkuran = '0 B';
+        if ($totalUkuranBytes > 0) {
+            $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+            $bytes = max($totalUkuranBytes, 0);
+            $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+            $pow = min($pow, count($units) - 1);
+            $bytes /= pow(1024, $pow);
+            $totalUkuran = round($bytes, 2) . ' ' . $units[$pow];
+        }
+
+        try {
+            $totalDiunduh = PublicInformation::where('information_type', 'setiap_saat')
+                ->where('status', 'published')
+                ->sum('views');
+        } catch (\Exception $e) {
+            $totalDiunduh = 0;
+        }
+
+        return view('pages.informasi-public.setiap-saat', compact('data', 'totalDokumen', 'totalKategori', 'totalUkuran', 'totalDiunduh'));
     }
 
     public function setiapSaatDetail(Request $request, $id)
