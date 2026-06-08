@@ -10,15 +10,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminUtama = Role::where('name', 'admin_utama')->first();
-        if ($adminUtama) {
-            $adminUtama->name = 'operator_ppid';
-            $adminUtama->save();
-        }
-
-        Role::whereIn('name', ['admin_kla', 'verifikator_kla'])->delete();
+        // Migration di nonaktifkan agar tidak mengganggu logic role yang sudah diterapkan di form resource
+        // dan seeder (KlaRolesAndPermissionsSeeder & UserRoleSeeder).
         
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        // $adminUtama = Role::where('name', 'admin_utama')->first();
+        // if ($adminUtama) {
+        //     $adminUtama->name = 'operator_ppid';
+        //     $adminUtama->save();
+        // }
+
+        // Role::whereIn('name', ['admin_kla', 'verifikator_kla'])->delete();
+        
+        // app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 
     /**
@@ -26,15 +29,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $operatorPpid = Role::where('name', 'operator_ppid')->first();
-        if ($operatorPpid) {
-            $operatorPpid->name = 'admin_utama';
-            $operatorPpid->save();
-        }
+        // $operatorPpid = Role::where('name', 'operator_ppid')->first();
+        // if ($operatorPpid) {
+        //     $operatorPpid->name = 'admin_utama';
+        //     $operatorPpid->save();
+        // }
 
-        Role::firstOrCreate(['name' => 'admin_kla', 'guard_name' => 'web']);
-        Role::firstOrCreate(['name' => 'verifikator_kla', 'guard_name' => 'web']);
+        // Role::firstOrCreate(['name' => 'admin_kla', 'guard_name' => 'web']);
+        // Role::firstOrCreate(['name' => 'verifikator_kla', 'guard_name' => 'web']);
         
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        // app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }
 };
