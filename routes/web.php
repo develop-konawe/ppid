@@ -81,3 +81,16 @@ Route::get('/run-migration/{filename}', function ($filename) {
         return "Error executing migration: " . $e->getMessage();
     }
 });
+
+// Temporary route to run specific seeder
+Route::get('/run-seeder/{classname}', function ($classname) {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', [
+            '--class' => $classname,
+            '--force' => true
+        ]);
+        return "Seeder {$classname} executed successfully. Output: <br><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+    } catch (\Exception $e) {
+        return "Error executing seeder: " . $e->getMessage();
+    }
+});
