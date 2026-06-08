@@ -110,6 +110,38 @@ class UserResource extends Resource
                     ->label('Super Admin'),
             ])
             ->actions([
+                Tables\Actions\Action::make('resetPassword')
+                    ->label('Reset Password')
+                    ->icon('heroicon-o-key')
+                    ->color('warning')
+                    ->requiresConfirmation()
+                    ->modalHeading('Reset Password')
+                    ->modalDescription('Masukkan password baru untuk pengguna ini.')
+                    ->form([
+                        Forms\Components\TextInput::make('password')
+                            ->label('Password Baru')
+                            ->password()
+                            ->required()
+                            ->minLength(8)
+                            ->same('passwordConfirmation'),
+                        Forms\Components\TextInput::make('passwordConfirmation')
+                            ->label('Konfirmasi Password Baru')
+                            ->password()
+                            ->required()
+                            ->minLength(8),
+                    ])
+                    ->action(function (User $record, array $data) {
+                        $record->update([
+                            'password' => bcrypt($data['password']),
+                        ]);
+                        
+                        \Filament\Notifications\Notification::make()
+                            ->title('Password berhasil direset')
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(fn (User $record) => auth()->user()->isSuperAdmin()),
+
                 Tables\Actions\EditAction::make(),
 
                 Tables\Actions\DeleteAction::make()
