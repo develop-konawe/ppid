@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             CarouselSeeder::class,
             CategorySeeder::class,
             UserRoleSeeder::class,
+            PpidPelaksanaSeeder::class,
             RegulationSeeder::class,
             PageSeeder::class,
             FaqSeeder::class,
