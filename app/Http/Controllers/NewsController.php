@@ -2,62 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class NewsController extends Controller
 {
-    public function index()
+    private const API_BASE_URL = 'https://berita.konawekab.go.id/api/v1';
+    private const API_KEY = '418595a9a453178dbdc3ea13af01789324f967e9cd60069e624de8b92003a613';
+
+    public function index(Request $request)
     {
-        $beritas = News::orderBy('created_at', 'desc')->paginate(6);
+        $params = [
+            'api_key'  => self::API_KEY,
+            'page'     => $request->input('page', 1),
+            'per_page' => 9,
+        ];
 
-        // Mengambil data tambahan langsung di Blade karena Controller hanya mengirim $beritas
-        $totalBerita = $beritas->total();
-        $beritaBulanIni = \App\Models\News::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->count();
-        $kategoriCount = \App\Models\Category::count();
-        $categories = \App\Models\Category::all();
-        $popularNews = \App\Models\News::orderBy('views', 'desc')->limit(4)->get();
-        $totalViews = \App\Models\News::sum('views');
-
-        return view("pages.news.index", [
-            "beritas" => $beritas,
-            "totalBerita" => $totalBerita,
-            "beritaBulanIni" => $beritaBulanIni,
-            "kategoriCount" => $kategoriCount,
-            "categories" => $categories,
-            "popularNews" => $popularNews,
-            "totalViews" => $totalViews,
-        ]);
-    }
-
-    public function show($slug)
-    {
-        $berita = News::where('slug', $slug)->firstOrFail();
-        $berita->increment('views');
-
-        $prev = News::where('id', '<', $berita->id)->orderBy('id', 'desc')->first();
-        $next = News::where('id', '>', $berita->id)->orderBy('id', 'asc')->first();
-
-        // --- TAMBAHKAN INI UNTUK BERITA TERKAIT ---
-        // Cari 3 berita lain di kategori yang sama, kecualikan berita yang sedang dibaca
-        $relatedNews = News::where('category_id', $berita->category_id)
-            ->where('id', '!=', $berita->id)
-            ->latest()
-            ->take(3)
-            ->get();
-
-        // Jika tidak ada berita di kategori yang sama, ambil 3 berita terbaru secara umum
-        if ($relatedNews->isEmpty()) {
-            $relatedNews = News::where('id', '!=', $berita->id)
-                ->latest()
-                ->take(3)
-                ->get();
-            // Addini26
+        if ($request->filled('search')) {
+            $params['search'] = $request->input('search');
         }
 
-        // Jangan lupa tambahkan $relatedNews ke fungsi compact()
-        return view("pages.news.detail", compact('berita', 'prev', 'next', 'relatedNews'));
+        if ($request->filled('category')) {
+            $params['category'] = $request->input('category');
+        }
+
+        $response = Http::timeout(10)->get(self::API_BASE_URL . '/berita', $params);
+
+        $beritas   = [];
+        $meta      = ['total' => 0, 'per_page' => 9, 'current_page' => 1, 'last_page' => 1];
+
+        if ($response->successful()) {
+            $data    = $response->json();
+            $beritas = $data['data'] ?? [];
+            $meta    = $data['meta'] ?? $meta;
+        }
+
+        return view('pages.news.index', compact('beritas', 'meta'));
     }
 }

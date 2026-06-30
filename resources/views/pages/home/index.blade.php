@@ -610,10 +610,10 @@
 
                         <div id="news-slider-container" class="absolute inset-0 flex w-full h-full transition-transform duration-500 ease-in-out">
                             @forelse($beritas as $news)
-                                @php $imgUrl = $news->image ? asset('storage/'.$news->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
+                                @php $imgUrl = $news->image_url ?: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
 
                                 <article class="w-full h-full flex-shrink-0 relative">
-                                    <img src="{{ $imgUrl }}" alt="{{ $news->title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                                    <img src="{{ $imgUrl }}" alt="{{ $news->title }}" class="absolute inset-0 w-full h-full object-contain opacity-60 group-hover:scale-105 transition-transform duration-700">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
 
                                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -626,7 +626,7 @@
                                                 {{ $news->created_at ? $news->created_at->translatedFormat('d M Y') : '' }}
                                             </span>
                                         </div>
-                                        <a href="{{ route('news.detail', $news->slug) }}" class="block">
+                                        <a href="{{ $news->url }}" target="_blank" rel="noopener noreferrer" class="block">
                                             <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight hover:text-blue-300 transition-colors drop-shadow-lg">
                                                 {{ $news->title }}
                                             </h3>
@@ -634,7 +634,7 @@
                                         <p class="text-slate-300 text-sm md:text-base mb-6 line-clamp-2 leading-relaxed hidden md:block">
                                             {{ Str::limit(html_entity_decode(strip_tags($news->content)), 120) }}
                                         </p>
-                                        <a href="{{ route('news.detail', $news->slug) }}" class="inline-flex items-center justify-center bg-white/10 hover:bg-primary text-white backdrop-blur-sm border border-white/20 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300">
+                                        <a href="{{ $news->url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-white/10 hover:bg-primary text-white backdrop-blur-sm border border-white/20 px-6 py-2.5 rounded-xl font-semibold transition-all duration-300">
                                             Baca Selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                                         </a>
                                     </div>
@@ -692,7 +692,7 @@
                                 @forelse($annChunks as $chunk)
                                     <div class="w-full h-full flex-shrink-0 flex flex-col gap-4 px-1">
                                         @foreach($chunk as $ann)
-                                            <a href="{{ route('announcement.detail', $ann->slug) }}" class="flex flex-col gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md border border-slate-100 hover:border-secondary/30 transition-all duration-300 hover:-translate-y-1">
+                                            <a href="{{ $ann->url }}" target="_blank" rel="noopener noreferrer" class="flex flex-col gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md border border-slate-100 hover:border-secondary/30 transition-all duration-300 hover:-translate-y-1">
                                                 <div class="flex items-center justify-between gap-2">
                                                     <span class="text-[10px] font-bold text-secondary uppercase tracking-wider bg-red-50 px-2 py-1 rounded-md">
                                                         <i class="fa-solid fa-circle-exclamation mr-1"></i> Info Penting
@@ -825,8 +825,8 @@
                                 class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
                             >
                                 <div class="h-48 overflow-hidden bg-slate-100">
-                                    @if($berita->image)
-                                        <img src="{{ asset('storage/' . $berita->image) }}" alt="{{ $berita->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                                    @if($berita->image_url)
+                                        <img src="{{ $berita->image_url }}" alt="{{ $berita->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
                                     @else
                                         <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800" alt="Berita" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                     @endif
@@ -843,7 +843,7 @@
                                         {{ html_entity_decode(strip_tags($berita->description ?? '')) }}
                                     </p>
                                     <a
-                                        href="{{ route('news.detail', $berita->slug) }}"
+                                        href="{{ $berita->url }}" target="_blank" rel="noopener noreferrer"
                                         class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
                                     >
                                         Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
@@ -874,32 +874,20 @@
                                 class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 card-hover group"
                             >
                                 <div class="h-48 overflow-hidden bg-gradient-to-r from-secondary/80 to-secondary">
-                                    @if($item->image)
+                                    @if($item->image_url)
                                         <div class="w-full max-h-[500px] overflow-hidden bg-slate-100 border-b border-slate-100 flex justify-center">
-                                            @if(is_file(public_path('storage/'.$item->image)))
-                                                <img src="{{ asset('storage/' . $item->image) }}"
-                                                     alt="{{ $item->title }}"
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                                />
-                                            @elseif(is_file(public_path($item->image)))
-                                                <img src="{{ asset($item->image) }}"
-                                                     alt="{{ $item->title }}"
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                                />
-
-                                            @else
-                                                <img src="{{ asset('image/28.jpg') }}"
-                                                     alt="{{ $item->title }}"
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                                />
-                                            @endif
+                                            <img src="{{ $item->image_url }}"
+                                                 alt="{{ $item->title }}"
+                                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                                 onerror="this.src='{{ asset('image/28.jpg') }}'"
+                                            />
                                         </div>
+                                    @else
+                                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
+                                            alt="Pengumuman Default"
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                                        />
                                     @endif
-                                    <img
-                                        src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
-                                        alt="Pengumuman 1"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                                    />
                                 </div>
                                 <div class="p-6">
                                     <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
@@ -915,7 +903,7 @@
                                         {{ html_entity_decode(strip_tags($item->description)) }}
                                     </p>
                                     <a
-                                        href="{{ route('announcement.detail', $item->slug) }}"
+                                        href="{{ $item->url }}" target="_blank" rel="noopener noreferrer"
                                         class="text-primary font-semibold text-sm inline-flex items-center hover:underline"
                                     >
                                         Baca selengkapnya <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>

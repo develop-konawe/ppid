@@ -163,9 +163,9 @@
                                             } elseif ($menu->type == 'page' && $menu->page) {
                                                 $url = route('page.detail', $menu->page->slug);
                                             } elseif ($menu->type == 'news' && $menu->news) {
-                                                $url = route('news.detail', $menu->news->slug);
+                                                $url = route('news');
                                             } elseif ($menu->type == 'announcement' && $menu->announcement) {
-                                                $url = route('announcement.detail', $menu->announcement->slug);
+                                                $url = route('announcement');
                                             }
                                         @endphp
 

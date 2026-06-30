@@ -69,24 +69,28 @@
         <priority>0.8</priority>
     </url>
 
-    <!-- Dynamic News -->
+    <!-- Dynamic News (redirect ke portal berita eksternal) -->
     @foreach($news as $item)
+    @if($item->url)
     <url>
-        <loc>{{ route('news.detail', $item->slug) }}</loc>
+        <loc>{{ $item->url }}</loc>
         <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+    @endif
     @endforeach
 
-    <!-- Dynamic Announcements -->
+    <!-- Dynamic Announcements (redirect ke portal berita eksternal) -->
     @foreach($announcements as $item)
+    @if(isset($item->url) && $item->url)
     <url>
-        <loc>{{ route('announcement.detail', $item->slug) }}</loc>
+        <loc>{{ $item->url }}</loc>
         <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+    @endif
     @endforeach
 
     <!-- Dynamic Pages -->

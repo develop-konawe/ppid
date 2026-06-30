@@ -26,8 +26,8 @@ class Menu extends Model
         return match ($this->type) {
             'custom', 'external' => $this->url,
             'page' => $this->page ? route('page.detail', $this->page->slug ?? $this->page->id) : '#',
-            'news' => $this->news ? route('news.detail', $this->news->slug ?? $this->news->id) : route('news'),
-            'announcement' => $this->announcement ? route('announcements.detail', $this->announcement->slug ?? $this->announcement->id) : route('announcement'),
+            'news' => $this->news ? route('news') : route('news'),
+            'announcement' => $this->announcement ? route('announcement') : route('announcement'),
             default => '#',
         };
     }

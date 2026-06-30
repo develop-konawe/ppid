@@ -32,7 +32,7 @@ class SearchController extends Controller
                             'judul'       => $item->title,
                             'deskripsi'   => $item->content,
                             'tanggal'     => $item->created_at,
-                            'url'         => route('news.detail', $item->slug),
+                            'url'         => route('news'),
                             'icon'        => 'fa-newspaper',
                             'badge_color' => 'bg-blue-100 text-blue-700 border-blue-200'
                         ];
@@ -52,7 +52,7 @@ class SearchController extends Controller
                             'judul'       => $item->title,
                             'deskripsi'   => $item->description,
                             'tanggal'     => $item->published_at ?? $item->created_at,
-                            'url'         => route('announcement.detail', $item->slug),
+                            'url'         => route('announcement'),
                             'icon'        => 'fa-bullhorn',
                             'badge_color' => 'bg-amber-100 text-amber-700 border-amber-200'
                         ];

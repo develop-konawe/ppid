@@ -58,13 +58,6 @@
         .read-more { display: inline-flex; align-items: center; gap: 0.5rem; color: #1f3a8a; font-weight: 600; font-size: 0.9rem; transition: gap 0.3s ease; }
         .read-more:hover { gap: 0.75rem; color: #172554; }
 
-        /* Popular Post */
-        .popular-post { display: flex; gap: 1rem; padding: 1rem; border-radius: 1rem; transition: all 0.3s ease; background: white; border: 1px solid #e2e8f0; margin-bottom: 0.75rem; }
-        .popular-post:hover { background: #f1f5f9; transform: translateX(5px); border-color: #3b82f6; }
-        .popular-post-image { width: 80px; height: 80px; border-radius: 0.75rem; object-fit: cover; }
-        .popular-post-content h4 { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; color: #0f172a; transition: color 0.3s ease; }
-        .popular-post:hover h4 { color: #1f3a8a; }
-
         /* Filter Buttons */
         .filter-btn { padding: 0.75rem 1.5rem; border-radius: 2rem; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; background: white; color: #1f3a8a; border: 1px solid #e2e8f0; cursor: pointer; }
         .filter-btn:hover { background: #eff6ff; border-color: #1f3a8a; transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(31, 58, 138, 0.2); }
@@ -109,81 +102,69 @@
         </section>
 
         <section class="max-w-7xl mx-auto px-4 md:px-8 py-8 relative z-20">
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 animate-fade-in">
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $totalBerita }}</p>
-                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Total Publikasi</p>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $beritaBulanIni }}</p>
-                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Bulan Ini</p>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ $kategoriCount }}</p>
-                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Kategori</p>
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] py-6 px-4 flex flex-col items-center justify-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                    <p class="text-3xl md:text-4xl font-black text-primary-500 mb-2">{{ number_format($totalViews, 0, ',', '.') }}</p>
-                    <p class="text-slate-500 text-[11px] md:text-xs uppercase tracking-widest font-semibold text-center">Total Dilihat</p>
-                </div>
-            </div>
-
             <div class="bg-white rounded-2xl shadow-sm p-4 md:p-6 border border-slate-200">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-
-                    <div class="flex flex-wrap gap-2" id="filter-buttons">
-                        <a href="{{ route('news') }}" class="filter-btn active">Semua Berita</a>
-                        @foreach($categories as $category)
-                            <a href="{{ url('berita/kategori/' . $category->slug) }}" class="filter-btn">{{ $category->name }}</a>
-                        @endforeach
+                <form action="{{ route('news') }}" method="GET" class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-grow relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berita..."
+                            class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all text-sm" />
                     </div>
-
-                    <div class="relative w-full lg:w-72 shrink-0">
-                        <form action="{{ url('berita/search') }}" method="GET">
-                            <input type="text" name="q" placeholder="Cari berita..." value="{{ request('q') }}" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all" />
-                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400"></i>
-                        </form>
+                    <div class="flex gap-3 shrink-0">
+                        <button type="submit"
+                            class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-xl font-semibold transition-soft shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-search"></i>
+                            <span class="hidden md:inline">Cari</span>
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('news') }}"
+                                class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-3 rounded-xl font-semibold transition-soft flex items-center justify-center"
+                                title="Reset Pencarian">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </a>
+                        @endif
                     </div>
-
-                </div>
+                </form>
             </div>
-
         </section>
 
-        <section class="max-w-7xl mx-auto px-4 md:px-8 pb-20 pt-6">
+        <section class="max-w-7xl mx-auto px-4 md:px-8 pb-20 pt-2">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl md:text-3xl font-black text-dark flex items-center gap-2">
                     <i class="fa-solid fa-newspaper text-primary"></i> Berita Terkini
                 </h2>
+                <span class="bg-blue-50 text-primary px-3 py-1 rounded-full text-sm font-semibold border border-blue-200">
+                    Total: {{ $meta['total'] ?? 0 }} Berita
+                </span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @forelse($beritas as $berita)
+                    @php
+                        $imgUrl = $berita['cover_image'] ?? 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800';
+                        $publishedAt = $berita['published_at'] ? \Carbon\Carbon::parse($berita['published_at']) : null;
+                    @endphp
                     <div class="news-card">
                         <div class="news-image-container">
-                            @php $imgUrl = $berita->image ? asset('storage/'.$berita->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'; @endphp
-                            <img src="{{ $imgUrl }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
-                            @if($berita->category)
-                                <span class="news-category">{{ $berita->category->name }}</span>
+                            <img src="{{ $imgUrl }}" alt="{{ $berita['title'] }}" class="news-image" loading="lazy">
+                            @if(!empty($berita['category']['name']))
+                                <span class="news-category">{{ $berita['category']['name'] }}</span>
                             @endif
-                            <span class="news-date">
-                                <i class="fa-regular fa-calendar mr-1"></i> {{ $berita->created_at->format('d M') }}
-                            </span>
+                            @if($publishedAt)
+                                <span class="news-date">
+                                    <i class="fa-regular fa-calendar mr-1"></i> {{ $publishedAt->translatedFormat('d M') }}
+                                </span>
+                            @endif
                         </div>
                         <div class="news-content">
-                            <h3 class="news-title line-clamp-2">{{ $berita->title }}</h3>
-                            <p class="news-excerpt line-clamp-3">{{ Str::limit(html_entity_decode(strip_tags($berita->content)), 120) }}</p>
+                            <h3 class="news-title line-clamp-2">{{ $berita['title'] }}</h3>
+                            <p class="news-excerpt line-clamp-3">{{ $berita['summary'] }}</p>
 
                             <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
                                 <div class="text-sm text-slate-500">
-                                    <i class="fa-regular fa-eye mr-1 text-primary"></i> {{ $berita->views }}
+                                    <i class="fa-regular fa-eye mr-1 text-primary"></i> {{ number_format($berita['views'] ?? 0) }}
                                 </div>
-                                <a href="{{ route('news.detail', $berita->slug) }}" class="read-more">
-                                    Selengkapnya <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <a href="{{ $berita['url'] }}" target="_blank" rel="noopener noreferrer" class="read-more">
+                                    Selengkapnya <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                                 </a>
                             </div>
                         </div>
@@ -199,132 +180,88 @@
                 @endforelse
             </div>
 
-            @if (method_exists($beritas, 'hasPages') && $beritas->hasPages())
+            {{-- Pagination Manual berdasarkan metadata API --}}
+            @php
+                $currentPage = $meta['current_page'] ?? 1;
+                $lastPage    = $meta['last_page'] ?? 1;
+                $queryParams = request()->except('page');
+            @endphp
+            @if($lastPage > 1)
                 <div class="flex justify-center items-center gap-2 mt-12">
 
                     {{-- Tombol Previous --}}
-                    @if ($beritas->onFirstPage())
+                    @if($currentPage <= 1)
                         <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed shadow-sm border border-slate-200">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
                         </span>
                     @else
-                        <a href="{{ $beritas->previousPageUrl() }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                        <a href="{{ route('news', array_merge($queryParams, ['page' => $currentPage - 1])) }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
                         </a>
                     @endif
 
-                    {{-- Logika Penomoran Halaman Dinamis --}}
+                    {{-- Angka Halaman --}}
                     @php
-                        $start = max($beritas->currentPage() - 2, 1);
-                        $end = min($beritas->currentPage() + 2, $beritas->lastPage());
+                        $start = max($currentPage - 2, 1);
+                        $end   = min($currentPage + 2, $lastPage);
                     @endphp
 
-                    {{-- Angka 1 dan titik-titik awal --}}
                     @if($start > 1)
-                        <a href="{{ $beritas->url(1) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">1</a>
+                        <a href="{{ route('news', array_merge($queryParams, ['page' => 1])) }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">1</a>
                         @if($start > 2)
                             <span class="w-10 h-10 flex items-center justify-center text-slate-400 font-black tracking-widest">...</span>
                         @endif
                     @endif
 
-                    {{-- Looping Angka Halaman Tengah --}}
-                    @foreach (range($start, $end) as $page)
-                        @if ($page == $beritas->currentPage())
+                    @foreach(range($start, $end) as $page)
+                        @if($page == $currentPage)
                             <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md transform scale-105 cursor-default">
                                 {{ $page }}
                             </span>
                         @else
-                            <a href="{{ $beritas->url($page) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">
+                            <a href="{{ route('news', array_merge($queryParams, ['page' => $page])) }}"
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">
                                 {{ $page }}
                             </a>
                         @endif
                     @endforeach
 
-                    {{-- Titik-titik akhir dan Halaman Terakhir --}}
-                    @if($end < $beritas->lastPage())
-                        @if($end < $beritas->lastPage() - 1)
+                    @if($end < $lastPage)
+                        @if($end < $lastPage - 1)
                             <span class="w-10 h-10 flex items-center justify-center text-slate-400 font-black tracking-widest">...</span>
                         @endif
-                        <a href="{{ $beritas->url($beritas->lastPage()) }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">{{ $beritas->lastPage() }}</a>
+                        <a href="{{ route('news', array_merge($queryParams, ['page' => $lastPage])) }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-primary-subtle hover:text-primary transition-all font-semibold shadow-sm">{{ $lastPage }}</a>
                     @endif
 
                     {{-- Tombol Next --}}
-                    @if ($beritas->hasMorePages())
-                        <a href="{{ $beritas->nextPageUrl() }}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
-                            <i class="fa-solid fa-chevron-right text-sm"></i>
-                        </a>
-                    @else
+                    @if($currentPage >= $lastPage)
                         <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed shadow-sm border border-slate-200">
                             <i class="fa-solid fa-chevron-right text-sm"></i>
                         </span>
+                    @else
+                        <a href="{{ route('news', array_merge($queryParams, ['page' => $currentPage + 1])) }}"
+                            class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </a>
                     @endif
 
                 </div>
             @endif
+
         </section>
 
-        <section class="bg-white border-t border-slate-200 py-20">
-            <div class="max-w-7xl mx-auto px-4 md:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
-
-                    <div class="lg:col-span-2">
-                        <h3 class="text-2xl font-black text-dark mb-8 flex items-center border-b border-slate-100 pb-4">
-                            <i class="fa-solid fa-fire-flame-curved text-orange-500 mr-3"></i> Sedang Hangat Dibicarakan
-                        </h3>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @foreach($popularNews as $popular)
-                                <a href="{{ route('news.detail', $popular->slug) }}" class="popular-post">
-                                    @php $popImg = $popular->image ? asset('storage/'.$popular->image) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=300'; @endphp
-                                    <img src="{{ $popImg }}" alt="{{ $popular->title }}" class="popular-post-image shrink-0">
-                                    <div class="popular-post-content flex flex-col justify-center">
-                                        <span class="text-[10px] font-bold text-primary uppercase tracking-wider mb-1 block">
-                                            {{ $popular->category->name ?? 'Berita' }}
-                                        </span>
-                                        <h4 class="line-clamp-2 leading-snug">{{ $popular->title }}</h4>
-                                        <div class="flex items-center gap-3 mt-2">
-                                            <p class="text-[11px] text-slate-500 font-medium">
-                                                <i class="fa-regular fa-calendar mr-1"></i> {{ $popular->created_at->format('d M Y') }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-                        <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-400/20 rounded-full blur-2xl"></div>
-
-                        <div class="relative z-10">
-                            <div class="w-14 h-14 bg-white/20 backdrop-blur-sm border border-white/20 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fa-regular fa-envelope text-2xl text-white"></i>
-                            </div>
-                            <h4 class="text-2xl font-black mb-2">Berlangganan Info</h4>
-                            <p class="text-blue-100 mb-8 text-sm leading-relaxed">
-                                Dapatkan ringkasan berita terbaru PPID Konawe langsung ke email Anda.
-                            </p>
-
-                            <form action="#" method="POST" class="space-y-4">
-                                @csrf
-                                <div class="relative">
-                                    <i class="fa-regular fa-user absolute left-4 top-3.5 text-slate-400"></i>
-                                    <input type="text" name="name" placeholder="Nama Lengkap" required class="w-full pl-11 pr-4 py-3 rounded-xl text-slate-800 bg-white border-0 focus:ring-2 focus:ring-yellow-400 text-sm" />
-                                </div>
-                                <div class="relative">
-                                    <i class="fa-regular fa-envelope absolute left-4 top-3.5 text-slate-400"></i>
-                                    <input type="email" name="email" placeholder="Alamat Email" required class="w-full pl-11 pr-4 py-3 rounded-xl text-slate-800 bg-white border-0 focus:ring-2 focus:ring-yellow-400 text-sm" />
-                                </div>
-                                <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-2 flex justify-center items-center gap-2">
-                                    Berlangganan Sekarang <i class="fa-solid fa-paper-plane text-sm"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        {{-- Sumber Data --}}
+        <div class="max-w-7xl mx-auto px-4 md:px-8 pb-10">
+            <div class="flex items-center justify-center gap-2 text-xs text-slate-400 border-t border-slate-200 pt-8">
+                <i class="fa-solid fa-link text-primary/50"></i>
+                Data berita bersumber dari
+                <a href="https://berita.konawekab.go.id" target="_blank" rel="noopener noreferrer"
+                    class="text-primary font-semibold hover:underline">berita.konawekab.go.id</a>
             </div>
-        </section>
+        </div>
 
     </main>
 @endsection

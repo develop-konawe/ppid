@@ -24,7 +24,7 @@ class PpidPelaksanaSeeder extends Seeder
         foreach ($opds as $opd) {
             // Membuat format email yang unik berdasarkan singkatan atau nama OPD
             $emailPrefix = strtolower(str_replace(' ', '', $opd->singkatan ?? $opd->nama_opd));
-            $email = 'ppid.' . $emailPrefix . '@example.com';
+            $email = $emailPrefix . '@konawekab.go.id';
 
             $user = User::firstOrCreate(
                 ['email' => $email],

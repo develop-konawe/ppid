@@ -2,93 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
-use App\Models\Category; // Pastikan model Category dipanggil
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AnnouncementController extends Controller
 {
+    private const API_BASE_URL = 'https://berita.konawekab.go.id/api/v1';
+    private const API_KEY = '418595a9a453178dbdc3ea13af01789324f967e9cd60069e624de8b92003a613';
+
     public function index(Request $request)
     {
-        // 1. Query Dasar untuk List Pengumuman
-        $query = Announcement::with('category')->where('is_active', true);
-
-        // Filter berdasarkan Pencarian (Judul)
-        if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%');
-        }
-
-        // Filter berdasarkan Kategori
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
-        }
-
-        // Filter berdasarkan Tahun Publikasi
-        if ($request->filled('year')) {
-            $query->whereYear('published_at', $request->year);
-        }
-
-        // Eksekusi Query dengan Pagination (hanya yang sudah lewat/sama dengan waktu sekarang)
-        $pengumumans = $query->whereDate('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->paginate(10);
-
-        // 2. Ambil Pengumuman Penting / Highlight (Is Featured)
-        $featured = Announcement::where('is_active', true)
-            ->where('is_featured', true)
-            ->whereDate('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->first();
-
-        // Jika tidak ada yang di-feature, ambil pengumuman terbaru biasa
-        if (!$featured) {
-            $featured = Announcement::where('is_active', true)
-                ->whereDate('published_at', '<=', now())
-                ->orderBy('published_at', 'desc')
-                ->first();
-        }
-
-        // 3. Statistik Cepat
-        $stats = [
-            'total' => Announcement::count(),
-            'tahun_ini' => Announcement::whereYear('published_at', now()->year)->count(),
-            'aktif' => Announcement::where('is_active', true)->whereDate('published_at', '<=', now())->count(),
-            'akan_datang' => Announcement::where('is_active', true)->whereDate('published_at', '>', now())->count(),
+        $params = [
+            'api_key'  => self::API_KEY,
+            'page'     => $request->input('page', 1),
+            'per_page' => 10,
         ];
 
-        // 4. Data Filter Dropdown & Kategori Grid Bawah
-        $categories = Category::orderBy('name', 'asc')->get();
+        if ($request->filled('search')) {
+            $params['search'] = $request->input('search');
+        }
 
-        $years = Announcement::selectRaw('YEAR(published_at) as year')
-            ->whereNotNull('published_at')
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->pluck('year');
+        if ($request->filled('opd')) {
+            $params['opd'] = $request->input('opd');
+        }
 
-        return view("pages.announcement.index", compact(
-            'pengumumans', 'featured', 'stats', 'categories', 'years'
-        ));
-    }
+        $response = Http::timeout(10)->get(self::API_BASE_URL . '/pengumuman', $params);
 
-    public function show($slug)
-    {
-        $announcement = Announcement::where('slug', $slug)
-            ->where('is_active', true)
-            ->whereDate('published_at', '<=', now())->firstOrFail();
+        $pengumumans = [];
+        $meta        = ['total' => 0, 'per_page' => 10, 'current_page' => 1, 'last_page' => 1];
 
-        $announcement->increment('views');
+        if ($response->successful()) {
+            $data        = $response->json();
+            $pengumumans = $data['data'] ?? [];
+            $meta        = $data['meta'] ?? $meta;
+        }
 
-        $prev = Announcement::where('id', '<', $announcement->id)
-            ->where('is_active', true)
-            ->orderBy('published_at', 'desc')
-            ->first();
-
-        $next = Announcement::where('id', '>', $announcement->id)
-            ->where('is_active', true)
-            ->orderBy('published_at', 'asc')
-            ->first();
-
-        return view('pages.announcement.detail', compact('announcement', 'prev', 'next'));
+        return view('pages.announcement.index', compact('pengumumans', 'meta'));
     }
 }

@@ -16,35 +16,68 @@ class HomeController extends Controller
     {
         // ambilkan data banner dengan status is_active = true dan urutkan berdasarkan sort_order
         $banners = Carousel::where('is_active', true)->orderBy('sort_order', 'asc')->get();
-        $beritas = News::where('is_featured', true)->get();
+        
+        $apiKey = '418595a9a453178dbdc3ea13af01789324f967e9cd60069e624de8b92003a613';
+        $apiBaseUrl = 'https://berita.konawekab.go.id/api/v1';
 
-        // ambilkan data pengumuman dengan status is_active = true dan is_featured = true
-        $pengumumans = Announcement::where('is_active', true)
-            ->where('is_featured', true)
-            ->get();//
+        // Fetch Berita dari API (ambil 10 untuk memfilter is_pinned)
+        $respNews = \Illuminate\Support\Facades\Http::timeout(10)->get("$apiBaseUrl/berita", [
+            'api_key' => $apiKey,
+            'per_page' => 10
+        ]);
+        
+        $apiBeritas = collect();
+        if ($respNews->successful()) {
+            $apiBeritas = collect($respNews->json('data') ?? [])->map(function($item) {
+                $obj = (object)$item;
+                $obj->category = isset($item['category']) ? (object)$item['category'] : null;
+                $obj->created_at = isset($item['published_at']) && $item['published_at'] ? \Carbon\Carbon::parse($item['published_at']) : \Carbon\Carbon::now();
+                $obj->description = $item['summary'] ?? '';
+                $obj->content = $item['summary'] ?? '';
+                $obj->image_url = $item['cover_image'] ?? $item['image'] ?? null;
+                $obj->is_pinned = !empty($item['is_pinned']);
+                $obj->url = $item['url'] ?? route('news');
+                return $obj;
+            });
+        }
 
-        // ambilkan data 4 berita terbaru
-        $latestBeritas = News::latest()->take(4)->get();
+        // Fetch Pengumuman dari API (6 item terbaru)
+        $respAnn = \Illuminate\Support\Facades\Http::timeout(10)->get("$apiBaseUrl/pengumuman", [
+            'api_key' => $apiKey,
+            'per_page' => 6
+        ]);
 
-        // ambilkan data 2 pengumuman terbaru
-        $latestPengumuman = Announcement::where('is_active', true)
-            ->whereDate('published_at', '<=', now())
-            ->latest()
-            ->take(2)
-            ->get();
+        $apiPengumumans = collect();
+        if ($respAnn->successful()) {
+            $apiPengumumans = collect($respAnn->json('data') ?? [])->map(function($item) {
+                $obj = (object)$item;
+                $obj->category = isset($item['category']) ? (object)$item['category'] : null;
+                $obj->published_at = isset($item['published_at']) && $item['published_at'] ? \Carbon\Carbon::parse($item['published_at']) : \Carbon\Carbon::now();
+                $obj->description = $item['summary'] ?? '';
+                $obj->image_url = $item['cover_image'] ?? $item['image'] ?? null;
+                $obj->url = $item['url'] ?? route('announcement');
+                return $obj;
+            });
+        }
+
+        $beritas = $apiBeritas->filter(function($item) {
+            return $item->is_pinned;
+        })->take(4);
+
+        if ($beritas->isEmpty()) {
+            $beritas = $apiBeritas->take(4); // Fallback jika tidak ada yang di pin
+        }
+
+        $pengumumans = $apiPengumumans; // untuk papan pengumuman
+        $latestBeritas = $apiBeritas->take(3); // untuk tab berita terbaru
+        $latestPengumuman = $apiPengumumans->take(3); // untuk tab pengumuman terbaru
 
         // ambilkan data gallery terbaru sebanyak 9
         $gallery = Gallery::latest()->take(9)->get();
 
-        // ambilkan data 4 berita populer
-        $popularBeritas = News::orderBy('views', 'desc')->take(4)->get();
-
-        // ambilkan data 4 pengumuman populer
-        $popularPengumumans = Announcement::where('is_active', true)
-            ->whereDate('published_at', '<=', now())
-            ->orderBy('views', 'desc')
-            ->take(4)
-            ->get();
+        // Bagian populer dihilangkan karena data berasal dari API
+        $popularBeritas = collect();
+        $popularPengumumans = collect();
 
         // ambil data akun sosial media
         $socialMedias = \App\Models\SocialMedia::where('is_active', true)->get();

@@ -111,8 +111,7 @@ class PublicInformationResource extends Resource
                             Forms\Components\Select::make('status')
                                 ->label('Status Publikasi')
                                 ->options(function () {
-                                    // LOGIKA BARU: Cek pakai is_super_admin
-                                    if (!auth()->user()->is_super_admin) {
+                                    if (!auth()->user()->isSuperAdmin() && !auth()->user()->hasRole('operator_ppid')) {
                                         return [
                                             'draft'  => 'Draft (Simpan Saja)',
                                             'review' => 'Kirim untuk Review',
@@ -128,7 +127,7 @@ class PublicInformationResource extends Resource
                                 ->default('draft')
                                 ->required()
                                 ->native(false)
-                                ->helperText(fn () => !auth()->user()->is_super_admin ? 'Pilih "Kirim untuk Review" agar Admin Utama dapat menerbitkannya.' : ''),
+                                ->helperText(fn () => (!auth()->user()->isSuperAdmin() && !auth()->user()->hasRole('operator_ppid')) ? 'Pilih "Kirim untuk Review" agar Admin Utama dapat menerbitkannya.' : ''),
 
                             Forms\Components\Select::make('category_id')
                                 ->label('Kategori')
@@ -144,8 +143,8 @@ class PublicInformationResource extends Resource
                                 ->preload()
                                 ->required()
                                 ->default(fn () => auth()->user()->opd_id)
-                                // LOGIKA BARU: Disable jika bukan super admin
-                                ->disabled(fn () => !auth()->user()->is_super_admin)
+                                // LOGIKA BARU: Disable jika bukan super admin atau admin utama PPID
+                                ->disabled(fn () => (!auth()->user()->isSuperAdmin() && !auth()->user()->hasRole('operator_ppid')))
                                 ->dehydrated(),
 
                             Forms\Components\TextInput::make('year')
@@ -250,7 +249,7 @@ class PublicInformationResource extends Resource
                     ->requiresConfirmation()
                     ->modalHeading('Terbitkan Dokumen Ini?')
                     ->visible(fn ($record) =>
-                        auth()->user()->is_super_admin &&
+                        (auth()->user()->isSuperAdmin() || auth()->user()->hasRole('operator_ppid')) &&
                         in_array($record->status, ['review', 'draft', 'rejected'])
                     )
                     ->action(function ($record) {
@@ -274,7 +273,7 @@ class PublicInformationResource extends Resource
                     ->color('warning')
                     ->requiresConfirmation()
                     ->visible(fn ($record) =>
-                        auth()->user()->is_super_admin &&
+                        (auth()->user()->isSuperAdmin() || auth()->user()->hasRole('operator_ppid')) &&
                         $record->status === 'published'
                     )
                     ->action(function ($record) {
@@ -299,8 +298,8 @@ class PublicInformationResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        // LOGIKA BARU: Filter data OPD jika bukan super admin
-        if (!auth()->user()->is_super_admin) {
+        // LOGIKA BARU: Filter data OPD jika bukan super admin atau operator PPID utama
+        if (!auth()->user()->isSuperAdmin() && !auth()->user()->hasRole('operator_ppid')) {
             $query->where('opd_id', auth()->user()->opd_id);
         }
 
