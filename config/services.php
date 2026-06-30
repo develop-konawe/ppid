@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'portal_berita' => [
+        'base_url' => env('PORTAL_BERITA_BASE_URL', 'https://berita.konawekab.go.id/api/v1'),
+        'api_key' => env('PORTAL_BERITA_API_KEY', '418595a9a453178dbdc3ea13af01789324f967e9cd60069e624de8b92003a613'),
+    ],
+
 ];

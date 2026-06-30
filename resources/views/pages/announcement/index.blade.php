@@ -129,20 +129,20 @@
                         <tbody class="divide-y divide-slate-100">
                         @forelse($pengumumans as $index => $item)
                             @php
-                                $publishedAt = !empty($item['published_at']) ? \Carbon\Carbon::parse($item['published_at']) : null;
+                                $publishedAt = $item->published_at;
                             @endphp
                             <tr class="table-row-hover transition-soft">
                                 <td class="px-6 py-4 text-sm text-slate-500 font-medium">
                                     {{ (($meta['current_page'] - 1) * $meta['per_page']) + $loop->iteration }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="font-bold text-dark line-clamp-1 mb-1">{{ $item['title'] }}</div>
-                                    <div class="text-xs text-slate-500 line-clamp-1">{{ $item['summary'] ?? '' }}</div>
+                                    <div class="font-bold text-dark line-clamp-1 mb-1">{{ $item->title }}</div>
+                                    <div class="text-xs text-slate-500 line-clamp-1">{{ $item->description }}</div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="bg-amber-50 text-amber-700 border border-amber-200 rounded-md px-2.5 py-1 text-[10px] font-bold tracking-wide uppercase inline-flex items-center gap-1">
                                         <i class="fa-solid fa-building text-xs"></i>
-                                        {{ Str::limit($item['opd']['name'] ?? '-', 30) }}
+                                        {{ Str::limit($item->opd->name ?? '-', 30) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-600 font-medium">
@@ -150,10 +150,10 @@
                                     {{ $publishedAt ? $publishedAt->translatedFormat('d M Y') : '-' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-600 font-medium">
-                                    <i class="fa-regular fa-eye text-amber-500 mr-1"></i> {{ number_format($item['views'] ?? 0) }}
+                                    <i class="fa-regular fa-eye text-amber-500 mr-1"></i> {{ number_format($item->views ?? 0) }}
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <a href="{{ $item['url'] }}" target="_blank" rel="noopener noreferrer"
+                                    <a href="{{ $item->url }}" target="_blank" rel="noopener noreferrer"
                                         class="bg-amber-50 hover:bg-amber-600 text-amber-600 hover:text-white px-4 py-2 rounded-lg font-semibold text-xs inline-flex items-center gap-2 transition-all border border-amber-200 hover:border-amber-600 shadow-sm">
                                         Detail <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                                     </a>
@@ -228,26 +228,26 @@
             <div class="md:hidden space-y-4">
                 @forelse($pengumumans as $item)
                     @php
-                        $publishedAt = !empty($item['published_at']) ? \Carbon\Carbon::parse($item['published_at']) : null;
+                        $publishedAt = $item->published_at;
                     @endphp
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 card-hover relative overflow-hidden">
                         <div class="flex justify-between items-start mb-3">
                             <span class="bg-amber-50 text-amber-700 border border-amber-200 rounded-md px-2 py-1 text-[10px] uppercase font-bold tracking-wide inline-flex items-center gap-1">
-                                <i class="fa-solid fa-building text-xs"></i> {{ Str::limit($item['opd']['name'] ?? '-', 25) }}
+                                <i class="fa-solid fa-building text-xs"></i> {{ Str::limit($item->opd->name ?? '-', 25) }}
                             </span>
                             <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
-                                <i class="fa-regular fa-eye text-amber-500 mr-1"></i> {{ number_format($item['views'] ?? 0) }}
+                                <i class="fa-regular fa-eye text-amber-500 mr-1"></i> {{ number_format($item->views ?? 0) }}
                             </span>
                         </div>
-                        <h3 class="font-bold text-dark text-lg mb-2 line-clamp-2 leading-tight">{{ $item['title'] }}</h3>
-                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">{{ $item['summary'] ?? '' }}</p>
+                        <h3 class="font-bold text-dark text-lg mb-2 line-clamp-2 leading-tight">{{ $item->title }}</h3>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">{{ $item->description }}</p>
 
                         <div class="flex justify-between items-center text-sm border-t border-slate-100 pt-4 mt-2">
                             <span class="text-slate-500 font-medium">
                                 <i class="fa-regular fa-calendar mr-1 text-slate-400"></i>
                                 {{ $publishedAt ? $publishedAt->translatedFormat('d M Y') : '-' }}
                             </span>
-                            <a href="{{ $item['url'] }}" target="_blank" rel="noopener noreferrer"
+                            <a href="{{ $item->url }}" target="_blank" rel="noopener noreferrer"
                                 class="bg-amber-50 hover:bg-amber-600 text-amber-600 hover:text-white px-3 py-1.5 rounded-lg font-semibold text-xs inline-flex items-center gap-1 transition-all border border-amber-200 hover:border-amber-600">
                                 Detail <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                             </a>

@@ -140,14 +140,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @forelse($beritas as $berita)
                     @php
-                        $imgUrl = $berita['cover_image'] ?? 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800';
-                        $publishedAt = $berita['published_at'] ? \Carbon\Carbon::parse($berita['published_at']) : null;
+                        $imgUrl = $berita->image_url ?: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800';
+                        $publishedAt = $berita->published_at;
                     @endphp
                     <div class="news-card">
                         <div class="news-image-container">
-                            <img src="{{ $imgUrl }}" alt="{{ $berita['title'] }}" class="news-image" loading="lazy">
-                            @if(!empty($berita['category']['name']))
-                                <span class="news-category">{{ $berita['category']['name'] }}</span>
+                            <img src="{{ $imgUrl }}" alt="{{ $berita->title }}" class="news-image" loading="lazy">
+                            @if(!empty($berita->category->name))
+                                <span class="news-category">{{ $berita->category->name }}</span>
                             @endif
                             @if($publishedAt)
                                 <span class="news-date">
@@ -156,14 +156,14 @@
                             @endif
                         </div>
                         <div class="news-content">
-                            <h3 class="news-title line-clamp-2">{{ $berita['title'] }}</h3>
-                            <p class="news-excerpt line-clamp-3">{{ $berita['summary'] }}</p>
+                            <h3 class="news-title line-clamp-2">{{ $berita->title }}</h3>
+                            <p class="news-excerpt line-clamp-3">{{ $berita->description }}</p>
 
                             <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
                                 <div class="text-sm text-slate-500">
-                                    <i class="fa-regular fa-eye mr-1 text-primary"></i> {{ number_format($berita['views'] ?? 0) }}
+                                    <i class="fa-regular fa-eye mr-1 text-primary"></i> {{ number_format($berita->views ?? 0) }}
                                 </div>
-                                <a href="{{ $berita['url'] }}" target="_blank" rel="noopener noreferrer" class="read-more">
+                                <a href="{{ $berita->url }}" target="_blank" rel="noopener noreferrer" class="read-more">
                                     Selengkapnya <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                                 </a>
                             </div>
