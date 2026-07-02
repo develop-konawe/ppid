@@ -21,19 +21,25 @@ class HomeController extends Controller
         $beritaResult = $beritaService->getBerita(['per_page' => 10]);
         $apiBeritas = collect($beritaResult['data']);
 
-        // Fetch Pengumuman dari API (6 item terbaru)
-        $pengumumanResult = $beritaService->getPengumuman(['per_page' => 6]);
+        // Fetch Pengumuman dari API (ambil 10 untuk memfilter is_pinned sebagai kabar unggulan, 6 untuk papan pengumuman)
+        $pengumumanResult = $beritaService->getPengumuman(['per_page' => 10]);
         $apiPengumumans = collect($pengumumanResult['data']);
 
-        $beritas = $apiBeritas->filter(function($item) {
-            return $item->is_pinned;
-        })->take(4);
+        // Filter pinned dari berita dan pengumuman, lalu gabungkan sebagai kabar unggulan
+        $pinnedBerita = $apiBeritas->filter(fn($item) => $item->is_pinned)
+            ->map(function($item) { $item->item_type = 'Berita'; return $item; });
+        $pinnedPengumuman = $apiPengumumans->filter(fn($item) => $item->is_pinned)
+            ->map(function($item) { $item->item_type = 'Pengumuman'; return $item; });
+
+        $beritas = $pinnedBerita->merge($pinnedPengumuman)
+            ->sortByDesc(fn($item) => $item->created_at)
+            ->take(4);
 
         if ($beritas->isEmpty()) {
-            $beritas = $apiBeritas->take(4); // Fallback jika tidak ada yang di pin
+            $beritas = $apiBeritas->take(4)->map(function($item) { $item->item_type = 'Berita'; return $item; }); // Fallback jika tidak ada yang di pin
         }
 
-        $pengumumans = $apiPengumumans; // untuk papan pengumuman
+        $pengumumans = $apiPengumumans->take(6); // untuk papan pengumuman
         $latestBeritas = $apiBeritas->take(3); // untuk tab berita terbaru
         $latestPengumuman = $apiPengumumans->take(3); // untuk tab pengumuman terbaru
 

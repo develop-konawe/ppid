@@ -617,10 +617,15 @@
                                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
 
                                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                                        <div class="flex items-center gap-3 mb-4">
+                                        <div class="flex items-center gap-3 mb-4 flex-wrap">
                                             <span class="bg-primary text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-3 rounded-md shadow-md">
                                                 {{ $news->category->name ?? 'Berita Pilihan' }}
                                             </span>
+                                            @if(($news->item_type ?? 'Berita') === 'Pengumuman')
+                                                <span class="bg-secondary text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-3 rounded-md shadow-md">
+                                                    <i class="fa-solid fa-bullhorn mr-1"></i> Pengumuman
+                                                </span>
+                                            @endif
                                             <span class="text-slate-300 text-xs font-medium flex items-center bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-md">
                                                 <i class="fa-regular fa-calendar mr-1.5"></i>
                                                 {{ $news->created_at ? $news->created_at->translatedFormat('d M Y') : '' }}
