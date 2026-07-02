@@ -299,7 +299,7 @@
                         <!-- Default Slide -->
                         <div class="carousel-slide active" data-slide="1">
                             <img
-                                src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&q=80&w=1920"
+                                src="{{ asset('image/logo_konawe.png') }}"
                                 alt="Transparansi Informasi Publik"
                                 class="carousel-image"
                                 loading="eager"
@@ -610,7 +610,7 @@
 
                         <div id="news-slider-container" class="absolute inset-0 flex w-full h-full transition-transform duration-500 ease-in-out">
                             @forelse($beritas as $news)
-                                @php $imgUrl = $news->image_url ?: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200'; @endphp
+                                @php $imgUrl = $news->image_url ?: asset('image/logo_konawe.png'); @endphp
 
                                 <article class="w-full h-full flex-shrink-0 relative">
                                     <img src="{{ $imgUrl }}" alt="{{ $news->title }}" class="absolute inset-0 w-full h-full object-contain opacity-60 group-hover:scale-105 transition-transform duration-700">
@@ -826,9 +826,9 @@
                             >
                                 <div class="h-48 overflow-hidden bg-slate-100">
                                     @if($berita->image_url)
-                                        <img src="{{ $berita->image_url }}" alt="{{ $berita->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                                        <img src="{{ $berita->image_url }}" alt="{{ $berita->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='{{ asset('image/logo_konawe.png') }}'"/>
                                     @else
-                                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800" alt="Berita" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        <img src="{{ asset('image/logo_konawe.png') }}" alt="Berita" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                     @endif
                                 </div>
                                 <div class="p-6">
@@ -883,7 +883,7 @@
                                             />
                                         </div>
                                     @else
-                                        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800"
+                                        <img src="{{ asset('image/logo_konawe.png') }}"
                                             alt="Pengumuman Default"
                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                                         />
@@ -947,7 +947,7 @@
                     @forelse($galleryPhotos as $item)
                         @php $mediaSrc = $item->media_path ? asset('storage/' . $item->media_path) : $item->media_url; @endphp
                         <div class="gallery-item relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group bg-slate-100" onclick="openLightbox({{ $loopIndex }})">
-                            <img src="{{ $mediaSrc }}" alt="{{ $item->caption ?? 'Kegiatan PPID' }}" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800'"/>
+                            <img src="{{ $mediaSrc }}" alt="{{ $item->caption ?? 'Kegiatan PPID' }}" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110" onerror="this.src='{{ asset('image/logo_konawe.png') }}'"/>
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div class="absolute bottom-4 left-4 text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pr-4">
                                 <p class="text-sm font-semibold line-clamp-2">{{ $item->caption ?? 'Dokumentasi PPID' }}</p>
@@ -1129,27 +1129,27 @@
                 @endforeach
             @else
                 {
-                    src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 1',
                 },
                 {
-                    src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 2',
                 },
                 {
-                    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 3',
                 },
                 {
-                    src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 4',
                 },
                 {
-                    src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 5',
                 },
                 {
-                    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200',
+                    src: '{{ asset('image/logo_konawe.png') }}',
                     alt: 'Gallery Image 6',
                 },
             @endif
