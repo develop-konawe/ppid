@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
-use App\Models\Announcement;
 use App\Models\PublicInformation;
+use App\Services\PortalBeritaService;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 class SearchController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, PortalBeritaService $beritaService)
     {
         $keyword = $request->input('q');
         $kategori = $request->input('kategori');
@@ -20,43 +18,45 @@ class SearchController extends Controller
 
         if (!empty($keyword)) {
 
-            // 1. PENCARIAN DI BERITA
+            // 1. PENCARIAN DI BERITA (via API)
             if (empty($kategori) || in_array($kategori, ['semua', 'berita'])) {
-                $news = News::where('title', 'LIKE', "%{$keyword}%")
-                    ->orWhere('content', 'LIKE', "%{$keyword}%")
-                    ->latest()
-                    ->get()
-                    ->map(function ($item) {
-                        return (object) [
-                            'tipe'        => 'Berita',
-                            'judul'       => $item->title,
-                            'deskripsi'   => $item->content,
-                            'tanggal'     => $item->created_at,
-                            'url'         => route('news'),
-                            'icon'        => 'fa-newspaper',
-                            'badge_color' => 'bg-blue-100 text-blue-700 border-blue-200'
-                        ];
-                    });
+                $beritaResult = $beritaService->getBerita([
+                    'search'   => $keyword,
+                    'per_page' => 20,
+                ]);
+
+                $news = $beritaResult['data']->map(function ($item) {
+                    return (object) [
+                        'tipe'        => 'Berita',
+                        'judul'       => $item->title,
+                        'deskripsi'   => $item->description,
+                        'tanggal'     => $item->created_at,
+                        'url'         => $item->url,
+                        'icon'        => 'fa-newspaper',
+                        'badge_color' => 'bg-blue-100 text-blue-700 border-blue-200'
+                    ];
+                });
                 $semuaHasil = $semuaHasil->merge($news);
             }
 
-            // 2. PENCARIAN DI PENGUMUMAN
+            // 2. PENCARIAN DI PENGUMUMAN (via API)
             if (empty($kategori) || in_array($kategori, ['semua', 'pengumuman'])) {
-                $announcements = Announcement::where('title', 'LIKE', "%{$keyword}%")
-                    ->orWhere('description', 'LIKE', "%{$keyword}%")
-                    ->latest()
-                    ->get()
-                    ->map(function ($item) {
-                        return (object) [
-                            'tipe'        => 'Pengumuman',
-                            'judul'       => $item->title,
-                            'deskripsi'   => $item->description,
-                            'tanggal'     => $item->published_at ?? $item->created_at,
-                            'url'         => route('announcement'),
-                            'icon'        => 'fa-bullhorn',
-                            'badge_color' => 'bg-amber-100 text-amber-700 border-amber-200'
-                        ];
-                    });
+                $pengumumanResult = $beritaService->getPengumuman([
+                    'search'   => $keyword,
+                    'per_page' => 20,
+                ]);
+
+                $announcements = $pengumumanResult['data']->map(function ($item) {
+                    return (object) [
+                        'tipe'        => 'Pengumuman',
+                        'judul'       => $item->title,
+                        'deskripsi'   => $item->description,
+                        'tanggal'     => $item->published_at,
+                        'url'         => $item->url,
+                        'icon'        => 'fa-bullhorn',
+                        'badge_color' => 'bg-amber-100 text-amber-700 border-amber-200'
+                    ];
+                });
                 $semuaHasil = $semuaHasil->merge($announcements);
             }
 
@@ -142,3 +142,4 @@ class SearchController extends Controller
         return view('pages.search.index', compact('keyword', 'kategori', 'results', 'semuaHasil'));
     }
 }
+

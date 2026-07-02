@@ -67,6 +67,24 @@ Route::middleware('auth')->get('/permohonan/{informationRequest}/cetak', [Inform
 Route::get('/cek-status', [InformationRequestController::class, 'checkStatus'])->name('permohonan.status');
 Route::post('/cek-status', [InformationRequestController::class, 'processCheckStatus'])->name('permohonan.status.check');
 
+// API Documentation - Generate Token
+Route::middleware(['auth'])->post('/admin/api-documentation/generate-token', function () {
+    $user = auth()->user();
+
+    if (! $user->is_super_admin && ! $user->hasRole('operator_ppid')) {
+        abort(403, 'Unauthorized');
+    }
+
+    // Revoke existing tokens
+    $user->tokens()->delete();
+
+    // Create new token
+    $token = $user->createToken('api-token');
+
+    return redirect()->route('filament.admin.pages.api-documentation')
+        ->with('new_api_token', $token->plainTextToken);
+})->name('filament.admin.pages.api-documentation.generate-token');
+
 // Temporary route to run specific migration
 Route::get('/run-migration/{filename}', function ($filename) {
     try {
