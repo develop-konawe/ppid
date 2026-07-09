@@ -44,6 +44,9 @@
 
 
     <link rel="stylesheet" href="{{ asset('style/fonts/css/brands.min.css') }}">
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     @stack('scripts-head')
 
@@ -84,6 +87,45 @@
         }
         body.acc-readable-font, body.acc-readable-font * {
             font-family: Arial, Helvetica, sans-serif !important;
+        }
+
+        /* Select2 Tailwind Override */
+        .select2-container .select2-selection--single {
+            height: 44px;
+            border-color: #e2e8f0;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #475569;
+            line-height: 44px;
+            padding-left: 12px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 42px;
+            right: 8px;
+        }
+        .select2-container--open .select2-selection--single {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+        .select2-dropdown {
+            border-color: #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            z-index: 9999;
+        }
+        .select2-search--dropdown .select2-search__field {
+            border-radius: 0.375rem;
+            border-color: #e2e8f0;
+            padding: 0.5rem;
+        }
+        .select2-search--dropdown .select2-search__field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
         }
 
         /* Custom Styles */
@@ -633,6 +675,22 @@
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         currentDateElement.textContent = now.toLocaleDateString('id-ID', options);
     }
+</script>
+
+<!-- Select2 JS & jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        if ($('.select2').length > 0) {
+            $('.select2').select2({
+                width: '100%',
+                placeholder: function() {
+                    return $(this).data('placeholder');
+                }
+            });
+        }
+    });
 </script>
 
 @stack('scripts')

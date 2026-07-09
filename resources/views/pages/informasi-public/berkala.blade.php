@@ -199,37 +199,43 @@
                         </div>
 
                         <!-- Tahun Filter -->
-                        <select name="year" class="md:w-48 px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            <option value="">Semua Tahun</option>
-                            @foreach($tahunList as $tahun)
-                                <option value="{{ $tahun }}" {{ request('year') == $tahun ? 'selected' : '' }}>
-                                    {{ $tahun }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="md:w-48 w-full shrink-0">
+                            <select name="year" class="select2 w-full px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">Semua Tahun</option>
+                                @foreach($tahunList as $tahun)
+                                    <option value="{{ $tahun }}" {{ request('year') == $tahun ? 'selected' : '' }}>
+                                        {{ $tahun }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <!-- Kategori Filter -->
-                        <select name="category" class="md:w-48 px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            <option value="">Semua Kategori</option>
-                            @foreach($kategoriList as $kategori)
-                                <option value="{{ $kategori->id }}" {{ request('category') == $kategori->id ? 'selected' : '' }}>
-                                    {{ $kategori->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="md:w-48 w-full shrink-0">
+                            <select name="category" class="select2 w-full px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">Semua Kategori</option>
+                                @foreach($kategoriList as $kategori)
+                                    <option value="{{ $kategori->id }}" {{ request('category') == $kategori->id ? 'selected' : '' }}>
+                                        {{ $kategori->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <!-- OPD Filter -->
                         @php
                             $opdList = \App\Models\Opd::orderBy('nama_opd')->get();
                         @endphp
-                        <select name="opd" class="md:w-48 px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            <option value="">Semua OPD</option>
-                            @foreach($opdList as $opd)
-                                <option value="{{ $opd->id }}" {{ request('opd') == $opd->id ? 'selected' : '' }}>
-                                    {{ $opd->nama_opd }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="md:w-48 w-full shrink-0">
+                            <select name="opd" class="select2 w-full px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">Semua OPD</option>
+                                @foreach($opdList as $opd)
+                                    <option value="{{ $opd->id }}" {{ request('opd') == $opd->id ? 'selected' : '' }}>
+                                        {{ $opd->nama_opd }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <button type="submit" class="md:w-48 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-xl font-semibold transition-soft flex items-center justify-center gap-2">
                             <i class="fa-solid fa-filter"></i>
@@ -310,6 +316,9 @@
                                 Kategori
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                                OPD
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
                                 Tahun
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
@@ -367,6 +376,9 @@
                                     <span class="px-3 py-1 rounded-full text-xs font-medium {{ $badgeClass }}">
                                         {{ $categoryName }}
                                     </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-slate-600">
+                                    {{ $info->opd->singkatan ?? $info->opd->nama_opd ?? 'PPID' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-600">
                                     {{ $info->year ?? '-' }}

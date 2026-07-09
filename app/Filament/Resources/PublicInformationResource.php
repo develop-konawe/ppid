@@ -198,7 +198,9 @@ class PublicInformationResource extends Resource
                     ->label('Lampiran')
                     ->icon(fn ($record) => $record->file_url ? 'heroicon-o-link' : 'heroicon-o-document-arrow-up')
                     ->color(fn ($record) => $record->file_url ? 'warning' : 'primary')
-                    ->tooltip(fn ($record) => $record->file_url ? 'Link Eksternal' : 'File Lokal Server'),
+                    ->tooltip(fn ($record) => $record->file_url ? 'Link Eksternal' : 'File Lokal Server')
+                    ->url(fn ($record) => $record->file_url ?: ($record->file_path ? asset('storage/' . $record->file_path) : null))
+                    ->openUrlInNewTab(),
 
                 Tables\Columns\TextColumn::make('status')
                     ->badge()

@@ -109,6 +109,18 @@ class InformasiPublicController extends Controller
             });
         }
 
+        if ($request->filled('year')) {
+            $query->where('year', $request->year);
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('opd')) {
+            $query->where('opd_id', $request->opd);
+        }
+
         $data = $query->latest('published_at')->paginate(10)->withQueryString();
 
         // Statistik
@@ -204,6 +216,14 @@ class InformasiPublicController extends Controller
             $query->where('category_id', $request->category);
         }
 
+        if ($request->filled('year')) {
+            $query->where('year', $request->year);
+        }
+
+        if ($request->filled('opd')) {
+            $query->where('opd_id', $request->opd);
+        }
+
         // Eksekusi Query untuk Tabel Paginasi
         $informations = $query->latest('published_at')
             ->paginate(10)
@@ -270,11 +290,33 @@ class InformasiPublicController extends Controller
     public function dikecualikan(Request $request)
     {
         // Mengambil data informasi dikecualikan beserta relasi kategori dan detail exception
-        $informations = PublicInformation::with(['category', 'exception'])
+        $query = PublicInformation::with(['category', 'exception', 'opd'])
             ->where('information_type', 'dikecualikan')
-            ->where('status', 'published')
-            ->latest('published_at')
-            ->paginate(10);
+            ->where('status', 'published');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($request->filled('year')) {
+            $query->where('year', $request->year);
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('opd')) {
+            $query->where('opd_id', $request->opd);
+        }
+
+        $informations = $query->latest('published_at')
+            ->paginate(10)
+            ->withQueryString();
 
         // Menghitung total statistik untuk bagian bawah (Ringkasan)
         $totalDikecualikan = PublicInformation::where('information_type', 'dikecualikan')

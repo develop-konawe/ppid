@@ -97,6 +97,88 @@
             </div>
         </section>
 
+        <!-- Filter Section -->
+        <section class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-6">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                <form action="{{ route('ppid.dikecualikan') ?? '#' }}" method="GET" class="flex flex-col md:flex-row gap-3">
+                    <div class="flex-grow relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Cari dokumen..."
+                            class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-exclusive focus:ring-1 focus:ring-exclusive"
+                        />
+                    </div>
+                    
+                    @php
+                        $kategoriIds = \App\Models\PublicInformation::where('information_type', 'dikecualikan')
+                            ->where('status', 'published')
+                            ->whereNotNull('category_id')
+                            ->distinct()
+                            ->pluck('category_id');
+                    
+                        $kategoriList = \App\Models\InformationCategory::whereIn('id', $kategoriIds)
+                            ->orderBy('name')
+                            ->get();
+                            
+                        $tahunList = \App\Models\PublicInformation::where('information_type', 'dikecualikan')
+                            ->where('status', 'published')
+                            ->whereNotNull('year')
+                            ->distinct()
+                            ->orderBy('year', 'desc')
+                            ->pluck('year');
+                            
+                        $opdList = \App\Models\Opd::orderBy('nama_opd')->get();
+                    @endphp
+                    
+                    <div class="md:w-32 w-full shrink-0">
+                        <select name="year" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-exclusive focus:ring-1 focus:ring-exclusive">
+                            <option value="">Semua Tahun</option>
+                            @foreach($tahunList as $tahun)
+                                <option value="{{ $tahun }}" {{ request('year') == $tahun ? 'selected' : '' }}>
+                                    {{ $tahun }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="md:w-40 w-full shrink-0">
+                        <select name="category" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-exclusive focus:ring-1 focus:ring-exclusive">
+                            <option value="">Semua Kategori</option>
+                            @foreach($kategoriList as $kategori)
+                                <option value="{{ $kategori->id }}" {{ request('category') == $kategori->id ? 'selected' : '' }}>
+                                    {{ $kategori->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="md:w-48 w-full shrink-0">
+                        <select name="opd" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-exclusive focus:ring-1 focus:ring-exclusive">
+                            <option value="">Semua OPD</option>
+                            @foreach($opdList as $opd)
+                                <option value="{{ $opd->id }}" {{ request('opd') == $opd->id ? 'selected' : '' }}>
+                                    {{ $opd->nama_opd }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button type="submit" class="bg-exclusive hover:bg-purple-900 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-soft flex items-center justify-center">
+                        <i class="fa-solid fa-filter mr-2"></i> FILTER
+                    </button>
+                    
+                    @if(request()->anyFilled(['search', 'year', 'category', 'opd']))
+                        <a href="{{ route('ppid.dikecualikan') ?? '#' }}" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-semibold transition-soft flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                    @endif
+                </form>
+            </div>
+        </section>
+
         <section class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-10">
             <div class="bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden">
                 <div class="table-header px-6 py-4">
@@ -110,6 +192,7 @@
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase w-16">No</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Kategori</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Uraian Informasi</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">OPD</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Dasar Pengecualian</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Jangka Waktu</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Keterangan</th>
@@ -129,6 +212,9 @@
                                     <div class="text-xs text-slate-500 mt-1 line-clamp-1">
                                         {!! strip_tags($item->description) !!}
                                     </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm text-slate-700">
+                                    {{ $item->opd->singkatan ?? $item->opd->nama_opd ?? 'PPID' }}
                                 </td>
                                 <td class="px-4 py-3 text-sm text-slate-700">
                                     {{ $item->exception->legal_basis ?? 'UU KIP Pasal 17' }}

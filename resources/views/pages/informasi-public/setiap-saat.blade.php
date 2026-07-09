@@ -111,12 +111,73 @@
                             name="search"
                             value="{{ request('search') }}"
                             placeholder="Cari dokumen..."
-                            class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-info"
+                            class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-info focus:ring-1 focus:ring-info"
                         />
                     </div>
-                    <button type="submit" class="bg-info hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-soft">
-                        <i class="fa-solid fa-search mr-2"></i> CARI
+                    
+                    @php
+                        $kategoriIds = \App\Models\PublicInformation::where('information_type', 'setiap_saat')
+                            ->where('status', 'published')
+                            ->whereNotNull('category_id')
+                            ->distinct()
+                            ->pluck('category_id');
+                    
+                        $kategoriList = \App\Models\InformationCategory::whereIn('id', $kategoriIds)
+                            ->orderBy('name')
+                            ->get();
+                            
+                        $tahunList = \App\Models\PublicInformation::where('information_type', 'setiap_saat')
+                            ->where('status', 'published')
+                            ->whereNotNull('year')
+                            ->distinct()
+                            ->orderBy('year', 'desc')
+                            ->pluck('year');
+                            
+                        $opdList = \App\Models\Opd::orderBy('nama_opd')->get();
+                    @endphp
+                    
+                    <div class="md:w-32 w-full shrink-0">
+                        <select name="year" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-info focus:ring-1 focus:ring-info">
+                            <option value="">Semua Tahun</option>
+                            @foreach($tahunList as $tahun)
+                                <option value="{{ $tahun }}" {{ request('year') == $tahun ? 'selected' : '' }}>
+                                    {{ $tahun }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="md:w-40 w-full shrink-0">
+                        <select name="category" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-info focus:ring-1 focus:ring-info">
+                            <option value="">Semua Kategori</option>
+                            @foreach($kategoriList as $kategori)
+                                <option value="{{ $kategori->id }}" {{ request('category') == $kategori->id ? 'selected' : '' }}>
+                                    {{ $kategori->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="md:w-48 w-full shrink-0">
+                        <select name="opd" class="select2 w-full px-3 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-info focus:ring-1 focus:ring-info">
+                            <option value="">Semua OPD</option>
+                            @foreach($opdList as $opd)
+                                <option value="{{ $opd->id }}" {{ request('opd') == $opd->id ? 'selected' : '' }}>
+                                    {{ $opd->nama_opd }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button type="submit" class="bg-info hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-soft flex items-center justify-center">
+                        <i class="fa-solid fa-filter mr-2"></i> FILTER
                     </button>
+                    
+                    @if(request()->anyFilled(['search', 'year', 'category', 'opd']))
+                        <a href="{{ route('ppid.setiap-saat') ?? '#' }}" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-semibold transition-soft flex items-center justify-center">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                    @endif
                 </form>
             </div>
         </section>
@@ -137,6 +198,7 @@
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">No</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Judul Informasi</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Kategori</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">OPD</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Tahun</th>
                             <th class="px-4 py-3 text-center text-xs font-semibold text-slate-600 uppercase">Aksi</th>
                         </tr>
@@ -153,6 +215,9 @@
                                         <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">
                                             {{ $item->category->name ?? 'Umum' }}
                                         </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        {{ $item->opd->singkatan ?? $item->opd->nama_opd ?? 'PPID' }}
                                     </td>
                                     <td class="px-4 py-3 text-sm">{{ $item->year ?? '-' }}</td>
                                     <td class="px-4 py-3">

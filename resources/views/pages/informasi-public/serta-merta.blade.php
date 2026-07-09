@@ -172,14 +172,32 @@
                         <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari informasi serta merta..." class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-soft" />
                     </div>
 
-                    <select name="category" class="md:w-48 px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary">
-                        <option value="">Semua Kategori</option>
-                        @if(isset($categories))
-                            @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                    <div class="md:w-48 w-full shrink-0">
+                        <select name="category" class="select2 w-full px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary">
+                            <option value="">Semua Kategori</option>
+                            @if(isset($categories))
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+
+                    @php
+                        $opdList = \App\Models\Opd::orderBy('nama_opd')->get();
+                    @endphp
+                    <div class="md:w-48 w-full shrink-0">
+                        <select name="opd" class="select2 w-full px-4 py-3 border border-slate-200 rounded-xl text-slate-600 focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary">
+                            <option value="">Semua OPD</option>
+                            @foreach($opdList as $opd)
+                                <option value="{{ $opd->id }}" {{ request('opd') == $opd->id ? 'selected' : '' }}>
+                                    {{ $opd->nama_opd }}
+                                </option>
                             @endforeach
-                        @endif
-                    </select>
+                        </select>
+                    </div>
 
                     <button type="submit" class="md:w-40 bg-secondary hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-soft flex items-center justify-center gap-2">
                         <i class="fa-solid fa-filter"></i> FILTER
@@ -216,6 +234,7 @@
                             <th class="px-6 py-4 text-left text-xs font-semibold text-secondary uppercase tracking-wider w-16">No</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-secondary uppercase tracking-wider">Informasi</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-secondary uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-secondary uppercase tracking-wider">OPD</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-secondary uppercase tracking-wider">Tanggal</th>
                             <th class="px-6 py-4 text-center text-xs font-semibold text-secondary uppercase tracking-wider">Aksi</th>
                         </tr>
@@ -247,6 +266,9 @@
                                             <span class="px-3 py-1 bg-red-100 text-secondary border border-red-200 rounded-md text-[10px] font-bold uppercase tracking-wider">
                                                 {{ $info->category->name ?? 'Darurat' }}
                                             </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        {{ $info->opd->singkatan ?? $info->opd->nama_opd ?? 'PPID' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-slate-600 font-medium">
                                         <i class="fa-regular fa-calendar text-slate-400 mr-1"></i>
