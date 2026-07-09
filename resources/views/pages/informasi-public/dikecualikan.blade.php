@@ -181,10 +181,10 @@
                             <span class="w-5 h-5 bg-exclusive/10 text-exclusive rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>
                             <span class="text-slate-600">Komisi Informasi Provinsi jika keberatan tidak direspons</span>
                         </li>
-                        <li class="flex items-start gap-3">
+                        <!-- <li class="flex items-start gap-3">
                             <span class="w-5 h-5 bg-exclusive/10 text-exclusive rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>
                             <span class="text-slate-600">Upaya hukum melalui Pengadilan Tata Usaha Negara</span>
-                        </li>
+                        </li> -->
                     </ol>
                 </div>
 
