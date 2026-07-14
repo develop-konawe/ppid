@@ -157,7 +157,7 @@
                         </div>
                         <div class="news-content">
                             <h3 class="news-title line-clamp-2">{{ $berita->title }}</h3>
-                            <p class="news-excerpt line-clamp-3">{{ $berita->description }}</p>
+                            <p class="news-excerpt line-clamp-3">{{ strip_tags($berita->description) }}</p>
 
                             <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
                                 <div class="text-sm text-slate-500">

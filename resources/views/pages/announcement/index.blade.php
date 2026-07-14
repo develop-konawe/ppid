@@ -137,7 +137,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="font-bold text-dark line-clamp-1 mb-1">{{ $item->title }}</div>
-                                    <div class="text-xs text-slate-500 line-clamp-1">{{ $item->description }}</div>
+                                    <div class="text-xs text-slate-500 line-clamp-1">{{ strip_tags($item->description) }}</div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="bg-amber-50 text-amber-700 border border-amber-200 rounded-md px-2.5 py-1 text-[10px] font-bold tracking-wide uppercase inline-flex items-center gap-1">
@@ -240,7 +240,7 @@
                             </span>
                         </div>
                         <h3 class="font-bold text-dark text-lg mb-2 line-clamp-2 leading-tight">{{ $item->title }}</h3>
-                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">{{ $item->description }}</p>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">{{ strip_tags($item->description) }}</p>
 
                         <div class="flex justify-between items-center text-sm border-t border-slate-100 pt-4 mt-2">
                             <span class="text-slate-500 font-medium">
