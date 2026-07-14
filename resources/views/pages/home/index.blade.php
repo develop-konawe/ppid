@@ -384,13 +384,7 @@
                         </div>
 
                         <div class="flex gap-3">
-                            <a
-                                href="#download"
-                                class="flex items-center gap-2 px-4 py-2 bg-primary-subtle text-primary rounded-lg hover:bg-primary hover:text-white transition-soft text-sm font-medium hover-lift"
-                            >
-                                <i class="fa-solid fa-download"></i>
-                                <span class="hidden md:inline">Download Formulir</span>
-                            </a>
+
                             <a
                                 href="{{ route('permohonan.status') }}"
                                 class="flex items-center gap-2 px-4 py-2 bg-primary-subtle text-primary rounded-lg hover:bg-primary hover:text-white transition-soft text-sm font-medium hover-lift"
@@ -399,7 +393,7 @@
                                 <span class="hidden md:inline">Cek Status</span>
                             </a>
                             <a
-                                href="#faq"
+                                href="{{ route('faq') }}"
                                 class="flex items-center gap-2 px-4 py-2 bg-primary-subtle text-primary rounded-lg hover:bg-primary hover:text-white transition-soft text-sm font-medium hover-lift"
                             >
                                 <i class="fa-solid fa-question-circle"></i>

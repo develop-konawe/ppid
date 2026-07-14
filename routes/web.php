@@ -14,6 +14,7 @@ use App\Http\Controllers\InformationRequestController;
 use App\Http\Controllers\KlaController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\PpidPelaksanaController;
+use App\Http\Controllers\FaqController;
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -34,6 +35,7 @@ Route::post('/kla/pengaduan', [KlaController::class, 'submitComplaint'])->name('
 Route::get('/ppid-pelaksana', [PpidPelaksanaController::class, 'index'])->name('ppid.pelaksana');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.global');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 Route::get('/informasi-berkala', [InformasiPublicController::class, 'berkala'])
     ->name('ppid.berkala');

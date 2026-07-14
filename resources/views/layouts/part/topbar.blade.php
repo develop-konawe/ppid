@@ -16,7 +16,7 @@
             </div>
             <div class="flex gap-4 text-xs md:text-sm">
                 <a href="#contact" class="hover:text-blue-200 transition-soft hover-border"> Kontak </a>
-                <a href="#faq" class="hover:text-blue-200 transition-soft hover-border"> FAQ </a>
+                <a href="{{ route('faq') }}" class="hover:text-blue-200 transition-soft hover-border"> FAQ </a>
                 <a
                     href="#accessibility"
                     class="hover:text-blue-200 transition-soft hover-scale inline-block"
