@@ -24,31 +24,41 @@
                     masyarakat informasi yang cerdas dan berdaya saing melalui keterbukaan informasi
                     publik.
                 </p>
-                <div class="flex gap-4">
-                    <a
-                        href="#"
-                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
-                    >
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a
-                        href="#"
-                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
-                    >
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a
-                        href="#"
-                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
-                    >
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                    <a
-                        href="#"
-                        class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
-                    >
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
+                <div class="flex gap-3 flex-wrap">
+                    @forelse($socialMedias as $socmed)
+                        @php
+                            $platform = $socmed->platform;
+
+                            if ($socmed->icon) {
+                                $iconClass = 'fa-brands ' . $socmed->icon;
+                            } else {
+                                $iconClass = match($platform) {
+                                    'facebook'  => 'fa-brands fa-facebook-f',
+                                    'x'         => 'fa-brands fa-x-twitter',
+                                    'instagram' => 'fa-brands fa-instagram',
+                                    'tiktok'    => 'fa-brands fa-tiktok',
+                                    'youtube'   => 'fa-brands fa-youtube',
+                                    'threads'   => 'fa-brands fa-threads',
+                                    default     => 'fa-solid fa-link',
+                                };
+                            }
+                        @endphp
+                        <a href="{{ $socmed->url }}" target="_blank" rel="noopener noreferrer"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale"
+                            title="{{ ucfirst($platform) }}">
+                            <i class="{{ $iconClass }}"></i>
+                        </a>
+                    @empty
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-soft hover-scale">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    @endforelse
                 </div>
             </div>
 

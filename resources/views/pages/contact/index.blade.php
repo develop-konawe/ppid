@@ -546,38 +546,61 @@
                         </div>
                     </div>
 
-                    <!-- Sosial Media -->
                     <div class="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100">
                         <h3 class="font-bold text-lg text-dark mb-4">IKUTI KAMI</h3>
                         <div class="flex flex-wrap gap-3">
-                            <a
-                                href="#"
-                                class="flex-1 min-w-[100px] bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2"
-                            >
-                                <i class="fa-brands fa-facebook-f"></i>
-                                <span class="text-sm">Facebook</span>
-                            </a>
-                            <a
-                                href="#"
-                                class="flex-1 min-w-[100px] bg-pink-600 hover:bg-pink-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2"
-                            >
-                                <i class="fa-brands fa-instagram"></i>
-                                <span class="text-sm">Instagram</span>
-                            </a>
-                            <a
-                                href="#"
-                                class="flex-1 min-w-[100px] bg-blue-400 hover:bg-blue-500 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2"
-                            >
-                                <i class="fa-brands fa-twitter"></i>
-                                <span class="text-sm">Twitter</span>
-                            </a>
-                            <a
-                                href="#"
-                                class="flex-1 min-w-[100px] bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2"
-                            >
-                                <i class="fa-brands fa-youtube"></i>
-                                <span class="text-sm">YouTube</span>
-                            </a>
+                            @forelse($socialMedias as $socmed)
+                                @php
+                                    $platform = $socmed->platform;
+
+                                    if ($socmed->icon) {
+                                        $iconClass = 'fa-brands ' . $socmed->icon;
+                                    } else {
+                                        $iconClass = match($platform) {
+                                            'facebook'  => 'fa-brands fa-facebook-f',
+                                            'x'         => 'fa-brands fa-x-twitter',
+                                            'instagram' => 'fa-brands fa-instagram',
+                                            'tiktok'    => 'fa-brands fa-tiktok',
+                                            'youtube'   => 'fa-brands fa-youtube',
+                                            'threads'   => 'fa-brands fa-threads',
+                                            default     => 'fa-solid fa-link',
+                                        };
+                                    }
+
+                                    $displayName = ucfirst($platform);
+                                    if ($platform === 'x') $displayName = 'X (Twitter)';
+                                    if ($platform === 'tiktok') $displayName = 'TikTok';
+                                    if ($platform === 'youtube') $displayName = 'YouTube';
+
+                                    $btnColor = match($platform) {
+                                        'facebook'  => 'bg-blue-600 hover:bg-blue-700',
+                                        'x'         => 'bg-slate-800 hover:bg-black',
+                                        'instagram' => 'bg-pink-600 hover:bg-pink-700',
+                                        'tiktok'    => 'bg-slate-900 hover:bg-black',
+                                        'youtube'   => 'bg-red-600 hover:bg-red-700',
+                                        'threads'   => 'bg-slate-800 hover:bg-black',
+                                        default     => 'bg-primary hover:bg-primary-dark',
+                                    };
+                                @endphp
+                                <a href="{{ $socmed->url }}" target="_blank" rel="noopener noreferrer"
+                                    class="flex-1 min-w-[100px] {{ $btnColor }} text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2">
+                                    <i class="{{ $iconClass }}"></i>
+                                    <span class="text-sm">{{ $displayName }}</span>
+                                </a>
+                            @empty
+                                <a href="#" class="flex-1 min-w-[100px] bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                    <span class="text-sm">Facebook</span>
+                                </a>
+                                <a href="#" class="flex-1 min-w-[100px] bg-pink-600 hover:bg-pink-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    <span class="text-sm">Instagram</span>
+                                </a>
+                                <a href="#" class="flex-1 min-w-[100px] bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl transition-soft flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-youtube"></i>
+                                    <span class="text-sm">YouTube</span>
+                                </a>
+                            @endforelse
                         </div>
                     </div>
                 </div>
