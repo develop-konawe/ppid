@@ -180,16 +180,16 @@
                 Dilindungi.
             </p>
             <div class="flex gap-6 text-slate-500 text-sm">
-                <a href="#kebijakan-privasi" class="hover:text-primary transition-soft hover-border">
+                <a href="{{ route('kebijakan-privasi') }}" class="hover:text-primary transition-soft hover-border">
                     Kebijakan Privasi
                 </a>
-                <a href="#syarat-ketentuan" class="hover:text-primary transition-soft hover-border">
-                    Syarat & Ketentuan
+                <a href="{{ route('syarat-ketentuan') }}" class="hover:text-primary transition-soft hover-border">
+                    Syarat &amp; Ketentuan
                 </a>
-                <a href="#peta-situs" class="hover:text-primary transition-soft hover-border">
+                <a href="{{ route('sitemap') }}" class="hover:text-primary transition-soft hover-border">
                     Peta Situs
                 </a>
-                <a href="#accessibility" class="hover:text-primary transition-soft hover-border">
+                <a href="{{ route('aksesibilitas') }}" class="hover:text-primary transition-soft hover-border">
                     Aksesibilitas
                 </a>
             </div>

@@ -197,7 +197,7 @@
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-4 shrink-0">
-                        <a href="#" class="bg-primary text-white px-6 py-3.5 rounded-xl font-semibold hover:bg-primary-dark transition-soft shadow-md flex items-center gap-2">
+                        <a href="{{ route('permohonan.index') }}" class="bg-primary text-white px-6 py-3.5 rounded-xl font-semibold hover:bg-primary-dark transition-soft shadow-md flex items-center gap-2">
                             <i class="fa-regular fa-pen-to-square"></i> Ajukan Permohonan
                         </a>
                         <a href="{{ route('contact') }}" class="bg-white border-2 border-primary text-primary px-6 py-3.5 rounded-xl font-semibold hover:bg-primary hover:text-white transition-soft flex items-center gap-2">

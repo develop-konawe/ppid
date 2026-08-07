@@ -15,8 +15,14 @@ use App\Http\Controllers\KlaController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\PpidPelaksanaController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\PrivacyController;
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+// Kebijakan Privasi, Syarat & Ketentuan, Aksesibilitas (PDP - Privacy Notice)
+Route::get('/kebijakan-privasi', [PrivacyController::class, 'kebijakanPrivasi'])->name('kebijakan-privasi');
+Route::get('/syarat-ketentuan', [PrivacyController::class, 'syaratKetentuan'])->name('syarat-ketentuan');
+Route::get('/aksesibilitas', [PrivacyController::class, 'aksesibilitas'])->name('aksesibilitas');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'submit'])->name('contact.submit');
