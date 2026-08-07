@@ -196,6 +196,7 @@
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Dasar Pengecualian</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Jangka Waktu</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Keterangan</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-slate-600 uppercase">Aksi</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-200">
@@ -229,10 +230,15 @@
                                 <td class="px-4 py-3 text-sm text-slate-600">
                                     {{ $item->exception->exception_reason ?? '-' }}
                                 </td>
+                                <td class="px-4 py-3 text-center">
+                                    <a href="{{ route('dikecualikan.detail', $item->id) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-exclusive/10 text-exclusive hover:bg-exclusive hover:text-white transition-soft" title="Lihat Detail">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-4 py-12 text-center text-slate-500">
+                                <td colspan="8" class="px-4 py-12 text-center text-slate-500">
                                     <i class="fa-solid fa-folder-open text-4xl mb-3 text-slate-300"></i>
                                     <p>Belum ada data informasi yang dikecualikan.</p>
                                 </td>

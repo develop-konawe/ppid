@@ -58,6 +58,9 @@ Route::get('/informasi-serta-merta/{id}', [InformasiPublicController::class, 'se
 Route::get('/informasi-dikecualikan', [InformasiPublicController::class, 'dikecualikan'])
     ->name('ppid.dikecualikan');
 
+Route::get('/informasi-dikecualikan/{id}', [InformasiPublicController::class, 'dikecualikanDetail'])
+    ->name('dikecualikan.detail');
+
 // Permohonan Informasi Publik
 Route::get('/permohonan-informasi', [InformationRequestController::class, 'index'])->name('permohonan.index');
 Route::post('/permohonan-informasi', [InformationRequestController::class, 'store'])->name('permohonan.store');

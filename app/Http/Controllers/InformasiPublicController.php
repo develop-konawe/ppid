@@ -330,4 +330,21 @@ class InformasiPublicController extends Controller
 
         return view('pages.informasi-public.dikecualikan', compact('informations', 'totalDikecualikan', 'totalKategori'));
     }
+
+    public function dikecualikanDetail(Request $request, $id)
+    {
+        $informasi = PublicInformation::with(['category', 'opd', 'exception'])
+            ->where('status', 'published')
+            ->findOrFail($id);
+
+        $terkait = PublicInformation::with(['category', 'opd'])
+            ->where('id', '!=', $informasi->id)
+            ->where('information_type', 'dikecualikan')
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('pages.informasi-public.dikecualikan-detail', compact('informasi', 'terkait'));
+    }
 }
