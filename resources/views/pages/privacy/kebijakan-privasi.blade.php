@@ -67,24 +67,27 @@
             margin: 0.5rem 0 1.25rem 0;
         }
         .privacy-content ul li {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.625rem;
+            position: relative;
+            display: block;
+            padding-left: 1.25rem;
             color: #475569;
-            padding: 0.375rem 0;
-            line-height: 1.7;
+            padding-top: 0.35rem;
+            padding-bottom: 0.35rem;
+            line-height: 1.75;
         }
         .privacy-content ul li::before {
             content: '';
-            display: inline-block;
-            width: 0.5rem;
-            height: 0.5rem;
-            min-width: 0.5rem;
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 0.45rem;
+            height: 0.45rem;
             background: #1F3A8A;
             border-radius: 9999px;
-            margin-top: 0.5rem;
         }
         .toc-link:hover { background: #eff6ff; color: #1f3a8a; }
+        .toc-link.active { background: #eff6ff; color: #1f3a8a; font-weight: 600; border-left: 3px solid #1f3a8a; padding-left: calc(0.75rem - 3px); }
+        .toc-link.active span { background: #1f3a8a; color: #fff; }
         .transition-soft { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .highlight-box { background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%); border: 1px solid #bfdbfe; border-radius: 1rem; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
         .contact-card { border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.875rem; }
@@ -93,12 +96,12 @@
 @endpush
 
 @section('content')
-    <main class="overflow-hidden bg-slate-50 min-h-screen">
+    <main class="overflow-x-hidden bg-slate-50 min-h-screen">
 
         {{-- Hero Section --}}
         <section class="bg-gradient-to-br from-primary to-primary-dark py-14 md:py-20 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-            <div class="max-w-5xl mx-auto px-4 md:px-8 relative">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 relative">
                 <nav class="text-sm flex items-center gap-2 text-white/60 mb-6 flex-wrap">
                     <a href="{{ route('home') }}" class="hover:text-white transition-soft"><i class="fa-solid fa-home"></i> Beranda</a>
                     <span>/</span>
@@ -128,39 +131,41 @@
 
         {{-- Main Content --}}
         <section class="py-12">
-            <div class="max-w-5xl mx-auto px-4 md:px-8">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
                 <div class="flex flex-col lg:flex-row gap-8 items-start">
 
-                    {{-- Table of Contents (Sticky Sidebar) --}}
-                    <aside class="lg:w-72 shrink-0 lg:sticky lg:top-8">
-                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                            <div class="bg-primary px-5 py-4">
-                                <h2 class="text-white font-bold flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-list-ul"></i> Daftar Isi
-                                </h2>
+                    {{-- Table of Contents (Fixed Float Sidebar) --}}
+                    <aside class="lg:w-72 shrink-0 hidden lg:block" id="toc-sidebar">
+                        <div id="toc-fixed-inner" class="lg:w-72">
+                            <div class="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
+                                <div class="bg-primary px-5 py-4">
+                                    <h2 class="text-white font-bold flex items-center gap-2 text-sm">
+                                        <i class="fa-solid fa-list-ul"></i> Daftar Isi
+                                    </h2>
+                                </div>
+                                <nav class="p-3 max-h-[70vh] overflow-y-auto" id="toc-nav">
+                                    <ul class="space-y-0.5 text-sm">
+                                        <li><a href="#sec-1" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">1</span> Identitas Pengelola</a></li>
+                                        <li><a href="#sec-2" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">2</span> Data yang Dikumpulkan</a></li>
+                                        <li><a href="#sec-3" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">3</span> Tujuan Pemrosesan</a></li>
+                                        <li><a href="#sec-4" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">4</span> Dasar Pemrosesan</a></li>
+                                        <li><a href="#sec-5" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">5</span> Penggunaan &amp; Penyimpanan</a></li>
+                                        <li><a href="#sec-6" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">6</span> Pihak Penerima Data</a></li>
+                                        <li><a href="#sec-7" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">7</span> Jangka Waktu Penyimpanan</a></li>
+                                        <li><a href="#sec-8" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">8</span> Keamanan Data</a></li>
+                                        <li><a href="#sec-9" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">9</span> Hak Pengguna</a></li>
+                                        <li><a href="#sec-10" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">10</span> Kontak Pengelola</a></li>
+                                        <li><a href="#sec-11" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">11</span> Perubahan Kebijakan</a></li>
+                                    </ul>
+                                </nav>
                             </div>
-                            <nav class="p-3">
-                                <ul class="space-y-0.5 text-sm">
-                                    <li><a href="#sec-1" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">1</span> Identitas Pengelola</a></li>
-                                    <li><a href="#sec-2" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">2</span> Data yang Dikumpulkan</a></li>
-                                    <li><a href="#sec-3" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">3</span> Tujuan Pemrosesan</a></li>
-                                    <li><a href="#sec-4" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">4</span> Dasar Pemrosesan</a></li>
-                                    <li><a href="#sec-5" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">5</span> Penggunaan & Penyimpanan</a></li>
-                                    <li><a href="#sec-6" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">6</span> Pihak Penerima Data</a></li>
-                                    <li><a href="#sec-7" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">7</span> Jangka Waktu Penyimpanan</a></li>
-                                    <li><a href="#sec-8" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">8</span> Keamanan Data</a></li>
-                                    <li><a href="#sec-9" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">9</span> Hak Pengguna</a></li>
-                                    <li><a href="#sec-10" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">10</span> Kontak Pengelola</a></li>
-                                    <li><a href="#sec-11" class="toc-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-slate-600 transition-soft"><span class="w-5 h-5 bg-primary/10 text-primary rounded text-xs font-bold flex items-center justify-center shrink-0">11</span> Perubahan Kebijakan</a></li>
-                                </ul>
-                            </nav>
-                        </div>
 
-                        {{-- Download / Print --}}
-                        <div class="mt-4 flex flex-col gap-2">
-                            <button onclick="window.print()" class="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-2.5 rounded-xl text-sm font-semibold transition-soft shadow-sm">
-                                <i class="fa-solid fa-print"></i> Cetak Halaman Ini
-                            </button>
+                            {{-- Print Button --}}
+                            <div class="mt-4">
+                                <button onclick="window.print()" class="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 px-4 py-2.5 rounded-xl text-sm font-semibold transition-soft shadow-sm">
+                                    <i class="fa-solid fa-print"></i> Cetak Halaman Ini
+                                </button>
+                            </div>
                         </div>
                     </aside>
 
@@ -392,3 +397,114 @@
 
     </main>
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    const sidebar   = document.getElementById('toc-sidebar');
+    const tocInner  = document.getElementById('toc-fixed-inner');
+    const article   = document.querySelector('article');
+    const tocLinks  = document.querySelectorAll('.toc-link');
+    const sections  = document.querySelectorAll('[id^="sec-"]');
+    const NAV_H     = 96; // tinggi navbar kira-kira
+
+    if (!sidebar || !tocInner) return;
+
+    /* ---------- FIXED POSITIONING ---------- */
+    function updateFixed() {
+        const sRect = sidebar.getBoundingClientRect();
+        const aRect = article ? article.getBoundingClientRect() : null;
+
+        const shouldFix = sRect.top <= NAV_H;
+
+        if (shouldFix) {
+            // Hitung posisi left dari posisi sidebar di viewport
+            const leftPos = sRect.left;
+            const width   = sidebar.offsetWidth;
+
+            // Jangan melebihi batas bawah article
+            let topPos = NAV_H;
+            if (aRect) {
+                const maxBottom = aRect.bottom - tocInner.offsetHeight - 16;
+                if (maxBottom < NAV_H) topPos = maxBottom;
+            }
+
+            tocInner.style.position = 'fixed';
+            tocInner.style.top      = topPos + 'px';
+            tocInner.style.left     = leftPos + 'px';
+            tocInner.style.width    = width + 'px';
+            tocInner.style.zIndex   = '30';
+        } else {
+            tocInner.style.position = '';
+            tocInner.style.top      = '';
+            tocInner.style.left     = '';
+            tocInner.style.width    = '';
+            tocInner.style.zIndex   = '';
+        }
+    }
+
+    window.addEventListener('scroll', updateFixed, { passive: true });
+    window.addEventListener('resize', updateFixed, { passive: true });
+    // Jalankan setelah layout selesai render
+    requestAnimationFrame(updateFixed);
+
+    /* ---------- SCROLLSPY ---------- */
+    if (!sections.length || !tocLinks.length) return;
+
+    const linkMap = {};
+    tocLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) linkMap[href.slice(1)] = link;
+    });
+
+    let activeId = null;
+
+    const setActive = (id) => {
+        if (activeId === id) return;
+        activeId = id;
+        tocLinks.forEach(l => l.classList.remove('active'));
+        if (id && linkMap[id]) {
+            linkMap[id].classList.add('active');
+            // Scroll nav TOC ke item aktif
+            const nav = document.getElementById('toc-nav');
+            const el  = linkMap[id];
+            if (nav && el) {
+                nav.scrollTo({ top: el.offsetTop - nav.offsetTop - 32, behavior: 'smooth' });
+            }
+        }
+    };
+
+    if (sections[0]) setActive(sections[0].id);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            let topId = null, topY = Infinity;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const y = entry.boundingClientRect.top;
+                    if (y < topY) { topY = y; topId = entry.target.id; }
+                }
+            });
+            if (topId) setActive(topId);
+        },
+        { rootMargin: '-10% 0px -70% 0px', threshold: 0 }
+    );
+
+    sections.forEach(sec => observer.observe(sec));
+
+    /* ---------- SMOOTH SCROLL on TOC click ---------- */
+    tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id     = link.getAttribute('href').slice(1);
+            const target = document.getElementById(id);
+            if (target) {
+                const top = target.getBoundingClientRect().top + window.scrollY - NAV_H - 8;
+                window.scrollTo({ top, behavior: 'smooth' });
+                setActive(id);
+            }
+        });
+    });
+})();
+</script>
+@endpush
