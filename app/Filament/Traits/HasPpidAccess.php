@@ -8,7 +8,6 @@ namespace App\Filament\Traits;
  * Gunakan trait ini pada resource PPID yang HANYA boleh diakses oleh Admin Utama
  * (operator_ppid / is_super_admin). Resource ini TIDAK boleh diakses oleh:
  * - ppid_pelaksana (mereka hanya mengelola Informasi Publik & Permohonan)
- * - Semua role KLA (admin_kla, operator_kla, verifikator_kla)
  *
  * Resource yang cocok: Berita, Pengumuman, Galeri, Dokumen, Kategori,
  * Carousel, Menu, OPD, FAQ, Pengaturan, Regulasi, Media Sosial, dll.

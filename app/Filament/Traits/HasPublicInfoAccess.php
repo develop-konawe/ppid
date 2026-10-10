@@ -15,8 +15,6 @@ namespace App\Filament\Traits;
  *   - role: operator_ppid
  *   - role: ppid_pelaksana   (operator OPD — hanya kelola data informasi publik milik OPD-nya)
  *
- * User dengan role KLA saja TIDAK bisa mengakses resource ini.
- *
  * Catatan: filter data per-OPD untuk ppid_pelaksana dilakukan di
  * masing-masing resource via getEloquentQuery(), bukan di sini.
  */

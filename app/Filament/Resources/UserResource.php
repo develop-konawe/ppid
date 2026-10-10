@@ -66,15 +66,15 @@ class UserResource extends Resource
                         }
                     })
                     ->disabled(fn (Forms\Get $get): bool => (bool) $get('is_super_admin'))
-                    ->helperText('Pilih satu role. Role PPID Pelaksana membutuhkan OPD; role Operator PPID & KLA tidak.'),
+                    ->helperText('Pilih satu role. Role PPID Pelaksana membutuhkan OPD; role Operator PPID tidak.'),
 
                 Forms\Components\Select::make('opd_id')
                     ->relationship('opd', 'nama_opd')
                     ->label('OPD')
                     ->searchable()
                     ->preload()
-                    ->placeholder('Pilih OPD (hanya untuk user PPID)')
-                    ->helperText('Wajib diisi hanya untuk role PPID Pelaksana. Kosongkan untuk user KLA.')
+                    ->placeholder('Pilih OPD')
+                    ->helperText('Wajib diisi hanya untuk role PPID Pelaksana.')
                     ->hidden(fn (Forms\Get $get): bool =>
                         $get('is_super_admin') ||
                         (!empty($get('role')) && $get('role') !== 'ppid_pelaksana')

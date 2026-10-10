@@ -11,7 +11,6 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\RegulationController;
 use App\Http\Controllers\InformationRequestController;
-use App\Http\Controllers\KlaController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\PpidPelaksanaController;
 use App\Http\Controllers\FaqController;
@@ -31,11 +30,6 @@ Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement');
 Route::get('/regulation', [RegulationController::class, 'index'])->name('regulation');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.detail');
-
-// KLA - Kabupaten/Kota Layak Anak
-Route::get('/kla', [KlaController::class, 'index'])->name('kla');
-Route::get('/kla/publikasi/{slug}', [KlaController::class, 'showProgram'])->name('kla.program.detail');
-Route::post('/kla/pengaduan', [KlaController::class, 'submitComplaint'])->name('kla.complaint.store');
 
 // PPID Pelaksana
 Route::get('/ppid-pelaksana', [PpidPelaksanaController::class, 'index'])->name('ppid.pelaksana');

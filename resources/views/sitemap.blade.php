@@ -31,11 +31,6 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-    <url>
-        <loc>{{ url('/kla') }}</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
 
     <!-- PPID Pages -->
     <url>
@@ -100,16 +95,6 @@
         <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
-    </url>
-    @endforeach
-
-    <!-- Dynamic KLA Programs -->
-    @foreach($klaPrograms as $item)
-    <url>
-        <loc>{{ route('kla.program.detail', $item->slug) }}</loc>
-        <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
     </url>
     @endforeach
 
