@@ -11,14 +11,25 @@ class Opd extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_unit',
         'nama_opd',
         'singkatan',
+        'tipe_unit',
+        'keterangan',
         'website',
         'email',
         'telepon',
         'alamat',
+        'latitude',
+        'longitude',
+        'file_dasar_hukum',
         'logo',
         'kepala_opd',
+    ];
+
+    protected $casts = [
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
 
     public function users()

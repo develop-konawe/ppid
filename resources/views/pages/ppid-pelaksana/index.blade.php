@@ -127,9 +127,17 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg leading-tight text-dark">{{ $opd->nama_opd }}</h3>
-                                @if($opd->singkatan)
-                                    <span class="inline-block mt-1 bg-primary/10 text-primary text-xs font-semibold px-2 py-0.5 rounded">{{ $opd->singkatan }}</span>
-                                @endif
+                                <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                                    @if($opd->singkatan)
+                                        <span class="inline-block bg-primary/10 text-primary text-xs font-semibold px-2 py-0.5 rounded">{{ $opd->singkatan }}</span>
+                                    @endif
+                                    @if($opd->tipe_unit)
+                                        <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-2 py-0.5 rounded border border-emerald-200">Tipe {{ $opd->tipe_unit }}</span>
+                                    @endif
+                                    @if($opd->id_unit)
+                                        <span class="inline-block bg-slate-100 text-slate-500 text-xs px-1.5 py-0.5 rounded font-mono">{{ $opd->id_unit }}</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
@@ -147,7 +155,40 @@
                             @if($opd->alamat)
                                 <div class="flex items-start gap-3">
                                     <i class="fa-solid fa-location-dot text-primary mt-1 w-4 text-center"></i>
-                                    <span>{{ $opd->alamat }}</span>
+                                    <div>
+                                        <span>{{ $opd->alamat }}</span>
+                                        @if($opd->latitude && $opd->longitude)
+                                            <div class="mt-1">
+                                                <a href="https://www.google.com/maps/search/?api=1&query={{ $opd->latitude }},{{ $opd->longitude }}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1 transition-soft">
+                                                    <i class="fa-solid fa-map-location-dot"></i>
+                                                    <span>Lihat Rute di Maps</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @elseif($opd->latitude && $opd->longitude)
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-map-location-dot text-primary mt-1 w-4 text-center"></i>
+                                    <a href="https://www.google.com/maps/search/?api=1&query={{ $opd->latitude }},{{ $opd->longitude }}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1 transition-soft">
+                                        <span>Lihat Lokasi di Google Maps</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                    </a>
+                                </div>
+                            @endif
+
+                            @if($opd->keterangan)
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-scale-balanced text-primary mt-1 w-4 text-center"></i>
+                                    <div class="text-xs text-slate-500">
+                                        <span class="font-medium text-slate-600">Dasar Hukum:</span> {{ $opd->keterangan }}
+                                        @if($opd->file_dasar_hukum)
+                                            <a href="{{ $opd->file_dasar_hukum }}" target="_blank" class="text-primary hover:underline ml-1">
+                                                <i class="fa-solid fa-file-pdf"></i> Unduh
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             @endif
 
