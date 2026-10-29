@@ -90,6 +90,46 @@ Route::middleware(['auth'])->post('/admin/api-documentation/generate-token', fun
         ->with('new_api_token', $token->plainTextToken);
 })->name('filament.admin.pages.api-documentation.generate-token');
 
+// Helper routes untuk deploy server non-SSH (dilindungi token/security key)
+Route::prefix('deploy')->group(function () {
+    $checkKey = function () {
+        $validKey = env('DEPLOY_SECRET_KEY', 'kominfo2026');
+        if (request('key') !== $validKey && !auth()->check()) {
+            abort(403, 'Akses ditolak: Masukkan ?key= rahasia yang valid atau login sebagai admin.');
+        }
+    };
+
+    Route::get('/migrate', function () use ($checkKey) {
+        $checkKey();
+        try {
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            return "<h3>✅ Migrasi Database Selesai</h3><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+        } catch (\Throwable $e) {
+            return "<h3>❌ Gagal Migrasi</h3><pre>" . $e->getMessage() . "</pre>";
+        }
+    });
+
+    Route::get('/sync-opd', function () use ($checkKey) {
+        $checkKey();
+        try {
+            \Illuminate\Support\Facades\Artisan::call('opd:sync', ['--force' => true]);
+            return "<h3>✅ Sinkronisasi OPD dari ORPEG Selesai</h3><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+        } catch (\Throwable $e) {
+            return "<h3>❌ Gagal Sinkronisasi</h3><pre>" . $e->getMessage() . "</pre>";
+        }
+    });
+
+    Route::get('/optimize-clear', function () use ($checkKey) {
+        $checkKey();
+        try {
+            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+            return "<h3>✅ Cache Aplikasi Berhasil Dibersihkan</h3><pre>" . \Illuminate\Support\Facades\Artisan::output() . "</pre>";
+        } catch (\Throwable $e) {
+            return "<h3>❌ Gagal Clear Cache</h3><pre>" . $e->getMessage() . "</pre>";
+        }
+    });
+});
+
 // Temporary route to run specific migration
 Route::get('/run-migration/{filename}', function ($filename) {
     try {
